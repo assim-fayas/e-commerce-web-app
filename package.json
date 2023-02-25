@@ -13,6 +13,7 @@
   "author": "asim",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.8",
     "mongoose": "^6.10.0"
   }
 }
