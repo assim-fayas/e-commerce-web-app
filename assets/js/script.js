@@ -72,3 +72,4 @@ form.addEventListener("submit", function(e) {
     checkPasswordsMatch(password, password2);
   }
 });
+// Get form and input field elements

@@ -4,7 +4,6 @@ const path=require('path')
 mongoose.connect("mongodb://127.0.0.1:27017/Ecommerce");
 
 const express = require("express");
-const user_route = require("./routes/userRoute");
 
 const app = express()
 

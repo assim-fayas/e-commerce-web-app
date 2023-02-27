@@ -1,34 +1,56 @@
-<body>
-    <div class="container">
-        <div class="column1">
-            <form id="form" class="form">
-                <h2>Register with us</h2>
-                <div class="form-control">
-                    <label for='username'>Username</label>
-                    <input type="text" id="username" placeholder="Enter username">
-                    <small>Error message</small>
-                </div>
-                <div class="form-control">
-                    <label for='email'>Email</label>
-                    <input type="text" id="email" placeholder="Enter email">
-                    <small>Error message</small>
-                </div>
-                <div class="form-control">
-                    <label for='password'>Password</label>
-                    <input type="password" id="password" placeholder="Enter password">
-                    <small>Error message</small>
-                </div>
-                <div class="form-control">
-                    <label for='password2'>Confirm Password</label>
-                    <input type="password" id="password2" placeholder="Enter password again ">
-                    <small>Error message</small>
-                </div>
-                <button>Submit</button>
-            </form>
-        </div>
-        <div class="column2">
+<%- include('../layouts/header.ejs') %>
 
-            <img src="https://i.ibb.co/k5NNz4F/pablo-sign-up.png" alt="pablo-sign-up" border="0" class='signup-image'>
-        </div>
+    <body>
+        <div class="container">
+            <div class="column1">
+                <form action="/register" method="post" id="form" class="form">
+                    <h2>Register with us</h2>
 
-    </div>
+                    <% if(typeof message !=='undefined' ){ %>
+
+                        <p style="color: rgb(79, 128, 0)">
+                            <%= message %>
+                        </p>
+
+                        <% } %>
+                            <div class="form-control">
+                                <label for='username'>Username
+                                    <input type="text" id="username" placeholder="Enter username" name="username">
+                                    <small>Error message</small></label>
+                            </div>
+                            <div class="form-control">
+                                <label for='email'>Email
+                                    <input type="text" id="email" placeholder="Enter email" name="email">
+                                    <small>Error message</small></label>
+                            </div>
+                            <div class="form-control">
+                                <label for='mobile'>mobile
+                                    <input type="mobile" id="mobile" placeholder="Enter mobile number" name="mobile">
+                                    <small>Error message</small></label>
+                            </div>
+                            <div class="form-control">
+                                <label for='password'>Password
+                                    <input type="password" id="password" placeholder="Enter password" name="password">
+                                    <small>Error message</small></label>
+                            </div>
+                            <div class="form-control">
+                                <label for='password2'>Confirm Password
+                                    <input type="password" id="password2" placeholder="Enter password again ">
+                                    <small>Error message</small></label>
+                            </div>
+                            <button type="submit">Submit</button>
+                </form>
+
+
+
+
+
+            </div>
+            <div class="column2">
+
+                <img src="https://i.ibb.co/k5NNz4F/pablo-sign-up.png" alt="pablo-sign-up" border="0"
+                    class='signup-image'>
+            </div>
+
+        </div>
+        <%- include('../layouts/footer.ejs') %>
