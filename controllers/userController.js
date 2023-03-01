@@ -120,7 +120,7 @@ const insertUser = async (req, res) => {
 
     try {
         const sPassword = await securePassword(req.body.password);
-        console.log("data saved");
+
         const user = new User({
             userName: req.body.username,
             Email: req.body.email,
@@ -130,7 +130,7 @@ const insertUser = async (req, res) => {
 
         const userData = await user.save()
         if (userData) {
-            sendVerifyMail(req.body.name, req.body.email, userData._id);
+            sendVerifyMail(req.body.username, req.body.email, userData._id);
             res.render('registration', { message: "your registration has been successfully,Please verify yor email " });
 
         }
@@ -175,35 +175,42 @@ const loginLoad = async (req, res) => {
 
 
 const verifyLogin = async (req, res) => {
+    console.log("inside verifyLogin");
     try {
         const email = req.body.email;
         const password = req.body.password;
         const userData = await User.findOne({ Email: email })
+
         if (userData) {
+
             const passwordMatch = bcrypt.compare(password, userData.Password);
+
             if (passwordMatch) {
-                if (userData.is_Verified === 0) {
+                console.log(passwordMatch);
+
+                if (userData.is_Verified === 0 || userData.is_Admin === 0) {
                     res.render('login', { message: "please verify your email" })
-                }
-                else {
+                } else {
                     req.session.user_id = userData._id;
                     res.redirect('/home')
                 }
             }
             else {
-                res.render('login', { message: "Email and password is incorrect" })
+                res.render('login', { message: "Email and Password Is Incorrect" })
             }
-        }
-        else {
+
+        } else if (password === "" && email === "") {
             res.render('login', { message: "Email and password is incorrect" })
+        } else {
+            res.render('login', { message: "Invalid Email or Password" })
         }
-    }
-    catch (error) {
+
+    } catch (error) {
         console.log(error.message);
 
     }
-}
 
+}
 const loadHome = async (req, res) => {
 
     try {
@@ -291,7 +298,7 @@ const resetPassword = async (req, res) => {
         const updatedData = await User.findByIdAndUpdate({ _id: user_id }, { $set: { Password: secure_password, token: '' } });
         console.log("password reset");
         res.redirect("/")
-       
+
     } catch (error) {
         console.log(error.message);
     }
