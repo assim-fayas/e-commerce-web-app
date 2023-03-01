@@ -178,9 +178,9 @@ const verifyLogin = async (req, res) => {
     try {
         const email = req.body.email;
         const password = req.body.password;
-        const userData = await User.findOne({ email: email })
+        const userData = await User.findOne({ Email: email })
         if (userData) {
-            const passwordMatch = bcrypt.compare(password, userData.password);
+            const passwordMatch = bcrypt.compare(password, userData.Password);
             if (passwordMatch) {
                 if (userData.is_Verified === 0) {
                     res.render('login', { message: "please verify your email" })
@@ -266,10 +266,10 @@ const forgetVerify = async (req, res) => {
 const forgetpasswordload = async (req, res) => {
 
     try {
-        console.log("forgetpasswordload");
+
         const token = req.query.token;
         const tokenData = await User.findOne({ token: token });
-
+        console.log("forgetpasswordload");
         if (tokenData) {
             res.render("forget-password", { user_id: tokenData._id });
 
@@ -284,14 +284,14 @@ const forgetpasswordload = async (req, res) => {
 
 const resetPassword = async (req, res) => {
     try {
-        const password = req.body.password;
+        const password = req.body.Password;
         const user_id = req.body.user_id;
         const secure_password = await securePassword(password);
 
         const updatedData = await User.findByIdAndUpdate({ _id: user_id }, { $set: { Password: secure_password, token: '' } });
-
-        res.redirect("/")
         console.log("password reset");
+        res.redirect("/")
+       
     } catch (error) {
         console.log(error.message);
     }
