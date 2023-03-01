@@ -5,8 +5,8 @@
     <body>
         <div class="container">
             <div class="column1">
-                <form action="/home" methode="post" id="form" class="form">
-                    <h2> Login</h2>
+                <form action="/forgot" method="post" id="form" class="form">
+                    <h2> reset Password </h2>
 
                     <% if(typeof message !=='undefined' ){ %>
 
@@ -18,19 +18,13 @@
 
                             <div class="form-control">
                                 <label for='email'>Email
-                                    <input type="text" id="email" placeholder="Enter email" name="email">
+                                    <input type="email" id="email" placeholder="Enter email" name="email">
                                     <small>Error message</small></label>
                             </div>
 
-                            <div class="form-control">
-                                <label for='password'>Password
-                                    <input type="password" id="password" placeholder="Enter password" name="password">
-                                    <small>Error message</small></label>
-                            </div>
 
-                            <button type="submit">Submit</button><br>
-                            <br>
-                            <a href="/forgot">Forgot Password</a>
+                            <button type="submit">Reset</button>
+
                 </form>
 
 

@@ -21,6 +21,10 @@ userName: {
     is_Verified: {
         type: Number,
         default: 0
+    },
+    token: {
+        type: String,
+        default: ''
     }
 
 });

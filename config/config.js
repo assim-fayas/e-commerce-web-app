@@ -1,6 +1,11 @@
-const sessionSecret="mysitesessionsecret";
+const sessionSecret = "mysitesessionsecret";
 
 
-module.exports={
-    sessionSecret
+const emailUser = "asim1fayas@gmail.com";
+const emailPassword = "gzfpikpylkbrggzu"
+
+module.exports = {
+    sessionSecret,
+    emailUser,
+    emailPassword 
 }

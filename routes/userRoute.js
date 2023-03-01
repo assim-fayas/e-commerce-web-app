@@ -24,7 +24,11 @@ user_route.get('/verify', userController.verifyMail);
 user_route.get('/login', auth.isLogout, userController.loginLoad);
 user_route.post('/login', userController.verifyLogin);
 user_route.get('/home', auth.isLogout, userController.loadHome);
-user_route.get('/logout',auth.isLogin, userController.userLogout);
+user_route.get('/logout', auth.isLogin, userController.userLogout);
+user_route.get('/forgot', auth.isLogout, userController.forgetLoad);
+user_route.post('/forgot', userController.forgetVerify);
+user_route.get('/forget-password', auth.isLogout, userController.forgetpasswordload);
+user_route.post('/forget-password', auth.isLogout, userController.resetPassword);
 
 
 
