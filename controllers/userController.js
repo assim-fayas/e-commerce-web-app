@@ -305,6 +305,63 @@ const resetPassword = async (req, res) => {
         console.log(error.message);
     }
 }
+
+
+const loginOtp = async (req, res) => {
+    try {
+        res.render('loginMobile')
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+const verifyNum = async (req, res) => {
+    try {
+        const num = await req.body.mno
+        const check = await User.findOne({ mobile: num })
+        if (check) {
+            const otpResponse = await client.verify.
+                v2.services(TWILIO_SERVICES_SID)
+                .verifications.create({
+                    to: num,
+                    channel: "sms"
+                })
+            res.render('loginOtp', { message: num })
+
+        } else {
+            res.render('loginMobile', { message: "Did not register in This Mobile Number" })
+
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const verifyNumOtp=async(req,res)=>{
+    try{
+        const num=req.body.mno
+        const otp=req.body.otp
+        console.log(otp+""+num);
+        const verifiedResponse=await client.verify.
+         v2.services(TWILIO_SERVICES_SID)
+         .verificationChecks.create({
+            to:num,
+            code:otp,
+        })
+        if(verifiedResponse.status=='approved'){
+            const userDetails=await User.findOne({Mobile:num})
+            req.session.user_id=userData._id
+            console.log(req.session.user_id);
+            res.redirect('/home')
+            console.log("true otp");
+        }else{
+            res.render('loginOtp',{message2:'incorect otp'})
+            console.log("false otp");
+        }
+    }catch(error){
+        console.log(error.message);
+        console.log("verify otp section");
+    }
+}
 module.exports = {
     loadRegister,
     insertUser,
@@ -316,5 +373,8 @@ module.exports = {
     forgetLoad,
     forgetVerify,
     forgetpasswordload,
-    resetPassword
+    resetPassword,
+    verifyNumOtp,
+    loginOtp,
+    verifyNum 
 }

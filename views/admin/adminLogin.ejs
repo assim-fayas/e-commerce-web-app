@@ -1,0 +1,52 @@
+<%- include('../layouts/logheader.ejs') %>
+
+
+
+    <body>
+        <div class="container">
+            <div class="column1">
+                <form action="" method="post" id="form" class="form">
+                    <h2> Admin Login</h2>
+
+                    <% if(typeof message !=='undefined' ){ %>
+
+                        <p style="color: rgb(79, 128, 0)">
+                            <%= message %>
+                        </p>
+
+                        <% } %>
+
+                            <div class="form-control">
+                                <label for='email'>Email
+                                    <input type="text" id="email" placeholder="Enter email" name="email">
+                                    <small>Error message</small></label>
+                            </div>
+
+                            <div class="form-control">
+                                <label for='password'>Password
+                                    <input type="password" id="password" placeholder="Enter password" name="password">
+                                    <small>Error message</small></label>
+                            </div>
+
+                            <button type="submit">Submit</button>
+
+
+                </form>
+
+
+
+
+
+
+
+
+            </div>
+            <div class="column2">
+
+                <img src="https://i.ibb.co/k5NNz4F/pablo-sign-up.png" alt="pablo-sign-up" border="0"
+                    class='signup-image'>
+            </div>
+
+        </div>
+
+        <%- include('../layouts/logfoot.ejs') %>

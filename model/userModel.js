@@ -13,6 +13,10 @@ userName: {
         type: String,
         required: true
     },
+    Mobile:{
+        type:Number,
+        required:true
+    },
    
     is_Admin: {
         type: Number,

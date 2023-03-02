@@ -32,4 +32,11 @@ user_route.post('/forget-password', auth.isLogout, userController.resetPassword)
 
 
 
+// login OTP
+user_route.get('/loginOtp',userController.loginOtp)
+user_route.post('/loginOtp',userController.verifyNum)
+user_route.post('/loginOtpveryfy',userController.verifyNumOtp)
+
+
+
 module.exports = user_route;
