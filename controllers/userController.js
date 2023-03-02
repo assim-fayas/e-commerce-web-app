@@ -166,6 +166,7 @@ const verifyMail = async (req, res) => {
 const loginLoad = async (req, res) => {
     try {
         res.render("login")
+        console.log("hello asim");
     }
     catch (error) {
         console.log("error.message");
@@ -183,12 +184,13 @@ const verifyLogin = async (req, res) => {
 
         if (userData) {
 
-            const passwordMatch = bcrypt.compare(password, userData.Password);
+            const passwordMatch = await bcrypt.compare(password, userData.Password);
 
             if (passwordMatch) {
                 console.log(passwordMatch);
 
-                if (userData.is_Verified === 0 || userData.is_Admin === 0) {
+
+                if (userData.is_Verified === 0 || userData.is_Admin === 1) {
                     res.render('login', { message: "please verify your email" })
                 } else {
                     req.session.user_id = userData._id;
@@ -226,8 +228,8 @@ const loadHome = async (req, res) => {
 const userLogout = async (req, res) => {
     try {
         console.log("logout");
-        req.sesssion.user_id = null
-        res.redirect('/')
+        req.session.user_id = null;
+        res.redirect('/');
     } catch (error) {
         console.log(error.message);
     }
