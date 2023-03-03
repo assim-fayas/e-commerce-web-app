@@ -205,8 +205,8 @@ const verifyLogin = async (req, res) => {
                 res.render('login', { message: "Email and Password Is Incorrect" })
             }
 
-        } else if (password === "" && email === "") {
-            res.render('login', { message: "Email and password is incorrect" })
+        } else if (password === "" || email === "") {
+            res.render('login', { message: " Please Enter Email And Password" })
         } else {
             res.render('login', { message: "Invalid Email or Password" })
         }
@@ -331,7 +331,7 @@ const verifyNum = async (req, res) => {
                     to: num,
                     channel: "sms"
                 })
-            res.render('loginOtp',{message:num})
+            res.render('loginOtp', { message: num })
 
         } else {
             res.render('loginMobile', { message: "Did not register in This Mobile Number" })
@@ -363,7 +363,7 @@ const verifyNumOtp = async (req, res) => {
             res.redirect('/home')
             console.log("true otp");
         } else {
-            res.render('loginOtp', { message2: 'incorect otp' ,message:num})
+            res.render('loginOtp', { message2: 'incorect otp', message: num })
             console.log("false otp");
         }
     } catch (error) {

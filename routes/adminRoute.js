@@ -20,6 +20,13 @@ admin_route.post('/', adminController.verifyLogin)
 admin_route.get('/home', adminController.loadDashboard)
 admin_route.get('/logout', adminController.logout)
 
+admin_route.get('/users', adminController.loadusers)
+admin_route.get('/orders', adminController.loadOrder)
+admin_route.get('/category', adminController.loadCatagory)
+admin_route.get('/products', adminController.loadProduct)
+admin_route.get('/coupen', adminController.loadCoupen)
+
+
 
 admin_route.get('*', (req, res) => {
     res.redirect('/admin')

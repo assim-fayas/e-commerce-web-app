@@ -24,24 +24,25 @@ const verifyLogin = async (req, res) => {
         const userData = await User.findOne({ Email: email });
 
         if (userData) {
-
+            console.log(userData);
             const passwordMatch = await bcrypt.compare(password, userData.Password);
             if (passwordMatch) {
+                console.log(passwordMatch);
                 if (userData.is_Admin === 0) {
-                    res.render('login', { message: "Email and password is incorrect" })
+                    res.render('adminLogin', { message: "Email and password is incorrect" })
                 }
                 else {
-                    req.session.user_id = userData._id;
+                    req.session.admin_id = userData._id;
                     res.redirect("/admin/home")
                 }
 
 
             } else {
-                res.render('login', { message: "Email and password ids incorrect" })
+                res.render('adminLogin', { message: "Email and password ids incorrect" })
             }
         }
         else {
-            res.render('login', { message: "Email and password ids incorrect" })
+            res.render('adminLogin', { message: "Email and password ids incorrect" })
         }
 
     } catch (error) {
@@ -62,7 +63,7 @@ const loadDashboard = async (req, res) => {
     }
 }
 
-
+// admin logout
 
 const logout = async (req, res) => {
     try {
@@ -73,9 +74,83 @@ const logout = async (req, res) => {
     }
 }
 
+
+
+//users  management 
+
+const loadusers = async (req, res) => {
+    try {
+
+        res.render('users');
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+//Catagory management
+
+const loadCatagory = async (req, res) => {
+    try {
+        res.render('catagory')
+    } catch (error) {
+        console.log(error.message);
+    }
+
+}
+
+
+
+
+//product management
+
+
+const loadProduct = async (req, res) => {
+    try {
+        res.render('product')
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+
+
+
+
+
+//order management
+
+
+const loadOrder = async (req, res) => {
+    try {
+        res.render('order')
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+
+//Coupen management
+
+const loadCoupen = async (req, res) => {
+    try {
+        res.render('coupen')
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
 module.exports = {
     loadadminLogin,
     verifyLogin,
     loadDashboard,
-    logout
+    logout,
+    loadusers,
+    loadCatagory,
+    loadProduct,
+    loadOrder,
+    loadCoupen
 }
