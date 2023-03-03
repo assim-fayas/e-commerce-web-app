@@ -5,7 +5,10 @@ const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
 const config = require("../config/config")
 
-
+const { TWILIO_SERVICE_SID, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN } = process.env
+const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, {
+    lazyLoading: true
+})
 const securePassword = async (password) => {
     try {
         const passwordHash = await bcrypt.hash(password, 10);
@@ -124,7 +127,8 @@ const insertUser = async (req, res) => {
         const user = new User({
             userName: req.body.username,
             Email: req.body.email,
-            Password: sPassword
+            Password: sPassword,
+            Mobile: req.body.mobile,
 
         })
 
@@ -316,48 +320,53 @@ const loginOtp = async (req, res) => {
 }
 const verifyNum = async (req, res) => {
     try {
-        const num = await req.body.mno
-        const check = await User.findOne({ mobile: num })
+        const num = req.body.mno
+        console.log(num);
+        const check = await User.findOne({ Mobile: num })
+        console.log(check);
         if (check) {
             const otpResponse = await client.verify.
-                v2.services(TWILIO_SERVICES_SID)
+                v2.services(TWILIO_SERVICE_SID)
                 .verifications.create({
                     to: num,
                     channel: "sms"
                 })
-            res.render('loginOtp', { message: num })
+            res.render('loginOtp',{message:num})
 
         } else {
             res.render('loginMobile', { message: "Did not register in This Mobile Number" })
+            console.log("else");
 
         }
     } catch (error) {
         console.log(error.message);
+        console.log("error from login otp load");
     }
 }
 
-const verifyNumOtp=async(req,res)=>{
-    try{
-        const num=req.body.mno
-        const otp=req.body.otp
-        console.log(otp+""+num);
-        const verifiedResponse=await client.verify.
-         v2.services(TWILIO_SERVICES_SID)
-         .verificationChecks.create({
-            to:num,
-            code:otp,
-        })
-        if(verifiedResponse.status=='approved'){
-            const userDetails=await User.findOne({Mobile:num})
-            req.session.user_id=userData._id
+const verifyNumOtp = async (req, res) => {
+    try {
+        const num = req.body.mno
+        const otp = req.body.otp
+        console.log(otp);
+        console.log(otp + "" + num);
+        const verifiedResponse = await client.verify.
+            v2.services(TWILIO_SERVICE_SID)
+            .verificationChecks.create({
+                to: num,
+                code: otp,
+            })
+        if (verifiedResponse.status == 'approved') {
+            const userDetails = await User.findOne({ Mobile: num })
+            req.session.user_id = userDetails._id
             console.log(req.session.user_id);
             res.redirect('/home')
             console.log("true otp");
-        }else{
-            res.render('loginOtp',{message2:'incorect otp'})
+        } else {
+            res.render('loginOtp', { message2: 'incorect otp' ,message:num})
             console.log("false otp");
         }
-    }catch(error){
+    } catch (error) {
         console.log(error.message);
         console.log("verify otp section");
     }
@@ -376,5 +385,5 @@ module.exports = {
     resetPassword,
     verifyNumOtp,
     loginOtp,
-    verifyNum 
+    verifyNum
 }

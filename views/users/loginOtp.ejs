@@ -1,0 +1,57 @@
+<%- include('../layouts/logheader.ejs') %>
+
+<!-- 
+
+    <form action="/loginOtpveryfy" method="post">
+        <input type="number" name="otp">
+        <input type="hidden" value="<%= message %>" name="mno">
+      
+
+        <button type="submit">verify</button>
+    </form> -->
+
+
+
+
+    <body>
+        <div class="container">
+            <div class="column1">
+                <form action="/loginOtpveryfy" method="post" id="form" class="form">
+                    
+
+                    <% if(typeof message2 !=='undefined' ){ %>
+
+                        <p style="color: rgb(79, 128, 0)">
+                            <%= message2 %>
+                        </p>
+
+                        <% } %>
+                    <div class="form-control">
+                        <label for='mobile'>Otp
+                            <input type="mobile" id="mobile" placeholder="Enter The Otp" name="otp">
+
+                            <small>Error message</small></label>
+
+                            <input type="hidden" value="<%= message %>" name="mno">
+                    </div>
+
+
+                    <button type="submit"> verify</button>
+
+                </form>
+
+
+            </div>
+            <div class="column2">
+
+                <img src="https://i.ibb.co/k5NNz4F/pablo-sign-up.png" alt="pablo-sign-up" border="0"
+                    class='signup-image'>
+            </div>
+
+        </div>
+
+
+
+
+
+    <%- include('../layouts/logfoot.ejs') %>

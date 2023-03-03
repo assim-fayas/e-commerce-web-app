@@ -14,7 +14,7 @@ userName: {
         required: true
     },
     Mobile:{
-        type:Number,
+        type:String,
         required:true
     },
    
