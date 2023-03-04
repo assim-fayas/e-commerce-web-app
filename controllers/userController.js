@@ -124,24 +124,35 @@ const insertUser = async (req, res) => {
     try {
         const sPassword = await securePassword(req.body.password);
 
-        const user = new User({
-            userName: req.body.username,
-            Email: req.body.email,
-            Password: sPassword,
-            Mobile: req.body.mobile,
 
-        })
+        const Email = req.body.email;
+        checkData = await User.findOne({ Email: Email })
 
-        const userData = await user.save()
-        if (userData) {
-            sendVerifyMail(req.body.username, req.body.email, userData._id);
-            res.render('registration', { message: "your registration has been successfully,Please verify yor email " });
-
+        if (checkData) {
+            res.render('registration', { message: 'Email  already exist' })
         }
         else {
-            res.render('registration', { message: "your registration has been faild" });
-        }
 
+            const user = new User({
+                userName: req.body.username,
+                Email: req.body.email,
+                Password: sPassword,
+                Mobile: req.body.mobile,
+
+            })
+
+
+            const userData = await user.save()
+
+            if (userData) {
+                sendVerifyMail(req.body.username, req.body.email, userData._id);
+                res.render('registration', { message: "your have registerd successfully,Please verify yor email " });
+
+            }
+            else {
+                res.render('registration', { message: " registration  faild" });
+            }
+        }
     }
 
     catch (error) {
@@ -194,8 +205,8 @@ const verifyLogin = async (req, res) => {
                 console.log(passwordMatch);
 
 
-                if (userData.is_Verified === 0 || userData.is_Admin === 1) {
-                    res.render('login', { message: "please verify your email" })
+                if (userData.is_Verified === 0 || userData.is_Admin === 1 || userData.block === false) {
+                    res.render('login', { message: "Invalid Login" })
                 } else {
                     req.session.user_id = userData._id;
                     res.redirect('/home')
@@ -232,7 +243,7 @@ const loadHome = async (req, res) => {
 const userLogout = async (req, res) => {
     try {
         console.log("logout");
-        req.session.user_id = null;
+        req.session.user_id = false;
         res.redirect('/');
     } catch (error) {
         console.log(error.message);

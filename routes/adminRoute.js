@@ -15,12 +15,16 @@ admin_route.set('views', './views/admin')
 
 const adminController = require("../controllers/adminController")
 
-admin_route.get('/', adminController.loadadminLogin)
+const auth = require("../middleware/adminAuth")
+
+
+admin_route.get('/', auth.isLogout, adminController.loadadminLogin)
 admin_route.post('/', adminController.verifyLogin)
-admin_route.get('/home', adminController.loadDashboard)
-admin_route.get('/logout', adminController.logout)
+admin_route.get('/home', auth.isLogin, adminController.loadDashboard)
+admin_route.get('/logout', auth.isLogin, adminController.logout)
 
 admin_route.get('/users', adminController.loadusers)
+admin_route.get('/user-block', adminController.blockUser)
 admin_route.get('/orders', adminController.loadOrder)
 admin_route.get('/category', adminController.loadCatagory)
 admin_route.get('/products', adminController.loadProduct)

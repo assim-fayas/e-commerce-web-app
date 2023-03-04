@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-userName: {
+    userName: {
         type: String,
         required: true
     },
@@ -13,11 +13,11 @@ userName: {
         type: String,
         required: true
     },
-    Mobile:{
-        type:String,
-        required:true
+    Mobile: {
+        type: String,
+        required: true
     },
-   
+
     is_Admin: {
         type: Number,
         default: 0
@@ -29,9 +29,13 @@ userName: {
     token: {
         type: String,
         default: ''
+    },
+    block: {
+        type: Boolean,
+        default: true
     }
 
 });
 
 
-module.exports = mongoose.model('User',userSchema);
+module.exports = mongoose.model('User', userSchema);

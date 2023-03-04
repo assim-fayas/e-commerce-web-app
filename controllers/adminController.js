@@ -1,5 +1,6 @@
 const User = require('../model/userModel');
 const bcrypt = require('bcrypt');
+const { findOne } = require('../model/userModel');
 
 
 const loadadminLogin = async (req, res) => {
@@ -67,8 +68,8 @@ const loadDashboard = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
-        req.session.user_id = null;
-        res.redirect('/')
+        req.session.admin_id = false;
+        res.redirect('/admin')
     } catch (error) {
         console.log(error.messag);
     }
@@ -80,8 +81,33 @@ const logout = async (req, res) => {
 
 const loadusers = async (req, res) => {
     try {
+        const users = await User.find({ is_Admin: 0 })
 
-        res.render('users');
+        res.render('users', { users });
+
+
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const blockUser = async (req, res) => {
+    try {
+        // console.log(req.query.id)
+        const id = req.query.id
+        const users = await User.findOne({ _id: id }, { block: 1, _id: id })
+
+        if (users.block === false) {
+            const blockuser = await User.updateOne({ _id: id }, { $set: { block: true } })
+            req.session.user_id = true
+            res.redirect('/admin/users')
+        }
+        else {
+            const blockuser = await User.updateOne({ _id: id }, { $set: { block: false } })
+            req.session.user_id = false
+            res.redirect('/admin/users')
+        }
 
     } catch (error) {
         console.log(error.message);
@@ -152,5 +178,6 @@ module.exports = {
     loadCatagory,
     loadProduct,
     loadOrder,
-    loadCoupen
+    loadCoupen,
+    blockUser
 }

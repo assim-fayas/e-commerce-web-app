@@ -138,16 +138,79 @@
                     <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                         <a href="#" class="dropdown-item">My Profile</a>
                         <a href="#" class="dropdown-item">Settings</a>
-                        <a href="/logout" class="dropdown-item">Log Out</a>
+                        <a href="/admin/logout" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
             </div>
         </nav>
         <!-- Navbar End -->
+        <div class="container mt-4">
+
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Verified</th>
+                        <th scope="col">status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+
+                <% if(users.length> 0){
+                    for(let i=0 ;i < users.length;i++ ){ %>
+                        <tr>
+                            <td>
+                                <%= i+1 %>
+                            </td>
+                            <td>
+                                <%= users[i].userName %>
+                            </td>
+                            <td>
+                                <%= users[i].Email %>
+                            </td>
+                            <td>
+                                <%= users[i].Mobile %>
+                            </td>
+                            <td>
+                                <% if( users[i].is_Verified==0 ){ %>
+                                    <p style="color:red"> Not Verified </p>
+
+                                    <% } else{ %>
+                                        <p style="color:green">Verified</p>
+                                        <% } %>
+                            </td>
+                            <td>
+                                <%if(users[i].block==true ){%>
+                                    <p style="color: green;">active</p>
+                                    <% } else{ %>
+                                        <p style="color: red;">blocked</p>
+
+                                        <%}%>
+
+                            </td>
+
+                            <td>
+                                <a href="/admin/user-block?id=<%=users[i]._id %>"><button>block</button></a>
+                            </td>
+                        </tr>
+
+                        <% } }else{ %>
+                            <tr>
+                                <td colspan="5">Users Not Found</td>
+                            </tr>
+                            <% }%>
 
 
+                                <td>
 
+                                </td>
+                                <tbody>
 
+            </table>
+        </div>
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
