@@ -2,8 +2,15 @@ const express = require("express");
 const user_route = express();
 const session = require("express-session");
 const config = require("../config/config");
+const nocache = require('nocache')
 
-user_route.use(session({ secret: config.sessionSecret }))
+user_route.use(session({
+    secret: config.sessionSecret,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 },
+    resave: false
+}))
+user_route.use(nocache())
 
 const auth = require("../middleware/auth");
 
@@ -33,9 +40,9 @@ user_route.post('/forget-password', auth.isLogout, userController.resetPassword)
 
 
 // login OTP
-user_route.get('/loginOtp',userController.loginOtp)
-user_route.post('/loginOtp',userController.verifyNum)
-user_route.post('/loginOtpveryfy',userController.verifyNumOtp)
+user_route.get('/loginOtp', userController.loginOtp)
+user_route.post('/loginOtp', userController.verifyNum)
+user_route.post('/loginOtpveryfy', userController.verifyNumOtp)
 
 
 
