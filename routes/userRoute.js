@@ -7,7 +7,7 @@ const nocache = require('nocache')
 user_route.use(session({
     secret: config.sessionSecret,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 600000 },
     resave: false
 }))
 user_route.use(nocache())

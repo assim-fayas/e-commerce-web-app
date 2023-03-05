@@ -129,7 +129,7 @@ const insertUser = async (req, res) => {
         checkData = await User.findOne({ Email: Email })
 
         if (checkData) {
-            res.render('registration', { message: 'Email  already exist' })
+            res.render('registration', { message: 'Email  already exist,Please Try Again' })
         }
         else {
 
