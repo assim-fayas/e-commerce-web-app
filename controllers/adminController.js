@@ -1,6 +1,6 @@
 const User = require('../model/userModel');
 const bcrypt = require('bcrypt');
-const { findOne } = require('../model/userModel');
+
 
 
 const loadadminLogin = async (req, res) => {
@@ -114,17 +114,6 @@ const blockUser = async (req, res) => {
     }
 }
 
-//Catagory management
-
-const loadCatagory = async (req, res) => {
-    try {
-        res.render('catagory')
-    } catch (error) {
-        console.log(error.message);
-    }
-
-}
-
 
 
 
@@ -175,7 +164,6 @@ module.exports = {
     loadDashboard,
     logout,
     loadusers,
-    loadCatagory,
     loadProduct,
     loadOrder,
     loadCoupen,

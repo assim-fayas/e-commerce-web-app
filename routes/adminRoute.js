@@ -20,6 +20,7 @@ admin_route.set('view engine', 'ejs');
 admin_route.set('views', './views/admin')
 
 const adminController = require("../controllers/adminController")
+const categoryController = require("../controllers/categoryController")
 
 const auth = require("../middleware/adminAuth")
 
@@ -32,7 +33,7 @@ admin_route.get('/logout', auth.isLogin, adminController.logout)
 admin_route.get('/users', auth.isLogin, adminController.loadusers)
 admin_route.get('/user-block', adminController.blockUser)
 admin_route.get('/orders', auth.isLogin, adminController.loadOrder)
-admin_route.get('/category', auth.isLogin, adminController.loadCatagory)
+admin_route.get('/category', auth.isLogin, categoryController.loadCatagory)
 admin_route.get('/products', auth.isLogin, adminController.loadProduct)
 admin_route.get('/coupen', auth.isLogin, adminController.loadCoupen)
 
