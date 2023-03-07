@@ -146,45 +146,92 @@
         </nav>
         <!-- Navbar End -->
 
-        <div class="container mt-5 ">
-            <p>
-            <h4> Main Categories</h4>
-            </p>
 
 
+        <div class="container mx-auto">
+            <a href="/admin/addCategory"> <button type="submit" class="btn btn-primary float-right mt-5 ">Add category
+                </button> </a>
         </div>
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-              <div class="col-md-6">
-                <form style="background-color: white; color: black;">
-                  <div class="form-group">
-                    <label for="thumbnail">Thumbnail</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="thumbnail">
-                        <label class="custom-file-label" for="thumbnail">Choose file</label>
-                      </div>
+
+
+
+        <div class="container-fluid mt-3">
+            <div class="row  justify-content-center">
+
+                <div class="col-md-8 mt-0">
+
+
+                    <div class="container ">
+
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Thumb</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Sub Categories</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Action</th>
+
+                                </tr>
+                            </thead>
+
+                            <% if(category.length> 0){
+                                for(let i=0;i< category.length;i++){ %>
+                                    <tr>
+                                        <td>
+                                            <%= i+1 %>
+                                        </td>
+
+
+                                        <td>
+                                            <img src="/categoryImage/<%= category[i].image %>" alt=""
+                                                style="width:80px;height:80px;">
+                                        </td>
+
+
+                                        <td>
+                                            <%= category[i].name %>
+                                        </td>
+                                        <td></td>
+
+                                        <td>
+                                            <%= category[i].description %>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown" style="font-size: 25px ;color:#493a3a" ;>
+                                                    <!-- <i class="bx bx-dots-vertical-rounded"></i> -->
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item"
+                                                        href="/admin/edit-category?id=<%= category[i]._id %>"><i
+                                                            class="bx bx-edit-alt me-1" style="color:black;"></i> Edit</a>
+                                                    <a class="dropdown-item"
+                                                        href="/admin/delete-category?id=<%= category[i]._id %>"><i
+                                                            class="bx bx-trash me-1"></i> Delete</a>
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <% } } %>
+
+                        </table>
+
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="name">Name</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" id="name" placeholder="Enter name">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="description">Short Description</label>
-                    <textarea class="form-control" id="description" rows="3" placeholder="Enter description"></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-              </div>
+                </div>
             </div>
-          </div>
-          
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
 
-    <%- include('../layouts/adminFooter.ejs') %>
+
+
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        </div>
+
+        <%- include('../layouts/adminFooter.ejs') %>

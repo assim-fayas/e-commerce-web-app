@@ -196,8 +196,11 @@ const verifyLogin = async (req, res) => {
         const email = req.body.email;
         const password = req.body.password;
         const userData = await User.findOne({ Email: email })
+        if (userData.is_Admin === 1) {
+            res.redirect('/admin')
+        }
 
-        if (userData) {
+        else if (userData) {
 
             const passwordMatch = await bcrypt.compare(password, userData.Password);
 

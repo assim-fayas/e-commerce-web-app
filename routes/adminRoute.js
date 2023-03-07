@@ -19,6 +19,22 @@ admin_route.use(bodyParser.urlencoded({ extended: true }));
 admin_route.set('view engine', 'ejs');
 admin_route.set('views', './views/admin')
 
+
+const multer = require("multer");
+const path = require('path')
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, '../assets/categoryImage'));
+    },
+
+    filename: function (req, file, cb) {
+        const name = Date.now()+'-'+file.originalname;
+        cb(null, name);
+    }
+
+});
+const upload = multer({ storage: storage });
+
 const adminController = require("../controllers/adminController")
 const categoryController = require("../controllers/categoryController")
 
@@ -34,8 +50,11 @@ admin_route.get('/users', auth.isLogin, adminController.loadusers)
 admin_route.get('/user-block', adminController.blockUser)
 admin_route.get('/orders', auth.isLogin, adminController.loadOrder)
 admin_route.get('/category', auth.isLogin, categoryController.loadCatagory)
+admin_route.post('/addCategory', upload.single('image'),categoryController.insertMaincategory)
 admin_route.get('/products', auth.isLogin, adminController.loadProduct)
 admin_route.get('/coupen', auth.isLogin, adminController.loadCoupen)
+admin_route.get('/addCategory', auth.isLogin, categoryController.loadAddcategory)
+admin_route.get('/edit-category',auth.isLogin,categoryController.editCategory)
 
 
 

@@ -21,7 +21,8 @@ const subcategorySchema = new mongoose.Schema({
 
 const maincategorySchema = new mongoose.Schema({
     image: {
-        type: String
+        type: String,
+        required: true
     },
     name: {
         type: String,
