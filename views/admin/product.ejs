@@ -145,11 +145,110 @@
         </nav>
         <!-- Navbar End -->
 
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown container ">
+            <div class="btn-group container mx-auto mt-5 mx-3 " role="group">
+                <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Add
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/admin/addCategory">Add Product</a></li>
+                    <li><a class="dropdown-item" href="#">Sub Category</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- end of the button -->
+        <div class="container-fluid mt-3">
+            <div class="row  justify-content-center">
+
+                <div class="col-md-8 mt-0">
+
+
+                    <div class="container ">
+
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Action</th>
+
+                                </tr>
+                            </thead>
+
+
+                            <tr>
+                                <td>
+
+                                </td>
+
+
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+
+
+                                <td>
+                                </td>
+
+
+                                <td>
+                                </td>
+
+
+                                <td>
+
+                                </td>
+                                <td></td>
+
+                                <td>
+
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown" style="font-size: 25px ;color:#493a3a" ;>
+                                            <!-- <i class="bx bx-dots-vertical-rounded"></i> -->
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"
+                                                    style="color:black;"></i>
+                                                Edit</a>
+                                            <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
+                                                Delete</a>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </td>
+                            </tr>
+
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
 
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
 
-    <%- include('../layouts/adminFooter.ejs') %>
+
+
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        </div>
+
+        <%- include('../layouts/adminFooter.ejs') %>

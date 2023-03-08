@@ -1,6 +1,7 @@
 const Category = require('../model/categoryModel');
 
 
+
 //Catagory management
 
 const loadCatagory = async (req, res) => {
@@ -57,15 +58,53 @@ const viewCategory = async (req, res) => {
 const editCategory = async (req, res) => {
     try {
         const id = req.query.id;
-        const category = await Category.find({ _id: id }, {})
-        res.redirect('/admin/editCategory')
+        const category = await Category.findOne({ _id: id })
+        res.render('editCategory', { category })
     } catch (error) {
         console.log(error.message);
     }
 }
 
+const updateCategory = async (req, res) => {
+    try {
+
+        const id = req.query.id;
+
+        // console.log("category id", id);
+        // console.log(req.body);
+        const categoryData = await Category.findByIdAndUpdate(id, { $set: { name: req.body.name, description: req.body.description } })
+        console.log(categoryData);
+        if (categoryData) {
+            res.redirect('/admin/category')
+        }
+        else {
+            console.log("kitteelllaaa")
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+}
 
 
+const deleteCategory = async (req, res) => {
+
+    try {
+        const id = req.query.id
+        console.log(id);
+        const deleteData = await Category.findByIdAndDelete({ _id: id })
+        console.log(deleteData);
+        if (deleteData) {
+            res.redirect('/admin/category')
+        }
+        else {
+            console.log("error in delete catagory");
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+
+}
 
 
 module.exports = {
@@ -73,5 +112,7 @@ module.exports = {
     loadAddcategory,
     insertMaincategory,
     viewCategory,
-    editCategory
+    editCategory,
+    updateCategory,
+    deleteCategory
 }

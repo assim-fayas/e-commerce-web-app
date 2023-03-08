@@ -22,7 +22,7 @@ const subcategorySchema = new mongoose.Schema({
 const maincategorySchema = new mongoose.Schema({
     image: {
         type: String,
-        required: true
+
     },
     name: {
         type: String,
@@ -37,4 +37,4 @@ const maincategorySchema = new mongoose.Schema({
 }, { timestamps: true });
 
 
-module.exports = mongoose.model('category', maincategorySchema);
+module.exports = mongoose.model('Category', maincategorySchema);

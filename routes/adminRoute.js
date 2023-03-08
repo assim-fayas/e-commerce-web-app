@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
     },
 
     filename: function (req, file, cb) {
-        const name = Date.now()+'-'+file.originalname;
+        const name = Date.now() + '-' + file.originalname;
         cb(null, name);
     }
 
@@ -37,6 +37,7 @@ const upload = multer({ storage: storage });
 
 const adminController = require("../controllers/adminController")
 const categoryController = require("../controllers/categoryController")
+const productController = require("../controllers/productController")
 
 const auth = require("../middleware/adminAuth")
 
@@ -50,11 +51,13 @@ admin_route.get('/users', auth.isLogin, adminController.loadusers)
 admin_route.get('/user-block', adminController.blockUser)
 admin_route.get('/orders', auth.isLogin, adminController.loadOrder)
 admin_route.get('/category', auth.isLogin, categoryController.loadCatagory)
-admin_route.post('/addCategory', upload.single('image'),categoryController.insertMaincategory)
+admin_route.post('/addCategory', upload.single('image'), categoryController.insertMaincategory)
 admin_route.get('/products', auth.isLogin, adminController.loadProduct)
 admin_route.get('/coupen', auth.isLogin, adminController.loadCoupen)
 admin_route.get('/addCategory', auth.isLogin, categoryController.loadAddcategory)
-admin_route.get('/edit-category',auth.isLogin,categoryController.editCategory)
+admin_route.get('/edit-category', auth.isLogin, categoryController.editCategory)
+admin_route.post('/edit-category', categoryController.updateCategory)
+admin_route.get('/delete-category', auth.isLogin, categoryController.deleteCategory)
 
 
 

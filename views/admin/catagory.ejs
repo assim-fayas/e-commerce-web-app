@@ -147,14 +147,26 @@
         <!-- Navbar End -->
 
 
-
+        <!-- 
         <div class="container mx-auto">
             <a href="/admin/addCategory"> <button type="submit" class="btn btn-primary float-right mt-5 ">Add category
                 </button> </a>
+        </div> -->
+        <!-- start of the button -->
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown container ">
+            <div class="btn-group container mx-auto mt-5 mx-3 " role="group">
+                <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Add
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/admin/addCategory">Add Category</a></li>
+                    <li><a class="dropdown-item" href="#">Sub Category</a></li>
+                </ul>
+            </div>
         </div>
 
-
-
+        <!-- end of the button -->
         <div class="container-fluid mt-3">
             <div class="row  justify-content-center">
 
@@ -207,7 +219,8 @@
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
                                                         href="/admin/edit-category?id=<%= category[i]._id %>"><i
-                                                            class="bx bx-edit-alt me-1" style="color:black;"></i> Edit</a>
+                                                            class="bx bx-edit-alt me-1" style="color:black;"></i>
+                                                        Edit</a>
                                                     <a class="dropdown-item"
                                                         href="/admin/delete-category?id=<%= category[i]._id %>"><i
                                                             class="bx bx-trash me-1"></i> Delete</a>
