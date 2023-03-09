@@ -52,13 +52,18 @@ admin_route.get('/user-block', adminController.blockUser)
 admin_route.get('/orders', auth.isLogin, adminController.loadOrder)
 admin_route.get('/category', auth.isLogin, categoryController.loadCatagory)
 admin_route.post('/addCategory', upload.single('image'), categoryController.insertMaincategory)
-admin_route.get('/products', auth.isLogin, adminController.loadProduct)
+
 admin_route.get('/coupen', auth.isLogin, adminController.loadCoupen)
 admin_route.get('/addCategory', auth.isLogin, categoryController.loadAddcategory)
 admin_route.get('/edit-category', auth.isLogin, categoryController.editCategory)
 admin_route.post('/edit-category', categoryController.updateCategory)
 admin_route.get('/delete-category', auth.isLogin, categoryController.deleteCategory)
+admin_route.get('/addSubCategory',  categoryController.addSubcategory)
+admin_route.post('/addSubCategory',  categoryController.insertsubCategory)
 
+admin_route.get('/products', auth.isLogin, productController.loadProduct)
+admin_route.get('/addProduct', auth.isLogin, productController.addProduct)
+// admin_route.post('/addProduct', productController.insertProduct)
 
 
 admin_route.get('*', (req, res) => {

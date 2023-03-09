@@ -23,6 +23,14 @@ const productSchema = new mongoose.Schema({
         type: Boolean,
         require: true
     },
+    color:{
+        type:Array,
+        require:true
+    },
+    size:{
+        type:Array,
+        require:true
+    },
     quantity: {
         type: Number,
         require: true

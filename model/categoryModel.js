@@ -11,11 +11,10 @@ const subcategorySchema = new mongoose.Schema({
     mainCategory: {
         type: String,
         required: true
-    },
-    description: {
-        type: String,
-        required: true
     }
+
+
+
 })
 
 
@@ -31,8 +30,8 @@ const maincategorySchema = new mongoose.Schema({
     },
     subCategories: [subcategorySchema],
     description: {
-        type: String,
-        required: true
+        type: String
+
     }
 }, { timestamps: true });
 

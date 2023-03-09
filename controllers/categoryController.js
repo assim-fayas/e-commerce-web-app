@@ -30,10 +30,11 @@ const insertMaincategory = async (req, res) => {
         const mainCategory = new Category({
             image: req.file.filename,
             name: req.body.name,
-            description: req.body.description
+            description: req.body.description,
+
         })
 
-        const categoryData = await mainCategory.save()
+
         console.log(categoryData);
         res.redirect('/admin/addCategory')
 
@@ -105,6 +106,43 @@ const deleteCategory = async (req, res) => {
     }
 
 }
+const addSubcategory = async (req, res) => {
+    try {
+
+        res.render('addSubcategory', { Category })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+// insert the sub categories to main category
+
+const insertsubCategory = async (req, res) => {
+    try {
+        const parentCategory = req.body.parentCategory;
+
+
+        const subcategoryData = {
+            name: req.body.name,
+            mainCategory: parentCategory
+        }
+
+        const category = await Category.findOne({ mainCategory: parentCategory })
+        console.log(subcategoryData);
+        console.log(category);
+
+        category.subCategories.push(subcategoryData); // add subcategoryData object to subCategories array
+
+        const insertData = await category.save(); // save the updated category object
+
+        console.log(insertData);
+
+    } catch (error) {
+        console.log(error.message);
+
+    }
+}
 
 
 module.exports = {
@@ -114,5 +152,7 @@ module.exports = {
     viewCategory,
     editCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    addSubcategory,
+    insertsubCategory
 }
