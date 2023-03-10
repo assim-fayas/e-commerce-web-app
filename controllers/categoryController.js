@@ -34,9 +34,9 @@ const insertMaincategory = async (req, res) => {
 
         })
 
-
+        const categoryData = await mainCategory.save()
         console.log(categoryData);
-        res.redirect('/admin/addCategory')
+        res.redirect('/admin/Category')
 
     } catch (error) {
         console.log(error.message);
@@ -104,12 +104,26 @@ const deleteCategory = async (req, res) => {
     } catch (error) {
         console.log(error.message);
     }
-
 }
+
+const updateImage = async (req, res) => {
+    try {
+        const id = req.query.id
+        const Image = req.file.filename
+        console.log(id);
+        const result = await Category.updateOne({ _id: id }, { $set: { image: Image } });
+        res.redirect('/admin/category')
+        console.log(result);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
 const addSubcategory = async (req, res) => {
     try {
-
-        res.render('addSubcategory', { Category })
+        const categories = await Category.find({})
+        res.render('addSubcategory', { categories })
     } catch (error) {
         console.log(error.message);
     }
@@ -128,15 +142,18 @@ const insertsubCategory = async (req, res) => {
             mainCategory: parentCategory
         }
 
-        const category = await Category.findOne({ mainCategory: parentCategory })
-        console.log(subcategoryData);
-        console.log(category);
+        const category = await Category.findOne({ name: parentCategory })
+        // console.log(subcategoryData);
+        //  console.log(category);
 
         category.subCategories.push(subcategoryData); // add subcategoryData object to subCategories array
 
         const insertData = await category.save(); // save the updated category object
 
-        console.log(insertData);
+        // console.log(insertData);
+        if (insertData) {
+            res.redirect('/admin/category')
+        }
 
     } catch (error) {
         console.log(error.message);
@@ -154,5 +171,6 @@ module.exports = {
     updateCategory,
     deleteCategory,
     addSubcategory,
-    insertsubCategory
+    insertsubCategory,
+    updateImage
 }

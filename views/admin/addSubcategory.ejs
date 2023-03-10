@@ -39,7 +39,7 @@
                     <a href="/admin/category" class="nav-item nav-link active"><i
                             class="fa fa-keyboard me-2"></i>Catagory</a>
                     <a href="/admin/products" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Products</a>
-                    <a href="/admin/orders" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Orders</a>
+                    <a href="/admin/orders" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Brand</a>
                     <a href="/admin/coupen" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Coupen</a>
 
 
@@ -163,10 +163,12 @@
                     <div class="form-group mb-4">
                         <label for="category"> Parent Category</label>
                         <select class="form-control bg-dark col-4" id="category" name="parentCategory">
+                            <% categories.forEach((category)=>{ %>
+                                <option>
+                                    <%= category.name %>
+                                </option>
+                                <% }) %>
 
-                            <option value="kid">
-                                kid
-                            </option>
 
 
                         </select>

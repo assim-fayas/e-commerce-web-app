@@ -39,7 +39,7 @@
                     <a href="/admin/category" class="nav-item nav-link active"><i
                             class="fa fa-keyboard me-2"></i>Catagory</a>
                     <a href="/admin/products" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Products</a>
-                    <a href="/admin/orders" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Orders</a>
+                    <a href="/admin/brand" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Brand</a>
                     <a href="/admin/coupen" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Coupen</a>
 
 
@@ -156,12 +156,22 @@
                         <label for="thumbnail">Image</label>
                         <div class="input-group">
                             <div class="custom-file col-">
+
+                                <img src="/categoryImage/<%= category.image %>" alt="" style="width:80px;height:80px">
                                 <!-- <input type="file" class="custom-file-input bg-dark" id="thumbnail" name="image"
                                     accept="image/*"> -->
-                                <img src="/categoryImage/<%= category.image %>" alt="" style="width:80px;height:80px">
+
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">
+                                    Edit Image
+                                </button>
+                                <!-- Button trigger modal -->
+
+                                <!-- Modal -->
 
 
-                                <label class="custom-file-label" for="thumbnail">choose file</label>
+
+                                <label class="custom-file-label" for="thumbnail"></label>
                             </div>
                         </div>
                     </div>
@@ -181,7 +191,36 @@
                 </form>
             </div>
         </div>
+        <!-- end of the main form -->
 
+        <!-- start of the main form -->
+        <form action="/admin/addImage?id=<%= category._id %>" method="post" enctype="multipart/form-data">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- <div class="modal-header"> -->
+
+                        <!-- </div> -->
+                        <div class="modal-body">
+                            <!-- <img src="/categoryImage/<%= category.image %>" alt="" style="width:80px;height:80px"> -->
+                            <!-- <div class="container"> <a href="/admin/deleteImage?id=<%= category._id %>">
+                                <button     type="button"
+                                        class="btn   btn-sm btn-primary ml-0 txt-sm mt-2">Remove</button></a>
+                            </div>  -->
+                            <input type="file" class="custom-file-input bg-dark" id="thumbnail" name="image"
+                                accept="image/*">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-md btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn  btn-md btn-primary">Change</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>

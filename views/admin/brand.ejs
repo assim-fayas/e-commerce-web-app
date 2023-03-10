@@ -38,8 +38,9 @@
                     </div>
                     <a href="/admin/category" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Catagory</a>
                     <a href="/admin/products" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Products</a>
-                    <a href="/admin/orders" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Orders</a>
-                    <a href="/admin/coupen" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Coupen</a>
+                    <a href="/admin/brand" class="nav-item nav-link active""><i class=" fa fa-chart-bar
+                        me-2"></i>Brand</a>
+                    <a href="/admin/coupen" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Coupen</a>
 
 
                 </div>
@@ -144,6 +145,89 @@
             </div>
         </nav>
         <!-- Navbar End -->
+
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown container ">
+            <div class="btn-group container mx-auto mt-5 mx-3 " role="group">
+                <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Add
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/admin/addBrand">Add Brand</a></li>
+                    <li><a class="dropdown-item" href="#">Sub Category</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- end of the button -->
+        <div class="container-fluid mt-3">
+            <div class="row  justify-content-center">
+
+                <div class="col-md-8 mt-0">
+
+
+                    <div class="container ">
+
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Action</th>
+
+                                </tr>
+                            </thead>
+                            <% if(brand.length> 0){
+                                for(let i=0;i< brand.length;i++){ %>
+
+                                    <tr>
+                                        <td>
+                                            <%= i+1 %>
+                                        </td>
+
+
+                                        <td>
+                                            <img src="/brandImage/<%= brand[i].image %>" alt=""
+                                                style="width: 80px;height: 80px;">
+                                        </td>
+                                        <td>
+                                            <%= brand[i].name %>
+                                        </td>
+
+
+
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown" style="font-size: 25px ;color:#493a3a" ;>
+
+                                                    <!-- <i class="bx bx-dots-vertical-rounded"></i> -->
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"
+                                                            style="color:black;"></i>
+                                                        Edit</a>
+                                                    <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
+                                                        Delete</a>
+
+                                                </div>
+                                        </td>
+                                        <% } } %>
+                    </div>
+
+
+
+
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+
 
 
 

@@ -36,10 +36,10 @@
                         <a href="/admin/users" class="nav-link "><i class="fa fa-laptop me-2"></i>User's List</a>
 
                     </div>
-                    <a href="/admin/category" class="nav-item nav-link active"><i
-                            class="fa fa-keyboard me-2"></i>Catagory</a>
-                    <a href="/admin/products" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Products</a>
-                    <a href="/admin/orders" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Orders</a>
+                    <a href="/admin/category" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Catagory</a>
+                    <a href="/admin/products" class="nav-item nav-link active"><i
+                            class="fa fa-th me-2 "></i>Products</a>
+                    <a href="/admin/brand" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Brand</a>
                     <a href="/admin/coupen" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Coupen</a>
 
 
@@ -167,6 +167,11 @@
                         <div class="input-group">
                             <input type="text" class="form-control bg-dark col-4" id="name" name="name"
                                 placeholder="Enter name">
+                        </div><br>
+                        <label for="name">Brand Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-dark col-4" id="name" name="name"
+                                placeholder="Enter name">
                         </div>
                     </div>
                     <div class="form-group mb-4">
@@ -178,7 +183,7 @@
                             <option value="books">Books</option>
                         </select>
                     </div>
-                    <div class="form-group mb-4">
+                    <!-- <div class="form-group mb-4">
                         <label for="colors">Colors</label>
                         <div class="form-check">
                             <input class="form-check-input" type="color" value="red" id="red" name="colors[]">
@@ -200,98 +205,97 @@
                         </div>
                         <!-- get all the color inputs -->
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="color" value="yellow" id="yellow" name="colors[]">
-                            <label class="form-check-label" for="yellow">
-                                Yellow
-                            </label>
-                        </div>
+                    <!-- <div class="form-check">
+                        <input class="form-check-input" type="color" value="yellow" id="yellow" name="colors[]">
+                        <label class="form-check-label" for="yellow">
+                            Yellow
+                        </label>
                     </div>
-                    <script>
-                        const colorInputs = document.querySelectorAll('input[type="color"]');
+            </div> -->
+            <script>
+                const colorInputs = document.querySelectorAll('input[type="color"]');
 
-                        // add a change event listener to each input 
-                        colorInputs.forEach(input => {
-                            input.addEventListener('change', function () {
-                                // get the selected color value
-                                const selectedColor = input.value;
+                // add a change event listener to each input 
+                colorInputs.forEach(input => {
+                    input.addEventListener('change', function () {
+                        // get the selected color value
+                        const selectedColor = input.value;
 
-                                // update the background color of the div 
-                                const myDiv = document.getElementById('myDiv');
-                                myDiv.style.backgroundColor = selectedColor;
-                            });
-                        });
-                    </script>
-                    <div class="form-group mb-4">
-                        <label for="size">Size</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="size[]" id="size-s" value="S">
-                            <label class="form-check-label" for="size-s">
-                                S
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="size[]" id="size-m" value="M">
-                            <label class="form-check-label" for="size-m">
-                                M
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="size[]" id="size-l" value="L">
-                            <label class="form-check-label" for="size-l">
-                                L
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="size[]" id="size-xl" value="XL">
-                            <label class="form-check-label" for="size-xl">
-                                XL
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label for="price">Price</label>
-                        <input type="number" name="price" id="price" class="form-control" required>
-                    </div>
-
-                    <div class="form-group mb-4">
-                        <label for="quantity">Quantity</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <button type="button" class="btn btn-outline-secondary" onclick="decrement()">-</button>
-                            </div>
-                            <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1"
-                                required>
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-outline-secondary" onclick="increment()">+</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <script>
-                        function increment() {
-                            document.getElementById("quantity").stepUp();
-                        }
-
-                        function decrement() {
-                            document.getElementById("quantity").stepDown();
-                        }
-                    </script>
-
-                    <div class="form-group mb-4">
-                        <label for="description"> Description</label>
-                        <textarea class="form-control bg-dark col-4" id="description" name="description" rows="3"
-                            placeholder="Enter description"></textarea>
-                    </div>
-
-                    <br><br>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                        // update the background color of the div 
+                        const myDiv = document.getElementById('myDiv');
+                        myDiv.style.backgroundColor = selectedColor;
+                    });
+                });
+            </script>
+            <div class="form-group mb-4">
+                <label for="size">Size</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="size[]" id="size-s" value="S">
+                    <label class="form-check-label" for="size-s">
+                        S
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="size[]" id="size-m" value="M">
+                    <label class="form-check-label" for="size-m">
+                        M
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="size[]" id="size-l" value="L">
+                    <label class="form-check-label" for="size-l">
+                        L
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="size[]" id="size-xl" value="XL">
+                    <label class="form-check-label" for="size-xl">
+                        XL
+                    </label>
+                </div>
             </div>
+            <div class="form-group mb-4">
+                <label for="price">Price</label>
+                <input type="number" name="price" id="price" class="form-control" required>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="quantity">Quantity</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-outline-secondary" onclick="decrement()">-</button>
+                    </div>
+                    <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" required>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary" onclick="increment()">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function increment() {
+                    document.getElementById("quantity").stepUp();
+                }
+
+                function decrement() {
+                    document.getElementById("quantity").stepDown();
+                }
+            </script>
+
+            <div class="form-group mb-4">
+                <label for="description"> Description</label>
+                <textarea class="form-control bg-dark col-4" id="description" name="description" rows="3"
+                    placeholder="Enter description"></textarea>
+            </div>
+
+            <br><br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
+    </div>
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
-        <%- include('../layouts/adminFooter.ejs') %>
+    <%- include('../layouts/adminFooter.ejs') %>

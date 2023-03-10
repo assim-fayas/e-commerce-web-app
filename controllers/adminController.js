@@ -114,16 +114,8 @@ const blockUser = async (req, res) => {
     }
 }
 
-//order management
 
 
-const loadOrder = async (req, res) => {
-    try {
-        res.render('order')
-    } catch (error) {
-        console.log(error.message);
-    }
-}
 
 
 
@@ -144,7 +136,6 @@ module.exports = {
     loadDashboard,
     logout,
     loadusers,
-    loadOrder,
     loadCoupen,
     blockUser
 }

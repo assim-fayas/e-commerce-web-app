@@ -36,10 +36,10 @@
                         <a href="/admin/users" class="nav-link "><i class="fa fa-laptop me-2"></i>User's List</a>
 
                     </div>
-                    <a href="/admin/category" class="nav-item nav-link active"><i
-                            class="fa fa-keyboard me-2"></i>Catagory</a>
+                    <a href="/admin/category" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Catagory</a>
                     <a href="/admin/products" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Products</a>
-                    <a href="/admin/brand" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Brand</a>
+                    <a href="/admin/brand" class="nav-item nav-link active"><i
+                            class="fa fa-chart-bar me-2"></i>Brand</a>
                     <a href="/admin/coupen" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Coupen</a>
 
 
@@ -149,14 +149,15 @@
         <div class="container mt-5 col-md-6  ">
 
             <div class="col-md-10  ">
-                <form action="/admin/addCategory" method="post" enctype="multipart/form-data"
+                <form action="/admin/addBrand" method="post" enctype="multipart/form-data"
                     style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
                     class="text-left  form-sm">
                     <div class="form-group mb-4">
                         <label for="thumbnail">Image</label>
                         <div class="input-group">
                             <div class="custom-file col-">
-                                <input type="file" class="custom-file-input bg-dark" id="thumbnail" name="image" accept="image/*" />
+                                <input type="file" class="custom-file-input bg-dark" id="thumbnail" name="image"
+                                    accept="image/*" />
 
                                 <label class="custom-file-label" for="thumbnail">choose file</label>
                             </div>
@@ -169,11 +170,7 @@
                                 placeholder="Enter name">
                         </div>
                     </div>
-                    <div class="form-group mb-4">
-                        <label for="description">Short Description</label>
-                        <textarea class="form-control bg-dark col-4" id="description" name="description" rows="3"
-                            placeholder="Enter description"></textarea>
-                    </div><br><br>
+
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
