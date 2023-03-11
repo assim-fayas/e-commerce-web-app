@@ -95,7 +95,7 @@ admin_route.post('/addBrand',uploadBrand.single('image'),brandController.insertB
 
 admin_route.get('/products', auth.isLogin, productController.loadProduct)
 admin_route.get('/addProduct', auth.isLogin, productController.addProduct)
-// admin_route.post('/addProduct', productController.insertProduct)
+admin_route.post('/addProduct', productController.insertProduct)
 
 
 admin_route.get('*', (req, res) => {

@@ -168,134 +168,129 @@
                             <input type="text" class="form-control bg-dark col-4" id="name" name="name"
                                 placeholder="Enter name">
                         </div><br>
-                        <label for="name">Brand Name</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-dark col-4" id="name" name="name"
-                                placeholder="Enter name">
+                        <div class="form-group mb-4">
+                            <label for="Brand">Brand</label>
+                            <select class="form-control bg-dark col-4" id="Brand" name="brand">
+                                <option value="">--Select Brand--</option>
+                                <% brand.forEach((brandName)=>{ %>
+
+
+                                    <option value=" <%= brand.name %>">
+                                        <%= brandName.name %>
+                                    </option>
+                                    <% }); %>
+
+                            </select>
                         </div>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label for="category">Category</label>
-                        <select class="form-control bg-dark col-4" id="category" name="category">
-                            <option value="">--Select Category--</option>
-                            <option value="electronics">Electronics</option>
-                            <option value="fashion">Fashion</option>
-                            <option value="books">Books</option>
-                        </select>
-                    </div>
-                    <!-- <div class="form-group mb-4">
-                        <label for="colors">Colors</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="color" value="red" id="red" name="colors[]">
-                            <label class="form-check-label" for="red">
-                                Red
-                            </label>
+                        <div class="form-group mb-4">
+                            <label for="category"> Sub Category</label>
+                            <select class="form-control bg-dark col-4" id="category" name="category">
+                                <option value="">--Select Category--</option>
+                                <% category.forEach((Category)=>{%>
+                                    <optgroup label="<%=Category.name %>">
+                                        <% Category.subCategories.forEach((subCategory)=>{%>
+                                            <option value="<%= subCategory.name %>">
+                                                <%= subCategory.name %>
+                                            </option>
+                                            <% }); %>
+                                    </optgroup>
+                                    <% }); %>
+                            </select>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="color" value="blue" id="blue" name="colors[]">
-                            <label class="form-check-label" for="blue">
-                                Blue
-                            </label>
+
+                        <div class="form-group mb-4">
+                            <label for="optGroupLabel">Main Category</label>
+                            <input type="text" class="form-control bg-dark col-4" id="optGroupLabel" name="mainCategory"
+                                disabled>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="color" value="green" id="green" name="colors[]">
-                            <label class="form-check-label" for="green">
-                                Green
-                            </label>
+
+                        <script>
+                            const categorySelect = document.getElementById('category');
+                            const optGroupLabelInput = document.getElementById('optGroupLabel');
+                            categorySelect.addEventListener('change', () => {
+                                const selectedOptGroup = categorySelect.selectedOptions[0].parentNode; // get the parent of the selected option
+                                const optGroupLabel = selectedOptGroup.label; // get the label of the optgroup
+                                optGroupLabelInput.value = optGroupLabel; // set the optGroupLabel as the value of the optGroupLabelInput
+                            });
+                        </script>
+
+
+
+
+
+
+                        <div class="form-group mb-4">
+                            <label for="size">Size</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="size-s" value="S">
+                                <label class="form-check-label" for="size-s">
+                                    S
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="size-m" value="M">
+                                <label class="form-check-label" for="size-m">
+                                    M
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="size-l" value="L">
+                                <label class="form-check-label" for="size-l">
+                                    L
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="size-xl" value="XL">
+                                <label class="form-check-label" for="size-xl">
+                                    XL
+                                </label>
+                            </div>
                         </div>
-                        <!-- get all the color inputs -->
+                        <div class="form-group mb-4">
+                            <label for="price">Price</label>
+                            <input type="number" name="price" id="price" class="form-control" required>
+                        </div>
 
-                    <!-- <div class="form-check">
-                        <input class="form-check-input" type="color" value="yellow" id="yellow" name="colors[]">
-                        <label class="form-check-label" for="yellow">
-                            Yellow
-                        </label>
-                    </div>
-            </div> -->
-            <script>
-                const colorInputs = document.querySelectorAll('input[type="color"]');
+                        <div class="form-group mb-4">
+                            <label for="quantity">Quantity</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="decrement()">-</button>
+                                </div>
+                                <input type="number" name="quantity" id="quantity" class="form-control" value="1"
+                                    min="1" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="increment()">+</button>
+                                </div>
+                            </div>
+                        </div>
 
-                // add a change event listener to each input 
-                colorInputs.forEach(input => {
-                    input.addEventListener('change', function () {
-                        // get the selected color value
-                        const selectedColor = input.value;
+                        <script>
+                            function increment() {
+                                document.getElementById("quantity").stepUp();
+                            }
 
-                        // update the background color of the div 
-                        const myDiv = document.getElementById('myDiv');
-                        myDiv.style.backgroundColor = selectedColor;
-                    });
-                });
-            </script>
-            <div class="form-group mb-4">
-                <label for="size">Size</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="size[]" id="size-s" value="S">
-                    <label class="form-check-label" for="size-s">
-                        S
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="size[]" id="size-m" value="M">
-                    <label class="form-check-label" for="size-m">
-                        M
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="size[]" id="size-l" value="L">
-                    <label class="form-check-label" for="size-l">
-                        L
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="size[]" id="size-xl" value="XL">
-                    <label class="form-check-label" for="size-xl">
-                        XL
-                    </label>
-                </div>
+                            function decrement() {
+                                document.getElementById("quantity").stepDown();
+                            }
+                        </script>
+
+                        <div class="form-group mb-4">
+                            <label for="description"> Description</label>
+                            <textarea class="form-control bg-dark col-4" id="description" name="description" rows="3"
+                                placeholder="Enter description"></textarea>
+                        </div>
+
+                        <br><br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-            <div class="form-group mb-4">
-                <label for="price">Price</label>
-                <input type="number" name="price" id="price" class="form-control" required>
-            </div>
-
-            <div class="form-group mb-4">
-                <label for="quantity">Quantity</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="button" class="btn btn-outline-secondary" onclick="decrement()">-</button>
-                    </div>
-                    <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" required>
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-outline-secondary" onclick="increment()">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                function increment() {
-                    document.getElementById("quantity").stepUp();
-                }
-
-                function decrement() {
-                    document.getElementById("quantity").stepDown();
-                }
-            </script>
-
-            <div class="form-group mb-4">
-                <label for="description"> Description</label>
-                <textarea class="form-control bg-dark col-4" id="description" name="description" rows="3"
-                    placeholder="Enter description"></textarea>
-            </div>
-
-            <br><br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
         </div>
-    </div>
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
-    <%- include('../layouts/adminFooter.ejs') %>
+        <%- include('../layouts/adminFooter.ejs') %>
