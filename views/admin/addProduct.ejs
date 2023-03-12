@@ -168,14 +168,15 @@
                             <input type="text" class="form-control bg-dark col-4" id="name" name="name"
                                 placeholder="Enter name">
                         </div><br>
+
                         <div class="form-group mb-4">
                             <label for="Brand">Brand</label>
-                            <select class="form-control bg-dark col-4" id="Brand" name="brand">
+                            <select class="form-control bg-dark col-4" id="Brand" name="Brand">
                                 <option value="">--Select Brand--</option>
                                 <% brand.forEach((brandName)=>{ %>
 
 
-                                    <option value=" <%= brand.name %>">
+                                    <option value=" <%= brandName.name %>">
                                         <%= brandName.name %>
                                     </option>
                                     <% }); %>
@@ -184,7 +185,7 @@
                         </div>
                         <div class="form-group mb-4">
                             <label for="category"> Sub Category</label>
-                            <select class="form-control bg-dark col-4" id="category" name="category">
+                            <select class="form-control bg-dark col-4" id="category" name="subCategory">
                                 <option value="">--Select Category--</option>
                                 <% category.forEach((Category)=>{%>
                                     <optgroup label="<%=Category.name %>">
@@ -200,8 +201,8 @@
 
                         <div class="form-group mb-4">
                             <label for="optGroupLabel">Main Category</label>
-                            <input type="text" class="form-control bg-dark col-4" id="optGroupLabel" name="mainCategory"
-                                disabled>
+                            <input type="text" class="form-control bg-dark col-4" id="optGroupLabel"
+                                name="MainCategory">
                         </div>
 
                         <script>
@@ -213,11 +214,6 @@
                                 optGroupLabelInput.value = optGroupLabel; // set the optGroupLabel as the value of the optGroupLabelInput
                             });
                         </script>
-
-
-
-
-
 
                         <div class="form-group mb-4">
                             <label for="size">Size</label>

@@ -52,6 +52,24 @@ const brandStorage = multer.diskStorage({
 });
 const uploadBrand = multer({ storage: brandStorage });
 
+
+
+
+
+const productStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, '../assets/productImage'));
+    },
+
+    filename: function (req, file, cb) {
+        const name = Date.now() + '-' + file.originalname;
+        cb(null, name);
+    }
+})
+const uploadProduct = multer({ storage: productStorage })
+
+
+
 const adminController = require("../controllers/adminController")
 const categoryController = require("../controllers/categoryController")
 const productController = require("../controllers/productController")
@@ -87,15 +105,15 @@ admin_route.post('/addimage', upload.single('image'), categoryController.updateI
 
 //brand controller
 admin_route.get('/brand', auth.isLogin, brandController.loadBrand)
-admin_route.get('/addBrand', auth.isLogin,brandController.addBrand)
-admin_route.post('/addBrand',uploadBrand.single('image'),brandController.insertBrand)
+admin_route.get('/addBrand', auth.isLogin, brandController.addBrand)
+admin_route.post('/addBrand', uploadBrand.single('image'), brandController.insertBrand)
 
 
 // product controller
 
 admin_route.get('/products', auth.isLogin, productController.loadProduct)
 admin_route.get('/addProduct', auth.isLogin, productController.addProduct)
-admin_route.post('/addProduct', productController.insertProduct)
+admin_route.post('/addProduct', uploadProduct.single('image'), productController.insertProduct)
 
 
 admin_route.get('*', (req, res) => {
