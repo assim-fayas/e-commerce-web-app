@@ -5,12 +5,12 @@ const admin_route = express();
 const session = require("express-session");
 const config = require("../config/config");
 const nocache = require('nocache')
-admin_route.use(session({
-    secret: config.sessionSecret,
-    saveUninitialized: true,
-    cookie: { maxAge: 600000 },
-    resave: false
-}))
+// admin_route.use(session({
+//     secret: config.sessionSecret,
+//     saveUninitialized: true,
+//     cookie: { maxAge: 600000 },
+//     resave: false
+// }))
 admin_route.use(nocache())
 const bodyParser = require("body-parser");
 admin_route.use(bodyParser.json());
@@ -74,6 +74,7 @@ const adminController = require("../controllers/adminController")
 const categoryController = require("../controllers/categoryController")
 const productController = require("../controllers/productController")
 const brandController = require("../controllers/brandController")
+const couponController = require("../controllers/couponController")
 
 const auth = require("../middleware/adminAuth")
 
@@ -86,7 +87,7 @@ admin_route.get('/logout', auth.isLogin, adminController.logout)
 admin_route.get('/users', auth.isLogin, adminController.loadusers)
 admin_route.get('/user-block', adminController.blockUser)
 
-admin_route.get('/coupen', auth.isLogin, adminController.loadCoupen)
+
 
 
 // category controller
@@ -113,7 +114,17 @@ admin_route.post('/addBrand', uploadBrand.single('image'), brandController.inser
 
 admin_route.get('/products', auth.isLogin, productController.loadProduct)
 admin_route.get('/addProduct', auth.isLogin, productController.addProduct)
-admin_route.post('/addProduct', uploadProduct.single('image'), productController.insertProduct)
+admin_route.post('/addProduct', uploadProduct.array('image', 4), productController.insertProduct)
+
+
+
+//copen controller
+
+admin_route.get('/coupen', auth.isLogin, couponController.loadCoupen)
+admin_route.get('/addCoupen', auth.isLogin, couponController.addCoupen)
+admin_route.post('/addCoupen', couponController.insertCoupen)
+
+
 
 
 admin_route.get('*', (req, res) => {

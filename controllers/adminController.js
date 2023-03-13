@@ -119,15 +119,6 @@ const blockUser = async (req, res) => {
 
 
 
-//Coupen management
-
-const loadCoupen = async (req, res) => {
-    try {
-        res.render('coupen')
-    } catch (error) {
-        console.log(error.message);
-    }
-}
 
 
 module.exports = {
@@ -136,6 +127,5 @@ module.exports = {
     loadDashboard,
     logout,
     loadusers,
-    loadCoupen,
     blockUser
 }

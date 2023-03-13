@@ -36,10 +36,10 @@
                         <a href="/admin/users" class="nav-link "><i class="fa fa-laptop me-2"></i>User's List</a>
 
                     </div>
-                    <a href="/admin/category" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Catagory</a>
-                    <a href="/admin/products" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Products</a>
-                    <a href="/admin/brand" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Brand</a>
-                    <a href="/admin/coupen" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Coupen</a>
+                    <a href="/admin/category" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Catagory</a>
+                    <a href="/admin/products" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Products</a>
+                    <a href="/admin/brand" class="nav-item nav-link "><i class="fa fa-chart-bar me-2"></i>Brand</a>
+                    <a href="/admin/coupen" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Coupen</a>
 
 
                 </div>
@@ -145,141 +145,68 @@
         </nav>
         <!-- Navbar End -->
 
-        <div class="btn-group" role="group" aria-label="Button group with nested dropdown container ">
-            <div class="btn-group container mx-auto mt-5 mx-3 " role="group">
-                <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Add
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/admin/addProduct">Add Product</a></li>
-                    <li><a class="dropdown-item" href="#">Sub Category</a></li>
-                </ul>
-            </div>
-        </div>
+        <div class="container mt-5 col-md-6  ">
 
-        <!-- end of the button -->
-        <div class="container-fluid mt-3">
-            <div class="row  justify-content-center">
+            <div class="col-md-10  ">
+                <form action="/admin/addCoupen" method="post"
+                    style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
+                    class="text-left  form-sm">
+                    <div class="form-group mb-4">
 
-                <div class="col-md-8 mt-0">
-
-
-                    <div class="container ">
-
-                        <table class="table table-dark table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Product</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Brand</th>
-                                    <th scope="col"> Main Category</th>
-                                    <th scope="col"> Sub Category</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Stock</th>
-                                    <th scope="col">Action</th>
-
-                                </tr>
-                            </thead>
-                            <% products.forEach((product,index)=>{ %>
-
-
-
-
-                                <tr>
-                                    <td>
-                                        <%= index+1 %>
-                                    </td>
-
-
-                                    <td>
-                                        <img src="/productImage/<%=product.image[0] %>" alt=""
-                                            style="width:80px;height:80px;">
-                                    </td>
-                                    <td>
-                                        <%=product.productName %>
-                                    </td>
-
-
-                                    <td>
-                                        <%=product.brand %>
-                                    </td>
-
-
-                                    <td>
-                                        <%=product.mainCategory %>
-                                    </td>
-
-
-                                    <td>
-                                        <%=product.subCategory %>
-                                    </td>
-                                    <td>
-
-                                        <%=product.price %>
-                                    </td>
-
-                                    <td>
-                                        <%=product.quantity %>
-                                    </td>
-                                    <td>
-
-                                        <%=product.createdAt %>
-                                    </td>
-                                    <td>
-                                        <% if(product.quantity>=5){%>
-                                            <p style="color:rgb(24, 214, 24);">In Stock</p>
-
-                                            <% } else if(product.quantity<=0) {%>
-                                                <p style="color: rgba(231, 0, 0, 0.986);">Out Of Stock</p>
-
-                                                <% } else {%>
-                                                    <p style="color:yellow">Limited Stock</p>
-                                                    <%}%>
-                                    </td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown" style="font-size: 25px ;color:#493a3a" ;>
-                                                <!-- <i class="bx bx-dots-vertical-rounded"></i> -->
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"
-                                                        style="color:black;"></i>
-                                                    Edit</a>
-                                                <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
-                                                    Delete</a>
-
-                                            </div>
-
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-                                <%})%>
-
-
-
-
-
-
-                        </table>
+                        <label for="name">Coupen Code</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-dark col-4" id="name" name="coupenCode"
+                                placeholder="Coupen Code">
+                        </div>
 
                     </div>
-                </div>
+
+                    <div class="form-group mb-4">
+                        <label for="discType">Discount Type</label>
+                        <select class="form-control bg-dark col-4" id="discType" name="discType"
+                            placeholder="Discount Type">
+                            <option value="">--Select Discount type--</option>
+
+
+
+                            <option value="flat">
+                                Flat Discount
+                            </option>
+                            <option value=" percentage">
+                                Percentage Discount
+                            </option>
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="discAmount">Discount Amount</label>
+                        <input type="text" name="discAmount" id="discAmount" class="form-control"
+                            placeholder="Discount Amount" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="maxDiscount">Max Discount</label>
+                        <input type="number" name="maxDiscount" id="maxDiscount" class="form-control"
+                            placeholder="Max Discount" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="minPurchase">Min Purchase</label>
+                        <input type="number" name="minPurchase" id="minPurchase" class="form-control"
+                            placeholder="Min Purchase" required>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label for="date">Expiry Date</label>
+                        <input type="date" name="date" id="date" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-
-
-
-
-
-
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
 
-        <%- include('../layouts/adminFooter.ejs') %>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <%- include('../layouts/adminFooter.ejs') %>

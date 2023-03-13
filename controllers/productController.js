@@ -4,17 +4,19 @@ const Brand = require("../model/brandModel")
 
 
 //product management
-
-
 const loadProduct = async (req, res) => {
     try {
-        res.render('product')
+        const products = await Products.find({});
+
+        res.render('product', { products });
     } catch (error) {
         console.log(error.message);
     }
-}
+};
+
 const addProduct = async (req, res) => {
     try {
+
         const category = await Category.find({})
         const brand = await Brand.find({})
         res.render('addProduct', { category, brand })
@@ -26,9 +28,13 @@ const addProduct = async (req, res) => {
 
 const insertProduct = async (req, res) => {
     try {
+        const Images = []
+        for (file of req.files) {
+            Images.push(file.filename)
+        }
         const productData = new Products({
-            image: req.file.filename,
-            product_name: req.body.name,
+            image: Images,
+            productName: req.body.name,
             brand: req.body.Brand,
             subCategory: req.body.subCategory,
             mainCategory: req.body.MainCategory,
@@ -39,9 +45,9 @@ const insertProduct = async (req, res) => {
 
         })
         const Product = await productData.save()
-        if(Product){
+        if (Product) {
             res.redirect('/admin/products')
-        console.log(productData);
+            console.log(productData);
         }
     } catch (error) {
         console.log(error.message);

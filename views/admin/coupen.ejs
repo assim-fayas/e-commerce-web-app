@@ -144,8 +144,107 @@
             </div>
         </nav>
         <!-- Navbar End -->
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown container ">
+            <div class="btn-group container mx-auto mt-5 mx-3 " role="group">
+                <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Add
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/admin/addCoupen">Add Coupen</a></li>
+                    <li><a class="dropdown-item" href="#">Sub Category</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- end of the button -->
+        <div class="container-fluid mt-3">
+            <div class="row  justify-content-center">
+
+                <div class="col-md-8 mt-0">
 
 
+                    <div class="container ">
+
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sl No</th>
+                                    <th scope="col">Coupen Code</th>
+                                    <th scope="col">Discount Type</th>
+                                    <th scope="col">Discount Amount</th>
+                                    <th scope="col">maxDiscount Amount</th>
+                                    <th scope="col">min Purchase</th>
+                                    <th scope="col">Expiry Date</th>
+                                    <th scope="col">create Date</th>
+
+                                    <th scope="col">Action</th>
+
+                                </tr>
+                            </thead>
+
+                            <% if(coupon.length> 0){
+                                for(let i=0;i<coupon.length;i++ ){ %>
+
+                                    <tr>
+                                        <td>
+                                            <%= i+1 %>
+                                        </td>
+
+
+                                        <td>
+                                            <%=coupon[i].code %>
+                                        </td>
+                                        <td>
+                                            <%=coupon[i].discount_Type %>
+                                        </td>
+                                        <td>
+                                            <%=coupon[i].discountAmount %>
+                                        </td>
+                                        <td>
+                                            <%=coupon[i].maxDiscountamount %>
+                                        </td>
+                                        <td>
+                                            <%=coupon[i].mainPurchase %>
+                                        </td>
+
+                                        <td>
+                                            <%= coupon[i].expiryDate %>
+                                        </td>
+                                        <td>
+                                            <%=coupon[i].createdAt %>
+                                        </td>
+
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown" style="font-size: 25px ;color:#493a3a" ;>
+
+
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"
+                                                            style="color:black;"></i>
+                                                        Edit</a>
+                                                    <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
+                                                        Delete</a>
+
+                                                </div>
+                                        </td>
+                                    </tr>
+                                    <% } } %>
+                        </table>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
 
 
         <!-- Back to Top -->

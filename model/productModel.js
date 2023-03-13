@@ -14,22 +14,22 @@ const productSchema = new mongoose.Schema({
         require: true
 
     },
-    mainCategory:{
-        type:String,
-        require:true
+    mainCategory: {
+        type: String,
+        require: true
     },
-    brand:{
-        type:String,
-        require:true
+    brand: {
+        type: String,
+        require: true
     },
     description: {
         type: String,
         require: true
     },
-   
-    size:{
-        type:Array,
-        require:true
+
+    size: {
+        type: Array,
+        require: true
     },
     quantity: {
         type: Number,
@@ -42,5 +42,5 @@ const productSchema = new mongoose.Schema({
     createdAt: {
         type: Date
     }
-})
+}, { timestamps: true })
 module.exports = mongoose.model('Product', productSchema)

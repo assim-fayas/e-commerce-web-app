@@ -189,7 +189,6 @@ const loginLoad = async (req, res) => {
 
 }
 
-
 const verifyLogin = async (req, res) => {
     console.log("inside verifyLogin");
     try {
