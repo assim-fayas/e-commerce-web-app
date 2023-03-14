@@ -21,6 +21,7 @@ const bodyParser = require('body-parser');
 user_route.use(bodyParser.json())
 user_route.use(bodyParser.urlencoded({ extended: true }))
 const userController = require("../controllers/userController");
+const productController = require("../controllers/productController");
 
 
 
@@ -43,6 +44,12 @@ user_route.post('/forget-password', auth.isLogout, userController.resetPassword)
 user_route.get('/loginOtp', userController.loginOtp)
 user_route.post('/loginOtp', userController.verifyNum)
 user_route.post('/loginOtpveryfy', userController.verifyNumOtp)
+
+
+
+//products
+
+user_route.get('/products', productController.viewProduct)
 
 
 

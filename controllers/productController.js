@@ -54,8 +54,17 @@ const insertProduct = async (req, res) => {
     }
 
 }
+const viewProduct = async (req, res) => {
+    try {
+        const productData = await Products.find({})
+        res.render('products', { productData })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 module.exports = {
     loadProduct,
     addProduct,
-    insertProduct
+    insertProduct,
+    viewProduct
 }

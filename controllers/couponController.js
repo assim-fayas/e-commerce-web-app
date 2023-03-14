@@ -32,6 +32,7 @@ const insertCoupen = async (req, res) => {
             expiryDate: req.body.date
 
         })
+
         const coupenData = await coupen.save()
         if (coupenData) {
             res.redirect('/admin/coupen')

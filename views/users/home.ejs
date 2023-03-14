@@ -1,14 +1,15 @@
 <%-include('../layouts/header.ejs') %>
+
     <div id="ec-overlay"><span class="loader_img"></span></div>
 
     <!-- Header start  -->
     <header class="ec-header">
         <!--Ec Header Top Start -->
-        <!-- <div class="header-top">
+        <div class="header-top">
             <div class="container">
-                <div class="row align-items-center"> -->
-        <!-- Header Top social Start -->
-        <!-- <div class="col text-left header-top-left d-none d-lg-block">
+                <div class="row align-items-center">
+                    <!-- Header Top social Start -->
+                    <!-- <div class="col text-left header-top-left d-none d-lg-block">
                         <div class="header-top-social">
                             <span class="social-text text-upper">Follow us on:</span>
                             <ul class="mb-0">
@@ -23,19 +24,19 @@
                             </ul>
                         </div>
                     </div> -->
-        <!-- Header Top social End -->
-        <!-- Header Top Message Start -->
-        <!-- <div class="col text-center header-top-center">
+                    <!-- Header Top social End -->
+                    <!-- Header Top Message Start -->
+                    <!-- <div class="col text-center header-top-center">
                         <div class="header-top-message text-upper">
                             <span>Free Shipping</span>This Week Order Over - $75
                         </div>
                     </div> -->
-        <!-- Header Top Message End -->
-        <!-- Header Top Language Currency -->
-        <!-- <div class="col header-top-right d-none d-lg-block">
+                    <!-- Header Top Message End -->
+                    <!-- Header Top Language Currency -->
+                    <!-- <div class="col header-top-right d-none d-lg-block">
                         <div class="header-top-lan-curr d-flex justify-content-end"> -->
-        <!-- Currency Start -->
-        <!-- <div class="header-top-curr dropdown">
+                    <!-- Currency Start -->
+                    <!-- <div class="header-top-curr dropdown">
                                 <button class="dropdown-toggle text-upper" data-bs-toggle="dropdown">Currency <i
                                         class="ecicon eci-caret-down" aria-hidden="true"></i></button>
                                 <ul class="dropdown-menu">
@@ -43,9 +44,9 @@
                                     <li><a class="dropdown-item" href="#">EUR €</a></li>
                                 </ul>
                             </div> -->
-        <!-- Currency End -->
-        <!-- Language Start -->
-        <!-- <div class="header-top-lan dropdown">
+                    <!-- Currency End -->
+                    <!-- Language Start -->
+                    <!-- <div class="header-top-lan dropdown">
                                 <button class="dropdown-toggle text-upper" data-bs-toggle="dropdown">Language <i
                                         class="ecicon eci-caret-down" aria-hidden="true"></i></button>
                                 <ul class="dropdown-menu">
@@ -53,55 +54,53 @@
                                     <li><a class="dropdown-item" href="#">Italiano</a></li>
                                 </ul>
                             </div> -->
-        <!-- Language End -->
-        <!-- 
+                    <!-- Language End -->
+
+                    <!-- </div>
+                    </div>  -->
+                    <!-- Header Top Language Currency -->
+                    <!-- Header Top responsive Action -->
+                    <div class="col d-lg-none ">
+                        <div class="ec-header-bottons">
+                            <!-- Header User Start -->
+                            <div class="ec-header-user dropdown">
+                                <button class="dropdown-toggle" data-bs-toggle="dropdown"><img
+                                        src="/images/icons/user.svg" class="svg_img header_svg" alt="" /></button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a class="dropdown-item" href="register.html">Register</a></li>
+                                    <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
+                                    <li><a class="dropdown-item" href="login.html">Login</a></li>
+
+                                </ul>
+                            </div>
+                            <!-- Header User End -->
+                            <!-- Header Cart Start -->
+                            <a href="wishlist.html" class="ec-header-btn ec-header-wishlist">
+                                <div class="header-icon"><img src="/images/icons/wishlist.svg"
+                                        class="svg_img header_svg" alt="" /></div>
+                                <span class="ec-header-count">4</span>
+                            </a>
+                            <!-- Header Cart End -->
+                            <!-- Header Cart Start -->
+                            <a href="#ec-side-cart" class="ec-header-btn ec-side-toggle">
+                                <div class="header-icon"><img src="/images/icons/cart.svg" class="svg_img header_svg"
+                                        alt="" /></div>
+                                <span class="ec-header-count cart-count-lable">3</span>
+                            </a>
+                            <!-- Header Cart End -->
+                            <a href="javascript:void(0)" class="ec-header-btn ec-sidebar-toggle">
+                                <img src="/images/icons/category-icon.svg" class="svg_img header_svg" alt="icon" />
+                            </a>
+                            <!-- Header menu Start -->
+                            <a href="#ec-mobile-menu" class="ec-header-btn ec-side-toggle d-lg-none">
+                                <img src="/images/icons/menu.svg" class="svg_img header_svg" alt="icon" />
+                            </a>
+                            <!-- Header menu End -->
                         </div>
-                    </div> -->
-        <!-- Header Top Language Currency -->
-        <!-- Header Top responsive Action -->
-        <div class="col d-lg-none ">
-            <div class="ec-header-bottons"> -->
-                Header User Start
-                <div class="ec-header-user dropdown">
-                    <button class="dropdown-toggle" data-bs-toggle="dropdown"><img src="/iages/icons/user.svg"
-                            class="svg_img header_svg" alt="" /></button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a class="dropdown-item" href="">Register</a></li>
-                        <li><a class="dropdown-item" href="">Login</a></li>
-                        <li><a class="dropdown-item" href="">Checkout</a></li>
-                     
-
-
-                    </ul>
+                    </div>
+                    <!-- Header Top responsive Action -->
                 </div>
-                <!-- Header User End -->
-                <!-- Header Cart Start -->
-                <a href="wishlist.html" class="ec-header-btn ec-header-wishlist">
-                    <div class="header-icon"><img src="/images/icons/wishlist.svg" class="svg_img header_svg" alt="" />
-                    </div>
-                    <span class="ec-header-count">4</span>
-                </a>
-                <!-- Header Cart End -->
-                <!-- Header Cart Start -->
-                <a href="#ec-side-cart" class="ec-header-btn ec-side-toggle">
-                    <div class="header-icon"><img src="/images/icons/cart.svg" class="svg_img header_svg" alt="" />
-                    </div>
-                    <span class="ec-header-count cart-count-lable">3</span>
-                </a>
-                <!-- Header Cart End -->
-                <a href="javascript:void(0)" class="ec-header-btn ec-sidebar-toggle">
-                    <img src="/images/icons/category-icon.svg" class="svg_img header_svg" alt="icon" />
-                </a>
-                <!-- Header menu Start -->
-                <a href="#ec-mobile-menu" class="ec-header-btn ec-side-toggle d-lg-none">
-                    <img src="/images/icons/menu.svg" class="svg_img header_svg" alt="icon" />
-                </a>
-                <!-- Header menu End -->
             </div>
-        </div>
-        <!-- Header Top responsive Action -->
-        </div>
-        </div>
         </div>
         <!-- Ec Header Top  End -->
         <!-- Ec Header Bottom  Start -->
@@ -141,10 +140,10 @@
                                     <button class="dropdown-toggle" data-bs-toggle="dropdown"><img
                                             src="/images/icons/user.svg" class="svg_img header_svg" alt="" /></button>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a class="dropdown-item" href="register.html">Register</a></li>
-                                        <li><a class="dropdown-item" href="login.html">Login</a></li>
+                                        <li><a class="dropdown-item" href="#">Register</a></li>
+                                        <li><a class="dropdown-item" href="#">Checkout</a></li>
+                                        <li><a class="dropdown-item" href="#">Login</a></li>
                                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                                      
                                     </ul>
                                 </div>
                                 <!-- Header User End -->
@@ -208,9 +207,9 @@
                                 <img src="/images/icons/category-icon.svg" class="svg_img header_svg" alt="icon" />
                             </a>
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li class="dropdown position-static"><a href="javascript:void(0)">Categories</a>
-                                    <ul class="mega-menu d-block">
+                                <li><a href="/home">Home</a></li>
+                                <li class="dropdown position-static"><a href="/products">PRODUCTS</a></li>
+                                <!-- <ul class="mega-menu d-block">
                                         <li class="d-flex">
                                             <ul class="d-block">
                                                 <li class="menu_title"><a href="javascript:void(0)">Classic
@@ -278,7 +277,7 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> -->
                                 <li class="dropdown"><a href="javascript:void(0)">Products</a>
                                     <ul class="sub-menu">
                                         <li class="dropdown position-static"><a href="javascript:void(0)">Product page
@@ -4149,189 +4148,6 @@
     </section>
     <!-- Feature & Special Section End -->
 
-    <!--  Top Vendor Section Start -->
-    <section class="section section-space-p" id="vendors">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="section-title">
-                        <h2 class="ec-bg-title">Top Vendor</h2>
-                        <h2 class="ec-title">Top Vendor</h2>
-                        <p class="sub-title">Browse The Collection of <a href="catalog-multi-vendor.html">All
-                                Vendors.</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="row margin-minus-t-15 margin-minus-b-15">
-                <div class="col-sm-12 col-md-6 col-lg-3 ec_ven_content" data-animation="zoomIn">
-                    <div class="ec-vendor-card">
-                        <div class="ec-vendor-detail">
-                            <div class="ec-vendor-avtar">
-                                <img src="/images/vendor/2.jpg" alt="vendor img">
-                            </div>
-                            <div class="ec-vendor-info">
-                                <a href="catalog-single-vendor.html" class="name">Marvelus</a>
-                                <p class="prod-count">154 Products</p>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star"></i>
-                                </div>
-                                <div class="ec-sale">
-                                    <p title="Weekly sales">Sales 954</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ec-vendor-prod">
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/1_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/2_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/3_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/4_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 ec_ven_content" data-animation="zoomIn">
-                    <div class="ec-vendor-card">
-                        <div class="ec-vendor-detail">
-                            <div class="ec-vendor-avtar">
-                                <img src="/images/vendor/3.jpg" alt="vendor img">
-                            </div>
-                            <div class="ec-vendor-info">
-                                <a href="catalog-single-vendor.html" class="name">Oreva Fashion</a>
-                                <p class="prod-count">546 Products</p>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                </div>
-                                <div class="ec-sale">
-                                    <p title="Weekly sales">Sales 785</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ec-vendor-prod">
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/5_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/6_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/7_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/8_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 ec_ven_content" data-animation="zoomIn">
-                    <div class="ec-vendor-card">
-                        <div class="ec-vendor-detail">
-                            <div class="ec-vendor-avtar">
-                                <img src="/images/vendor/4.jpg" alt="vendor img">
-                            </div>
-                            <div class="ec-vendor-info">
-                                <a href="catalog-single-vendor.html" class="name">Cenva Art</a>
-                                <p class="prod-count">854 Products</p>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star"></i>
-                                    <i class="ecicon eci-star"></i>
-                                </div>
-                                <div class="ec-sale">
-                                    <p title="Weekly sales">Sales 587</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ec-vendor-prod">
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/9_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/10_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/11_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/12_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 ec_ven_content" data-animation="zoomIn">
-                    <div class="ec-vendor-card">
-                        <div class="ec-vendor-detail">
-                            <div class="ec-vendor-avtar">
-                                <img src="/images/vendor/5.jpg" alt="vendor img">
-                            </div>
-                            <div class="ec-vendor-info">
-                                <a href="catalog-single-vendor.html" class="name">Neon Fashion</a>
-                                <p class="prod-count">154 Products</p>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                </div>
-                                <div class="ec-sale">
-                                    <p title="Weekly sales">Sales 354</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ec-vendor-prod">
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/13_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/14_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/15_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                            <div class="ec-prod-img">
-                                <a href="product-left-sidebar.html"><img src="/images/product-image/16_1.jpg"
-                                        alt="vendor img"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--  Top Vendor Section End -->
-
     <!--  services Section Start -->
     <section class="section ec-services-section section-space-p" id="services">
         <h2 class="d-none">Services</h2>
@@ -4841,75 +4657,7 @@
     </section>
     <!-- Ec Brand Section End -->
 
-    <!-- Ec Instagram Start -->
-    <section class="section ec-instagram-section module section-space-p" id="insta">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="section-title">
-                        <h2 class="ec-bg-title">Instagram Feed</h2>
-                        <h2 class="ec-title">Instagram Feed</h2>
-                        <p class="sub-title">Share your store with us</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="ec-insta-wrapper">
-            <div class="ec-insta-outer">
-                <div class="container" data-animation="fadeIn">
-                    <div class="insta-auto">
-                        <!-- instagram item -->
-                        <div class="ec-insta-item">
-                            <div class="ec-insta-inner">
-                                <a href="#" target="_blank"><img src="/images/instragram-image/1.jpg" alt="insta"></a>
-                            </div>
-                        </div>
-                        <!-- instagram item -->
-                        <div class="ec-insta-item">
-                            <div class="ec-insta-inner">
-                                <a href="#" target="_blank"><img src="/images/instragram-image/2.jpg" alt="insta"></a>
-                            </div>
-                        </div>
-                        <!-- instagram item -->
-                        <div class="ec-insta-item">
-                            <div class="ec-insta-inner">
-                                <a href="#" target="_blank"><img src="/images/instragram-image/3.jpg" alt="insta"></a>
-                            </div>
-                        </div>
-                        <!-- instagram item -->
-                        <div class="ec-insta-item">
-                            <div class="ec-insta-inner">
-                                <a href="#" target="_blank"><img src="/images/instragram-image/4.jpg" alt="insta"></a>
-                            </div>
-                        </div>
-                        <!-- instagram item -->
-                        <!-- instagram item -->
-                        <div class="ec-insta-item">
-                            <div class="ec-insta-inner">
-                                <a href="#" target="_blank"><img src="/images/instragram-image/5.jpg" alt="insta"></a>
-                            </div>
-                        </div>
-                        <!-- instagram item -->
-                        <!-- instagram item -->
-                        <div class="ec-insta-item">
-                            <div class="ec-insta-inner">
-                                <a href="#" target="_blank"><img src="/images/instragram-image/6.jpg" alt="insta"></a>
-                            </div>
-                        </div>
-                        <!-- instagram item -->
-                        <!-- instagram item -->
-                        <div class="ec-insta-item">
-                            <div class="ec-insta-inner">
-                                <a href="#" target="_blank"><img src="/images/instragram-image/7.jpg" alt="insta"></a>
-                            </div>
-                        </div>
-                        <!-- instagram item -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Ec Instagram End -->
+
 
     <!-- Footer Start -->
     <footer class="ec-footer section-space-mt">
@@ -5168,7 +4916,7 @@
     <!-- Modal end -->
 
     <!-- Newsletter Modal Start -->
-    <div id="ec-popnews-bg"></div>
+    <!-- <div id="ec-popnews-bg"></div>
     <div id="ec-popnews-box">
         <div id="ec-popnews-close"><i class="ecicon eci-close"></i></div>
         <div class="row">
@@ -5186,7 +4934,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Newsletter Modal end -->
 
     <!-- Footer navigation panel for responsive display -->
@@ -5221,7 +4969,7 @@
     <!-- Footer navigation panel for responsive display end -->
 
     <!-- Recent Purchase Popup  -->
-    <div class="recent-purchase">
+    <!-- <div class="recent-purchase">
         <img src="/images/product-image/1.jpg" alt="payment image">
         <div class="detail">
             <p>Someone in new just bought</p>
@@ -5229,7 +4977,7 @@
             <p>10 Minutes ago</p>
         </div>
         <a href="javascript:void(0)" class="icon-btn recent-close">×</a>
-    </div>
+    </div> -->
     <!-- Recent Purchase Popup end -->
 
     <!-- Cart Floating Button -->
@@ -5324,46 +5072,46 @@
                     </li>
                     <!--/ End Single Contact List -->
                     <!-- Start Single Contact List -->
-                    <li>
+                    <!-- <li>
                         <a class="ec-list" data-number="918866774266"
                             data-message="Please help me! I have got wrong product - ORDER ID is : #654321485">
                             <div class="d-flex bd-highlight">
                                 <!-- Profile Picture -->
-                                <div class="ec-img-cont">
-                                    <img src="/images/whatsapp/profile_04.jpg" class="ec-user-img" alt="Profile image">
-                                    <span class="ec-status-icon ec-offline"></span>
-                                </div>
-                                <!-- Display Name & Last Seen -->
-                                <div class="ec-user-info">
-                                    <span>Khadija Mehr</span>
-                                    <p>Khadija left 50 mins ago</p>
-                                </div>
-                                <!-- Chat iCon -->
-                                <div class="ec-chat-icon">
-                                    <i class="fa fa-whatsapp"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <!--/ End Single Contact List -->
-                </ul>
+                    <div class="ec-img-cont">
+                        <img src="/images/whatsapp/profile_04.jpg" class="ec-user-img" alt="Profile image">
+                        <span class="ec-status-icon ec-offline"></span>
+                    </div>
+                    <!-- Display Name & Last Seen -->
+                    <div class="ec-user-info">
+                        <span>Khadija Mehr</span>
+                        <p>Khadija left 50 mins ago</p>
+                    </div>
+                    <!-- Chat iCon -->
+                    <div class="ec-chat-icon">
+                        <i class="fa fa-whatsapp"></i>
+                    </div>
+            </div>
+            </a>
+            </li>
+            <!--/ End Single Contact List -->
+            </ul>
+        </div>
+    </div>
+    <!--/ End Floating Panel Container -->
+    <!-- Start Right Floating Button-->
+    <div class="ec-right-bottom">
+        <div class="ec-box">
+            <div class="ec-button rotateBackward">
+                <img class="whatsapp" src="/images/common/whatsapp.png" alt="whatsapp icon">
             </div>
         </div>
-        <!--/ End Floating Panel Container -->
-        <!-- Start Right Floating Button-->
-        <!-- <div class="ec-right-bottom">
-            <div class="ec-box">
-                <div class="ec-button rotateBackward">
-                    <img class="whatsapp" src="/images/common/whatsapp.png" alt="whatsapp icon">
-                </div>
-            </div>
-        </div> -->
-        <!--/ End Right Floating Button-->
+    </div>
+    <!--/ End Right Floating Button-->
     </div>
     <!-- Whatsapp end -->
 
     <!-- Feature tools -->
-    <!-- <div class="ec-tools-sidebar-overlay"></div>
+    <div class="ec-tools-sidebar-overlay"></div>
     <div class="ec-tools-sidebar">
         <div class="tool-title">
             <h3>Features</h3>
@@ -5391,47 +5139,9 @@
                     <li class="bg"><a class="back-bg-4" id="bg-4">Default</a></li>
                 </ul>
             </div>
-            <div class="ec-tools-sidebar-content">
-                <h3>Full Screen mode</h3>
-                <div class="ec-fullscreen-mode">
-                    <div class="ec-fullscreen-switch">
-                        <div class="ec-fullscreen-btn">Mode</div>
-                        <div class="ec-fullscreen-on">On</div>
-                        <div class="ec-fullscreen-off">Off</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ec-tools-sidebar-content">
-                <h3>Dark mode</h3>
-                <div class="ec-change-mode">
-                    <div class="ec-mode-switch">
-                        <div class="ec-mode-btn">Mode</div>
-                        <div class="ec-mode-on">On</div>
-                        <div class="ec-mode-off">Off</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ec-tools-sidebar-content">
-                <h3>RTL mode</h3>
-                <div class="ec-change-rtl">
-                    <div class="ec-rtl-switch">
-                        <div class="ec-rtl-btn">Rtl</div>
-                        <div class="ec-rtl-on">On</div>
-                        <div class="ec-rtl-off">Off</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ec-tools-sidebar-content">
-                <h3>Language</h3>
-                <div class="ec-change-lang">
-                    <span id="google_translate_element"></span>
-                </div>
-            </div>
-            <div class="ec-tools-sidebar-content">
-                <h3>Clear local storage</h3>
-                <a class="clear-cach" href="javascript:void(0)">Clear Cache & Default</a>
-            </div>
-        </div> -->
-    <!-- </div> -->
+
+        </div>
+    </div>
     <!-- Feature tools end -->
+
     <%-include('../layouts/footer.ejs') %>
