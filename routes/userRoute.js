@@ -50,6 +50,8 @@ user_route.post('/loginOtpveryfy', userController.verifyNumOtp)
 //products
 
 user_route.get('/products', productController.viewProduct)
+user_route.get('/singleProduct',productController.singleProduct)
+// user_route.post('/search-product', productController.search_product)
 
 
 

@@ -119,10 +119,10 @@
                         <!-- Ec Header Search Start -->
                         <div class="align-self-center">
                             <div class="header-search">
-                                <form class="ec-btn-group-form" action="#">
-                                    <input class="form-control" placeholder="Enter Your Product Name..." type="text">
-                                    <button class="submit" type="submit"><img src="/images/icons/search.svg"
-                                            class="svg_img header_svg" alt="" /></button>
+                                <form class="ec-btn-group-form" action="" method="">
+                                    <input type="text" class="form-control" placeholder="Enter Your Product Name...">
+                                    <button class="submit" type="submit" value="search"><img
+                                            src="/images/icons/search.svg" class="svg_img header_svg" alt="" /></button>
                                 </form>
                             </div>
                         </div>
@@ -181,9 +181,10 @@
                     <!-- Ec Header Search Start -->
                     <div class="col">
                         <div class="header-search">
-                            <form class="ec-btn-group-form" action="#">
-                                <input class="form-control" placeholder="Enter Your Product Name..." type="text">
-                                <button class="submit" type="submit"><img src="/images/icons/search.svg"
+                            <form class="ec-btn-group-form" action="">
+                                <input type="text" class="form-control" name="search"
+                                    placeholder="Enter Your Product Name...">
+                                <button class="submit" type="submit" value="search"><img src="/images/icons/search.svg"
                                         class="svg_img header_svg" alt="icon" /></button>
                             </form>
                         </div>
@@ -820,29 +821,30 @@
 
                                                 </div>
                                             </div>
-                                            <div class="ec-pro-content">
-                                                <h5 class="ec-pro-title"><a href="#"><b>
-                                                            <%= value.productName%>
-                                                        </b></a></h5>
-                                                <!-- <div class="ec-pro-rating">
+                                        
+                                                <div class="ec-pro-content">
+                                                    <h5 class="ec-pro-title"><a href="/singleProduct?id=<%=value._id%>"><b>
+                                                                <%= value.productName%>
+                                                            </b></a></h5>
+                                                    <!-- <div class="ec-pro-rating">
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star"></i>
                                             </div> -->
-                                                <div class="ec-pro-list-desc">
-                                                    <%= value.description %>
-                                                </div>
-                                                <span class="ec-price">
-                                                    <!-- <span class="old-price">$27.00</span> -->
-                                                    <span class="new-price"><b>
-                                                            <%=value.price%> ₹
-                                                        </b></span>
-                                                </span>
-                                                <!-- <div class="ec-pro-option">
+                                                    <div class="ec-pro-list-desc">
+                                                        <%= value.description %>
+                                                    </div>
+                                                    <span class="ec-price">
+                                                        <!-- <span class="old-price">$27.00</span> -->
+                                                        <span class="new-price"><b>
+                                                                <%=value.price%> ₹
+                                                            </b></span>
+                                                    </span>
+                                                    <!-- <div class="ec-pro-option">
                                                 <div class="ec-pro-color"> -->
-                                                <!-- <span class="ec-pro-opt-label">Color</span>
+                                                    <!-- <span class="ec-pro-opt-label">Color</span>
                                                     <ul class="ec-opt-swatch ec-change-img">
                                                         <li class="active"><a href="#" class="ec-opt-clr-img"
                                                                 data-src="/images/product-image/6_1.jpg"
@@ -857,8 +859,8 @@
                                                                     style="background-color:#9cfdd5;"></span></a>
                                                         </li>
                                                     </ul> -->
-                                                <!-- </div> -->
-                                                <!-- <div class="ec-pro-size">
+                                                    <!-- </div> -->
+                                                    <!-- <div class="ec-pro-size">
                                                     <span class="ec-pro-opt-label">Size</span>
                                                     <ul class="ec-opt-size">
                                                         <li class="active"><a href="#" class="ec-opt-sz"
@@ -871,8 +873,9 @@
                                                         </li>
                                                     </ul>
                                                 </div> -->
-                                                <!-- </div> -->
-                                            </div>
+                                                    <!-- </div> -->
+                                                </div>
+                                          
                                         </div>
                                     </div>
                                     <%})%>
