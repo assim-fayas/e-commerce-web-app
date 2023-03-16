@@ -24,12 +24,14 @@ const addCoupen = async (req, res) => {
 const insertCoupen = async (req, res) => {
     try {
         const coupen = new Coupon({
-            code: req.body.coupenCode,
-            discount_Type: req.body.discType,
-            discountAmount: req.body.discAmount,
-            maxDiscountamount: req.body.maxDiscount,
-            mainPurchase: req.body.minPurchase,
-            expiryDate: req.body.date
+            Coupencode: req.body.coupenCode,
+            coupenAmountType: req.body.discType,
+            coupenAmount: req.body.discAmount,
+            minCartAmount: req.body.minAmount,
+            minRedeemAmount: req.body.minRedeemAmount,
+            startDate: req.body.startdate,
+            expiryDate: req.body.expdate,
+            limit: req.body.limit
 
         })
 
@@ -43,9 +45,46 @@ const insertCoupen = async (req, res) => {
     }
 }
 
+const editCoupen = async (req, res) => {
+    try {
+        const id = req.query.id
+        const coupen = await Coupon.findById({ _id: id })
+        console.log(coupen);
+
+        res.render('editCoupen', { coupen })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const updateCoupen = async (req, res) => {
+    try {
+        Id = req.query.id
+        const updateData = await Coupon.findByIdAndUpdate(Id, {
+            $set: {
+                Coupencode: req.body.coupenCode,
+                coupenAmountType: req.body.discType,
+                coupenAmount: req.body.discAmount,
+                minCartAmount: req.body.minAmount,
+                minRedeemAmount: req.body.minRedeemAmount,
+                startDate: req.body.startdate,
+                expiryDate: req.body.expdate,
+                limit: req.body.limit
+
+            }
+        })
+        if (updateData) {
+            res.redirect('/admin/coupen')
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 module.exports = {
     loadCoupen,
     addCoupen,
-    insertCoupen
+    insertCoupen,
+    editCoupen,
+    updateCoupen
 }

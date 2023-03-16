@@ -1,30 +1,42 @@
 const mongoose = require('mongoose')
 
 const coupenData = new mongoose.Schema({
-    code: {
+    Coupencode: {
         type: String,
         required: true
     },
-    discount_Type: {
+    coupenAmountType: {
         type: String,
-        enum: ['percentage', 'flat']
+        required: true
     },
-    discountAmount: {
-        type:String
-    },
-    maxDiscountamount: {
+    coupenAmount: {
         type: Number,
         required: true
     },
-    mainPurchase: {
+    minCartAmount: {
+        type: Number,
+
+    },
+    minRedeemAmount: {
         type: Number,
         required: true
     },
-    createdAt: {
-        type: String
+    startDate: {
+        type: Date
     },
     expiryDate: {
-        type: String
+        type: Date
+    },
+    limit: {
+        type: Number,
+        required: true
+    },
+    used: {
+        type: Array
+    },
+    disable: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true })
 module.exports = mongoose.model('Coupon', coupenData)

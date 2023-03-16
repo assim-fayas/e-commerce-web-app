@@ -36,9 +36,9 @@
                         <a href="/admin/users" class="nav-link "><i class="fa fa-laptop me-2"></i>User's List</a>
 
                     </div>
-                    <a href="/admin/category" class="nav-item nav-link active"><i
-                            class="fa fa-keyboard me-2"></i>Catagory</a>
-                    <a href="/admin/products" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Products</a>
+                    <a href="/admin/category" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Catagory</a>
+                    <a href="/admin/products" class="nav-item nav-link active"><i
+                            class="fa fa-th me-2 "></i>Products</a>
                     <a href="/admin/brand" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Brand</a>
                     <a href="/admin/coupen" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Coupen</a>
 
@@ -146,83 +146,148 @@
         </nav>
         <!-- Navbar End -->
 
-        <div class="container mt-5 col-md-6  ">
-
-            <div class="col-md-10  ">
-                <form action="/admin/edit-category?id=<%= category._id %>" method="post" enctype="multipart/form-data"
+        <div class="container mt-5 col-md-6">
+            <div class="col-md-10">
+                <form action="/admin/editProduct?id=<%=product._id%>" method="post" 
                     style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
                     class="text-left  form-sm">
+
                     <div class="form-group mb-4">
                         <label for="thumbnail">Image</label>
                         <div class="input-group">
                             <div class="custom-file col-">
-
-                                <img src="/categoryImage/<%= category.image %>" alt="" style="width:80px;height:80px">
-                                <!-- <input type="file" class="custom-file-input bg-dark" id="thumbnail" name="image"
-                                    accept="image/*"> -->
-
-                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop">
-                                    Edit Image
-                                </button>
-                                <!-- Button trigger modal -->
-
-                                <!-- Modal -->
-
-
-
-                                <label class="custom-file-label" for="thumbnail"></label>
+                                <input type="file" multiple class="custom-file-input bg-dark" id="thumbnail"
+                                    name="image" accept="image/*" />
+                                <label class="custom-file-label" for="thumbnail">choose files</label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="name">Name</label>
+                        <label for="name">Product Name</label>
                         <div class="input-group">
                             <input type="text" class="form-control bg-dark col-4" id="name" name="name"
-                                placeholder="Enter name" value="<%= category.name %>">
+                                value=" <%=product.productName%>" placeholder="Enter name">
+                        </div><br>
+
+                        <div class="form-group mb-4">
+                            <label for="Brand">Brand</label>
+                            <select class="form-control bg-dark col-4" id="Brand" name="Brand">
+                                <option value="">--Select Brand--</option>
+                                <% brand.forEach((brandName)=>{ %>
+
+
+                                    <option value=" <%= brandName.name %>">
+                                        <%= brandName.name %>
+                                    </option>
+                                    <% }); %>
+
+                            </select>
                         </div>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label for="description">Short Description</label>
-                        <textarea class="form-control bg-dark col-4" id="description" name="description" rows="3"
-                            placeholder="Enter description"><%= category.description %></textarea>
-                    </div><br><br>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="form-group mb-4">
+                            <label for="category"> Sub Category</label>
+                            <select class="form-control bg-dark col-4" id="category" name="subCategory">
+                                <option value=""></option>
+                                <% category.forEach((Category)=>{%>
+                                    <optgroup label="<%=Category.name %>">
+                                        <% Category.subCategories.forEach((subCategory)=>{%>
+                                            <option value="<%= subCategory.name %>">
+                                                <%= subCategory.name %>
+                                            </option>
+                                            <% }); %>
+                                    </optgroup>
+                                    <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="optGroupLabel">Main Category</label>
+                            <input type="text" class="form-control bg-dark col-4" id="optGroupLabel"
+                                name="MainCategory">
+                        </div>
+
+                        <script>
+                            const categorySelect = document.getElementById('category');
+                            const optGroupLabelInput = document.getElementById('optGroupLabel');
+                            categorySelect.addEventListener('change', () => {
+                                const selectedOptGroup = categorySelect.selectedOptions[0].parentNode; // get the parent of the selected option
+                                const optGroupLabel = selectedOptGroup.label; // get the label of the optgroup
+                                optGroupLabelInput.value = optGroupLabel; // set the optGroupLabel as the value of the optGroupLabelInput
+                            });
+                        </script>
+
+                        <div class="form-group mb-4">
+                            <label for="size">Size</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="size-s" value="S">
+                                <label class="form-check-label" for="size-s">
+                                    S
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="size-m" value="M">
+                                <label class="form-check-label" for="size-m">
+                                    M
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="size-l" value="L">
+                                <label class="form-check-label" for="size-l">
+                                    L
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="size-xl" value="XL">
+                                <label class="form-check-label" for="size-xl">
+                                    XL
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="price">Price</label>
+                            <input type="number" name="price" id="price" class="form-control" value="<%=product.price%>"
+                                required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="quantity">Quantity</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="decrement()">-</button>
+                                </div>
+                                <input type="number" name="quantity" id="quantity" class="form-control"
+                                    value="<%=product.quantity%>" min="1" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="increment()">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            function increment() {
+                                document.getElementById("quantity").stepUp();
+                            }
+
+                            function decrement() {
+                                document.getElementById("quantity").stepDown();
+                            }
+                        </script>
+
+                        <div class="form-group mb-4">
+                            <label for="description"> Description</label>
+                            <textarea class="form-control bg-dark col-4" id="description" name="description" rows="3"
+                                placeholder="Enter description" ><%=product.description%></textarea>
+                        </div>
+
+                        <br><br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
-        <!-- end of the main form -->
 
-        <!-- start of the main form -->
-        <form action="/admin/addImage?id=<%= category._id %>" method="post" enctype="multipart/form-data">
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- <div class="modal-header"> -->
-
-                        <!-- </div> -->
-                        <div class="modal-body">
-                            <!-- <img src="/categoryImage/<%= category.image %>" alt="" style="width:80px;height:80px"> -->
-                            <!-- <div class="container"> <a href="/admin/deleteImage?id=<%= category._id %>">
-                                <button     type="button"
-                                        class="btn   btn-sm btn-primary ml-0 txt-sm mt-2">Remove</button></a>
-                            </div>  -->
-                            <input type="file" class="custom-file-input bg-dark" id="thumbnail" name="image"
-                                accept="image/*">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-md btn-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn  btn-md btn-primary">Change</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
 
-    <%- include('../layouts/adminFooter.ejs') %>
+
+        <%- include('../layouts/adminFooter.ejs') %>

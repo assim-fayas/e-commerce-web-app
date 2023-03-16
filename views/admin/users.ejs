@@ -193,7 +193,14 @@
                             </td>
 
                             <td>
-                                <a href="/admin/user-block?id=<%=users[i]._id %>"><button>block</button></a>
+                                <a href="/admin/user-block?id=<%=users[i]._id %>"><button >
+                                        <%if(users[i].block==true ){%>
+                                           Block
+                                            <% } else{ %>
+                                               Unblock
+                                                
+                                                <%}%>
+                                    </button></a>
                             </td>
                         </tr>
 

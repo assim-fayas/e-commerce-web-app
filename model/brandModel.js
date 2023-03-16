@@ -7,6 +7,10 @@ const brandSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true
+    },
+    disable: {
+        type: Boolean,
+        default: false
     }
 })
 

@@ -147,14 +147,11 @@
 
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown container ">
             <div class="btn-group container mx-auto mt-5 mx-3 " role="group">
-                <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Add
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/admin/addProduct">Add Product</a></li>
-                    <li><a class="dropdown-item" href="#">Sub Category</a></li>
-                </ul>
+
+
+                <a href="/admin/addProduct">
+                    <button type="button" class="btn btn-primary">Add Product</button></a>
+
             </div>
         </div>
 
@@ -180,6 +177,7 @@
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Stock</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
 
                                 </tr>
@@ -241,17 +239,39 @@
                                                     <%}%>
                                     </td>
                                     <td>
+                                        <%if(product.disable==true ){%>
+                                            <p style="color: red;">Disabled</p>
+
+                                            <% } else{ %>
+
+                                                <p style="color: green;">Availabe</p>
+                                                <%}%>
+
+                                    </td>
+                                    <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown" style="font-size: 25px ;color:#493a3a" ;>
                                                 <!-- <i class="bx bx-dots-vertical-rounded"></i> -->
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"
-                                                        style="color:black;"></i>
+                                                <% console.log(product._id)%>
+                                                <a class="dropdown-item"
+                                                    href="/admin/editProduct?id=<%=product._id%>"><i
+                                                        class="bx bx-edit-alt me-1" style="color:black;"></i>
                                                     Edit</a>
-                                                <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
-                                                    Delete</a>
+                                                <a class="dropdown-item"
+                                                    href="/admin/disable-product?id=<%=product._id%>"><i
+                                                        class="bx bx-trash me-1"></i>
+
+                                                    <%if(product.disable==true ){%>
+
+                                                        Enable
+                                                        <% } else{ %>
+                                                            Disable
+
+                                                            <%}%>
+                                                </a>
 
                                             </div>
 

@@ -36,10 +36,11 @@
                         <a href="/admin/users" class="nav-link "><i class="fa fa-laptop me-2"></i>User's List</a>
 
                     </div>
-                    <a href="/admin/category" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Catagory</a>
-                    <a href="/admin/products" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Products</a>
-                    <a href="/admin/brand" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Brand</a>
-                    <a href="/admin/coupen" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Coupen</a>
+                    <a href="/admin/brand" class="nav-item nav-link "><i
+                            class="fa fa-keyboard me-2"></i>Catagory</a>
+                    <a href="/admin/products" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Products</a>
+                    <a href="/admin/brand" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Brand</a>
+                    <a href="/admin/coupen" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Coupen</a>
 
 
                 </div>
@@ -144,105 +145,78 @@
             </div>
         </nav>
         <!-- Navbar End -->
-        <div class="btn-group" role="group" aria-label="Button group with nested dropdown container ">
-            <div class="btn-group container mx-auto mt-5 mx-3 " role="group">
-                <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Add
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/admin/addCoupen">Add Coupen</a></li>
-                    <li><a class="dropdown-item" href="#">Sub Category</a></li>
-                </ul>
+
+        <div class="container mt-5 col-md-6 ">
+
+            <div class="col-md-10 ">
+                <form action="/admin/edit-brand?id=<%= brand._id %>" method="post" 
+                    style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
+                    class="text-left  form-sm">
+                    <div class="form-group mb-4">
+                        <label for="thumbnail">Image</label>
+                        <div class="input-group">
+                            <div class="custom-file col-">
+
+                                <img src="/brandImage/<%= brand.image %>" alt="" style="width:80px;height:80px">
+                                <!-- <input type="file" class="custom-file-input bg-dark" id="thumbnail" name="image"
+                                    accept="image/*"> -->
+
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">
+                                    Edit Image
+                                </button>
+                                <!-- Button trigger modal -->
+
+                                <!-- Modal -->
+
+
+
+                                <label class="custom-file-label" for="thumbnail"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="name">Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-dark col-4" id="name" name="name"
+                                placeholder="Enter name" value="<%=brand.name %>">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
+        <!-- end of the main form -->
 
-        <!-- end of the button -->
-        <div class="container-fluid mt-3">
-            <div class="row  justify-content-center">
+        <!-- start of the main form -->
+        <form action="/admin/addImage?id=<%= brand._id %>" method="post" enctype="multipart/form-data">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- <div class="modal-header"> -->
 
-                <div class="col-md-8 mt-0">
-
-
-                    <div class="container ">
-
-                        <table class="table table-dark table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Sl No</th>
-                                    <th scope="col">Coupen Code</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Min Cart Amount</th>
-                                    <th scope="col">Min Reeedeem Amount</th>
-                                    <th scope="col">Expiry Date</th>
-                                    <th scope="col"> Usage Limit</th>
-                                    <th scope="col">Action</th>
-
-                                </tr>
-                            </thead>
-
-                            <% if(coupon.length> 0){
-                                for(let i=0;i<coupon.length;i++ ){ %>
-
-                                    <tr>
-                                        <td>
-                                            <%= i+1 %>
-                                        </td>
-
-
-                                        <td>
-                                            <%=coupon[i].Coupencode %>-(<%=coupon[i].coupenAmountType%>)
-                                        </td>
-                                        <td>
-                                            <%=coupon[i].coupenAmount %>
-                                        </td>
-                                        <td>
-                                            <%=coupon[i].minCartAmount %>
-                                        </td>
-                                        <td>
-                                            <%=coupon[i].minRedeemAmount %>
-                                        </td>
-                                        <td>
-                                            <%=coupon[i].expiryDate%>
-                                        </td>
-
-                                        <td>
-                                            <%= coupon[i].limit %>
-                                        </td>
-
-
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown" style="font-size: 25px ;color:#493a3a" ;>
-
-
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="/admin/editCoupen?id=<%=coupon[i]._id %>"><i class="bx bx-edit-alt me-1"
-                                                            style="color:black;"></i>
-                                                        Edit</a>
-                                                    <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
-                                                        Delete</a>
-
-                                                </div>
-                                        </td>
-                                    </tr>
-                                    <% } } %>
-                        </table>
+                        <!-- </div> -->
+                        <div class="modal-body">
+                            <!-- <img src="/brandImage/<%= brand.image %>" alt="" style="width:80px;height:80px"> -->
+                            <!-- <div class="container"> <a href="/admin/deleteImage?id=<%= brand._id %>">
+                                <button     type="button"
+                                        class="btn   btn-sm btn-primary ml-0 txt-sm mt-2">Remove</button></a>
+                            </div>  -->
+                            <input type="file" class="custom-file-input bg-dark" id="thumbnail" name="image"
+                                accept="image/*">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-md btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn  btn-md btn-primary">Change</button>
+                        </div>
                     </div>
-
-
-
-
-
-
-
                 </div>
             </div>
-        </div>
-
-
+        </form>
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>

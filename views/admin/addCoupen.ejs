@@ -163,41 +163,44 @@
 
                     <div class="form-group mb-4">
                         <label for="discType">Discount Type</label>
-                        <select class="form-control bg-dark col-4" id="discType" name="discType"
-                            placeholder="Discount Type">
-                            <option value="">--Select Discount type--</option>
-
-
-
-                            <option value="flat">
-                                Flat Discount
-                            </option>
-                            <option value=" percentage">
-                                Percentage Discount
-                            </option>
-
-
-                        </select>
+                        <div>
+                            <input type="radio" id="flat" name="discType" value="flat">
+                            <label for="flat">Flat Discount</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="percentage" name="discType" value="percentage">
+                            <label for="percentage">Percentage Discount</label>
+                        </div>
                     </div>
+                    
                     <div class="form-group mb-4">
-                        <label for="discAmount">Discount Amount</label>
+                        <label for="discAmount"> Amount</label>
                         <input type="text" name="discAmount" id="discAmount" class="form-control"
                             placeholder="Discount Amount" required>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="maxDiscount">Max Discount</label>
-                        <input type="number" name="maxDiscount" id="maxDiscount" class="form-control"
+                        <label for="minAmount">Min Cart Amount</label>
+                        <input type="text" name="minAmount" id="minAmount" class="form-control"
                             placeholder="Max Discount" required>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="minPurchase">Min Purchase</label>
-                        <input type="number" name="minPurchase" id="minPurchase" class="form-control"
+                        <label for="minRedeemAmount">Min reedeem Amount</label>
+                        <input type="text" name="minRedeemAmount" id="minRedeemAmount" class="form-control"
                             placeholder="Min Purchase" required>
                     </div>
 
                     <div class="form-group mb-4">
-                        <label for="date">Expiry Date</label>
-                        <input type="date" name="date" id="date" class="form-control" required>
+                        <label for="startdate">Start Date</label>
+                        <input type="date" name="startdate" id="startdate" class="form-control" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="expdate">Expiry Date</label>
+                        <input type="date" name="expdate" id="expdate" class="form-control" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="limit">Usage Limit</label>
+                        <input type="text" name="limit" id="limit" class="form-control"
+                            placeholder="limit" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>

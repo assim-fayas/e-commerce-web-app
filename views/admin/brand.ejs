@@ -174,6 +174,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
 
                                 </tr>
@@ -194,6 +195,15 @@
                                         <td>
                                             <%= brand[i].name %>
                                         </td>
+                                        <td>
+                                            <%if(brand[i].disable==true ){%>
+                                                <p style="color: red;">Disabled</p>
+
+                                                <% } else{ %>
+
+                                                    <p style="color: green;">Availabe</p>
+                                                    <%}%>
+                                        </td>
 
 
 
@@ -205,11 +215,21 @@
                                                     <!-- <i class="bx bx-dots-vertical-rounded"></i> -->
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"
+                                                    <a class="dropdown-item" href="/admin/edit-brand?id=<%=brand[i]._id %>"><i class="bx bx-edit-alt me-1"
                                                             style="color:black;"></i>
                                                         Edit</a>
-                                                    <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
-                                                        Delete</a>
+
+                                                    <a class="dropdown-item"
+                                                        href="/admin/disable-brand?id=<%= brand[i]._id %>"><i
+                                                            class="bx bx-trash me-1"></i>
+                                                        <%if(brand[i].disable==true ){%>
+                                                            Enable
+
+                                                            <% } else{ %>
+
+                                                                Disable
+                                                                <%}%>
+                                                    </a>
 
                                                 </div>
                                         </td>

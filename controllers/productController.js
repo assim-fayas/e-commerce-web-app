@@ -1,6 +1,7 @@
 const Products = require("../model/productModel")
 const Category = require("../model/categoryModel")
-const Brand = require("../model/brandModel")
+const Brand = require("../model/brandModel");
+const { findById, findByIdAndUpdate } = require("../model/userModel");
 
 
 //product management
@@ -103,20 +104,86 @@ const viewProduct = async (req, res) => {
 //         console.log(error.message);
 //     }
 // }
- const singleProduct=async(req,res)=>{
-try {
-    const productId=req.query.id;
-    const productData = await Products.findById({_id:productId})
-    console.log(productData);
-    res.render('singleProduct',{productData})
-} catch (error) {
-    console.log(error.message);
+const singleProduct = async (req, res) => {
+    try {
+        const productId = req.query.id;
+        const productData = await Products.findById({ _id: productId })
+        console.log(productData);
+        res.render('singleProduct', { productData })
+    } catch (error) {
+        console.log(error.message);
+    }
 }
- }
+
+const editProduct = async (req, res) => {
+    try {
+        Id = req.query.id
+        const category = await Category.find({})
+        const brand = await Brand.find({})
+        const product = await Products.findById({ _id: Id })
+        res.render('editProduct', { category, brand, product })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+//  update product
+const updateProduct = async (req, res) => {
+
+    const id = req.query.id;
+    console.log(req.query.id);
+    console.log(req.body);
+    const updateProduct = await Products.findByIdAndUpdate(id, {
+        $set: {
+            productName: req.body.name,
+            brand: req.body.Brand,
+            subCategory: req.body.subCategory,
+            mainCategory: req.body.MainCategory,
+            size: req.body.size,
+            price: req.body.price,
+            quantity: req.body.quantity,
+            description: req.body.description
+
+
+        }
+    })
+    if (updateProduct) {
+        res.redirect('/admin/products')
+    }
+}
+
+
+
+//disable and enabling product 
+const disable = async (req, res) => {
+    try {
+       const Id = req.query.id
+        const Disable = await Products.findOne({ _id: Id }, { disable: 1, _id: Id })
+        console.log(Disable);
+        if (Disable.disable === true) {
+            const disable = await Products.findByIdAndUpdate({ _id: Id }, { $set: { disable: false } })
+            res.redirect('/admin/products')
+        }
+        else {
+            const enable = await Products.findByIdAndUpdate({ _id: Id }, { $set: { disable: true } })
+          
+            res.redirect('/admin/products')
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+
 module.exports = {
     loadProduct,
     addProduct,
     insertProduct,
     viewProduct,
-    singleProduct
+    singleProduct,
+    editProduct,
+    updateProduct,
+    disable
+
 }

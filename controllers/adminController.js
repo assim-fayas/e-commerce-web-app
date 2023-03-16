@@ -1,4 +1,5 @@
 const User = require('../model/userModel');
+const Products = require('../model/productModel')
 const bcrypt = require('bcrypt');
 
 
@@ -119,13 +120,12 @@ const blockUser = async (req, res) => {
 
 
 
-
-
 module.exports = {
     loadadminLogin,
     verifyLogin,
     loadDashboard,
     logout,
     loadusers,
-    blockUser
+    blockUser,
+
 }

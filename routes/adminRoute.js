@@ -90,6 +90,7 @@ admin_route.get('/user-block', adminController.blockUser)
 
 
 
+
 // category controller
 
 admin_route.get('/category', auth.isLogin, categoryController.loadCatagory)
@@ -108,6 +109,9 @@ admin_route.post('/addimage', upload.single('image'), categoryController.updateI
 admin_route.get('/brand', auth.isLogin, brandController.loadBrand)
 admin_route.get('/addBrand', auth.isLogin, brandController.addBrand)
 admin_route.post('/addBrand', uploadBrand.single('image'), brandController.insertBrand)
+admin_route.get('/disable-brand', auth.isLogin, brandController.disableBrand )
+admin_route.get('/edit-brand', auth.isLogin, brandController.editBrand )
+admin_route.post('/edit-brand', brandController.updateBrand )
 
 
 // product controller
@@ -115,6 +119,11 @@ admin_route.post('/addBrand', uploadBrand.single('image'), brandController.inser
 admin_route.get('/products', auth.isLogin, productController.loadProduct)
 admin_route.get('/addProduct', auth.isLogin, productController.addProduct)
 admin_route.post('/addProduct', uploadProduct.array('image', 4), productController.insertProduct)
+admin_route.get('/editProduct', auth.isLogin, productController.editProduct)
+admin_route.post('/editProduct',  productController.updateProduct)
+admin_route.get('/disable-product', auth.isLogin,  productController.disable)
+
+
 
 
 
@@ -123,6 +132,8 @@ admin_route.post('/addProduct', uploadProduct.array('image', 4), productControll
 admin_route.get('/coupen', auth.isLogin, couponController.loadCoupen)
 admin_route.get('/addCoupen', auth.isLogin, couponController.addCoupen)
 admin_route.post('/addCoupen', couponController.insertCoupen)
+admin_route.get('/editCoupen', auth.isLogin, couponController.editCoupen)
+admin_route.post('/editCoupen', couponController.updateCoupen)
 
 
 
