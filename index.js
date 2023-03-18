@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const path = require('path')
 const env = require('dotenv').config();
-const multer=require('multer')
+const multer = require('multer')
 
 mongoose.connect("mongodb://127.0.0.1:27017/Ecommerce");
 
@@ -10,6 +10,11 @@ const express = require("express");
 const app = express();
 
 const { dirname } = require('path')
+
+
+
+
+
 
 
 //for user routes
@@ -23,7 +28,7 @@ const adminRoute = require("./routes/adminRoute");
 const bodyParser = require("body-parser");
 app.use('/admin', adminRoute)
 
-const {sessionSecret} = require('./config/config')
+const { sessionSecret } = require('./config/config')
 
 app.listen(port = 3000, () => {
 

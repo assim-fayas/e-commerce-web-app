@@ -1,7 +1,8 @@
 const Products = require("../model/productModel")
 const Category = require("../model/categoryModel")
 const Brand = require("../model/brandModel");
-const { findById, findByIdAndUpdate } = require("../model/userModel");
+const User=require("../model/userModel")
+
 
 
 //product management
@@ -58,7 +59,7 @@ const insertProduct = async (req, res) => {
 const viewProduct = async (req, res) => {
     try {
 
-        const productData = await Products.find({})
+        const productData = await Products.find({disable:false})
         res.render('products', { productData })
     } catch (error) {
         console.log(error.message);

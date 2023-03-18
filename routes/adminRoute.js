@@ -5,21 +5,19 @@ const admin_route = express();
 const session = require("express-session");
 const config = require("../config/config");
 const nocache = require('nocache')
-// admin_route.use(session({
-//     secret: config.sessionSecret,
-//     saveUninitialized: true,
-//     cookie: { maxAge: 600000 },
-//     resave: false
-// }))
+admin_route.use(session({
+    secret: config.sessionSecret,
+    saveUninitialized: true,
+    cookie: { maxAge: 600000 },
+    resave: false
+}))
 admin_route.use(nocache())
 const bodyParser = require("body-parser");
 admin_route.use(bodyParser.json());
 admin_route.use(bodyParser.urlencoded({ extended: true }));
 
+admin_route.set('views', './views/admin');
 admin_route.set('view engine', 'ejs');
-admin_route.set('views', './views/admin')
-
-
 const multer = require("multer");
 const path = require('path')
 
@@ -112,6 +110,7 @@ admin_route.post('/addBrand', uploadBrand.single('image'), brandController.inser
 admin_route.get('/disable-brand', auth.isLogin, brandController.disableBrand )
 admin_route.get('/edit-brand', auth.isLogin, brandController.editBrand )
 admin_route.post('/edit-brand', brandController.updateBrand )
+admin_route.post('/addimage-brand', uploadBrand.single('image'),brandController.updateImage)
 
 
 // product controller
@@ -134,6 +133,7 @@ admin_route.get('/addCoupen', auth.isLogin, couponController.addCoupen)
 admin_route.post('/addCoupen', couponController.insertCoupen)
 admin_route.get('/editCoupen', auth.isLogin, couponController.editCoupen)
 admin_route.post('/editCoupen', couponController.updateCoupen)
+admin_route.get('/disable-coupen', couponController.disableCoupen)
 
 
 

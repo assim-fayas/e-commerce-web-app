@@ -88,6 +88,21 @@ const updateBrand = async (req, res) => {
         console.log(error.message);
     }
 }
+const updateImage=async(req,res)=>{
+    try {
+        const id = req.query.id
+        console.log(id,"BRAND Image id");
+
+        const Image = req.file.filename
+  
+        const result = await Brand.updateOne({ _id: id }, { $set: { image: Image } });
+        console.log(result);
+        res.redirect('/admin/brand')
+     
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 module.exports = {
     addBrand,
@@ -95,5 +110,6 @@ module.exports = {
     loadBrand,
     disableBrand,
     editBrand,
-    updateBrand
+    updateBrand,
+    updateImage
 }

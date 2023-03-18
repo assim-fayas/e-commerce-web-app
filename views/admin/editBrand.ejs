@@ -149,7 +149,7 @@
         <div class="container mt-5 col-md-6 ">
 
             <div class="col-md-10 ">
-                <form action="/admin/edit-brand?id=<%= brand._id %>" method="post" 
+                <form action="/admin/edit-brand?id=<%= brand._id %>" method="post" enctype="multipart/form-data"
                     style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
                     class="text-left  form-sm">
                     <div class="form-group mb-4">
@@ -190,7 +190,7 @@
         <!-- end of the main form -->
 
         <!-- start of the main form -->
-        <form action="/admin/addImage?id=<%= brand._id %>" method="post" enctype="multipart/form-data">
+        <form action="/admin/addimage-brand?id=<%= brand._id %>" method="post" enctype="multipart/form-data">
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">

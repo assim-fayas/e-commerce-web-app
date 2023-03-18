@@ -14,8 +14,8 @@ user_route.use(nocache())
 
 const auth = require("../middleware/auth");
 
-user_route.set('view engine', 'ejs')
 user_route.set('views', './views/users');
+user_route.set('view engine', 'ejs');
 
 const bodyParser = require('body-parser');
 user_route.use(bodyParser.json())

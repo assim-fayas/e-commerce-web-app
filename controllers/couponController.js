@@ -81,10 +81,29 @@ const updateCoupen = async (req, res) => {
     }
 }
 
+const disableCoupen=async(req,res)=>{
+    try {
+        const Id = req.query.id
+        const Disable = await Coupon.findOne({ _id: Id }, { disable: 1, _id: Id })
+        console.log(Disable);
+        if (Disable.disable === true) {
+            const disable = await Coupon.findByIdAndUpdate({ _id: Id }, { $set: { disable: false } })
+            res.redirect('/admin/coupen')
+        }
+        else {
+            const enable = await Coupon.findByIdAndUpdate({ _id: Id }, { $set: { disable: true } })
+          
+            res.redirect('/admin/coupen')
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+}
 module.exports = {
     loadCoupen,
     addCoupen,
     insertCoupen,
     editCoupen,
-    updateCoupen
+    updateCoupen,
+    disableCoupen
 }

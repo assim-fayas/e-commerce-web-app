@@ -144,19 +144,16 @@
             </div>
         </nav>
         <!-- Navbar End -->
-        <div class="btn-group" role="group" aria-label="Button group with nested dropdown container ">
+
+        <div class="btn-group" role="group" aria-label="Button ">
             <div class="btn-group container mx-auto mt-5 mx-3 " role="group">
-                <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Add
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/admin/addCoupen">Add Coupen</a></li>
-                    <li><a class="dropdown-item" href="#">Sub Category</a></li>
-                </ul>
+                <a href="/admin/addCoupen"> <button type="button" class="btn btn-primary  " aria-expanded="false">
+                        Add Coupon
+                    </button> </a>
+
+
             </div>
         </div>
-
         <!-- end of the button -->
         <div class="container-fluid mt-3">
             <div class="row  justify-content-center">
@@ -176,6 +173,7 @@
                                     <th scope="col">Min Reeedeem Amount</th>
                                     <th scope="col">Expiry Date</th>
                                     <th scope="col"> Usage Limit</th>
+                                    <th scope="col"> Status</th>
                                     <th scope="col">Action</th>
 
                                 </tr>
@@ -209,6 +207,16 @@
                                         <td>
                                             <%= coupon[i].limit %>
                                         </td>
+                                        <td>
+                                            <% if (coupon[i].disable===true){ %>
+                                                <p style="color:red">Disabled</p>
+
+                                                <% } else {%>
+
+                                                    <p style="color:green">Available</p>
+
+                                                    <% }%>
+                                        </td>
 
 
                                         <td>
@@ -219,11 +227,21 @@
 
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="/admin/editCoupen?id=<%=coupon[i]._id %>"><i class="bx bx-edit-alt me-1"
-                                                            style="color:black;"></i>
+                                                    <a class="dropdown-item"
+                                                        href="/admin/editCoupen?id=<%=coupon[i]._id %>"><i
+                                                            class="bx bx-edit-alt me-1" style="color:black;"></i>
                                                         Edit</a>
-                                                    <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
-                                                        Delete</a>
+                                                    <a class="dropdown-item"
+                                                        href="/admin/disable-coupen?id=<%=coupon[i]._id %>"><i
+                                                            class="bx bx-trash me-1"></i>
+
+                                                        <% if(coupon[i].disable==true){%>
+
+                                                            Enable
+                                                            <%} else{%>
+                                                                Disable
+                                                                <% }%>
+                                                    </a>
 
                                                 </div>
                                         </td>
