@@ -718,75 +718,79 @@
     <!-- Ec breadcrumb end -->
 
     <!-- Ec Wishlist page -->
-    <table id="table">
+
     <section class="ec-page-content section-space-p">
         <div class="container">
             <div class="row">
                 <!-- Compare Content Start -->
-                <div class="ec-wish-rightside col-lg-12 col-md-12">
-                    <!-- Compare content Start -->
-                    <div class="ec-compare-content">
-                        <div class="ec-compare-inner">
-                            <div class="row margin-minus-b-30" id="wishproduct">
+                <table id="table">
+                    <div class="ec-wish-rightside col-lg-12 col-md-12">
+                        <!-- Compare content Start -->
+                        <div class="ec-compare-content">
+                            <div class="ec-compare-inner">
+                                <div class="row margin-minus-b-30">
 
-                                <% userData.whishlist.forEach((value,index)=>{%>
+                                    <% userData.whishlist.forEach((value,index)=>{%>
 
-                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-6 pro-gl-content" id="wishproduct">
-
-
-
-                                        <div class="ec-product-inner">
-                                            <div class="ec-pro-image-outer">
-                                                <div class="ec-pro-image">
-                                                    <a href="product-left-sidebar.html" class="image">
-                                                        <img class="main-image"
-                                                            src="/productImage/<%=value.product.image[0]%>"
-                                                            alt="Product" />
-
-                                                    </a>
-                                                    <span class="ec-com-remove "><a
-                                                            onclick="deletewishlist('<%=value.product._id%>')"
-                                                            >×</a></span>
+                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-6 pro-gl-content">
 
 
 
+                                            <div class="ec-product-inner">
+                                                <div class="ec-pro-image-outer">
+                                                    <div class="ec-pro-image">
+                                                        <a href="product-left-sidebar.html" class="image">
+                                                            <img class="main-image"
+                                                                src="/productImage/<%=value.product.image[0]%>"
+                                                                alt="Product" />
+
+                                                        </a>
+                                                        <span class="ec-com-remove "><a
+                                                                onclick="deletewishlist('<%=value.product._id%>')">×</a></span>
+
+
+
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="ec-pro-content">
-                                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">
-                                                        <%= value.product.productName %>
-                                                    </a></h5>
+                                                <div class="ec-pro-content">
+                                                    <h5 class="ec-pro-title"><a href="product-left-sidebar.html">
+                                                            <%= value.product.productName %>
+                                                        </a></h5>
 
-                                                <div class="ec-pro-list-desc">Lorem Ipsum is simply dummy text of the
-                                                    printing and typesetting industry. Lorem Ipsum is simply dutmmy text
-                                                    ever since the 1500s, when an unknown printer took a galley.</div>
-                                                <span class="ec-price">
+                                                    <div class="ec-pro-list-desc">Lorem Ipsum is simply dummy text of
+                                                        the
+                                                        printing and typesetting industry. Lorem Ipsum is simply dutmmy
+                                                        text
+                                                        ever since the 1500s, when an unknown printer took a galley.
+                                                    </div>
+                                                    <span class="ec-price">
 
-                                                    <span class="new-price">
-                                                        <%=value.product.price%>
+                                                        <span class="new-price">
+                                                            <%=value.product.price%>
+                                                        </span>
                                                     </span>
-                                                </span>
-                                                <div class="ec-pro-option">
+                                                    <div class="ec-pro-option">
 
 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
 
-                                    <% })%>
+                                        <% })%>
 
+                                </div>
                             </div>
                         </div>
+                        <!--compare content End -->
                     </div>
-                    <!--compare content End -->
-                </div>
-                <!-- Compare Content end -->
+                    
+                    <!-- Compare Content end -->
             </div>
         </div>
     </section>
-    </table>
+
 
     <!-- Footer Start -->
     <footer class="ec-footer section-space-mt">
@@ -1179,50 +1183,6 @@
     </div>
     <!-- Feature tools end -->
 
-    <script>
-        function deletewishlist(proid) {
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You wan't to delete!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'yes, delete!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: "/deletewhishlist",
-                        data: {
-                            productId: proid
-                        },
-                        method: 'post',
-                        success: (response) => {
-                            console.log("success")
-                            $('#table').load('/wishlist #table, {id: proid}')
-                            console.log(response);
-                            Swal.fire({
-                                title: 'deleted!',
-                                text: 'Your deleted',
-                                icon: 'success',
-                                showConfirmButton: false,
-                                timer: 1000
-                            })
-
-
-                        }
-
-                    })
-                }
-            })
-        }
-
-    </script>
+   
 
     <%-include('../layouts/productsFooter.ejs') %>
-
-
-
-    
-      

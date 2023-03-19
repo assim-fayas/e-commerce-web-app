@@ -1,7 +1,8 @@
 const Products = require("../model/productModel")
 const Category = require("../model/categoryModel")
 const Brand = require("../model/brandModel");
-const User = require("../model/userModel")
+const User = require("../model/userModel");
+
 
 
 
@@ -193,23 +194,20 @@ const loadWishlist = async (req, res) => {
 const AddTowishlist = async (req, res) => {
 
     try {
-        console.log('hi');
+
         const productId = req.body.productId
 
         let exist = await User.findOne({ id: req.session.user_id, 'whishlist.product': productId })
 
 
         if (exist) {
+            console.log(exist, "wishlist existtttttttttt");
             res.json({ status: false })
         } else {
 
             const product = await Products.findOne({ _id: req.body.productId })
-
-            console.log(product);
-
             const _id = req.session.user_id
             console.log("user");
-            console.log(_id);
             const userData = await User.findOne({ _id })
 
 
@@ -250,6 +248,56 @@ const deletewhishlist = async (req, res) => {
 }
 
 
+//cart
+
+const loadCart = async (req, res) => {
+    try {
+        res.render('cart')
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+
+
+const addtoCart = async (req, res) => {
+    try {
+        console.log("inside add to cart");
+        const proId = req.body.productId;
+       const userid = req.session.user_id;
+        let existed = await User.findOne({ _id: userid, 'cart.productId': proId })
+        // console.log(exist ,"existed product id");
+
+        if (existed) {
+            console.log(existed, "already existed");
+            res.json({ status: false })
+        }
+        else {
+            console.log("product added to cart");
+            const product = await Products.findOne({ _id: req.body.productId })
+            const userId = req.session.user_id
+            const user = await User.findOne({_id:userId })
+            console.log(user);
+            const productAdd = await User.updateOne({ _id:user }, { $push: { cart: { productId: product.userId } } })
+            console.log(productAdd);
+
+            if (productAdd) {
+                res.json({ status: true })
+            }
+            else {
+
+                console.log('not added to whishlist ');
+            }
+
+        }
+    } catch (error) {
+
+        console.log(error.message);
+    }
+}
+
+
 module.exports = {
     loadProduct,
     addProduct,
@@ -261,6 +309,8 @@ module.exports = {
     disable,
     loadWishlist,
     AddTowishlist,
-    deletewhishlist
+    deletewhishlist,
+    loadCart,
+    addtoCart
 
 }

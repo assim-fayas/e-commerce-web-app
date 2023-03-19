@@ -166,7 +166,47 @@
                                 <%= i+1 %>
                             </td>
                             <td>
-                                <%= users[i].userName %>
+
+
+                                <!-- Button trigger modal -->
+                                <a href="?id=<%= users[i]._id %>" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    style="color:rgb(255, 255, 255);">
+                                    <%= users[i].userName %>
+                                </a>
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel"
+                                                    style="color: black;">User Detail</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <label>
+                                                    <h6 style="color: black;">Name: <%= users[i].userName %>
+                                                    </h6>
+                                                    <h6 style="color: black;">Email: <%= users[i].Email %>
+                                                    </h6>
+                                                    <h6 style="color: black;">Mobile: <%= users[i].Mobile %>
+                                                    </h6>
+
+                                                </label>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </td>
                             <td>
                                 <%= users[i].Email %>
@@ -193,12 +233,12 @@
                             </td>
 
                             <td>
-                                <a href="/admin/user-block?id=<%=users[i]._id %>"><button >
+                                <a href="/admin/user-block?id=<%=users[i]._id %>"><button>
                                         <%if(users[i].block==true ){%>
-                                           Block
+                                            Block
                                             <% } else{ %>
-                                               Unblock
-                                                
+                                                Unblock
+
                                                 <%}%>
                                     </button></a>
                             </td>
@@ -211,9 +251,6 @@
                             <% }%>
 
 
-                                <td>
-
-                                </td>
 
 
             </table>
@@ -222,4 +259,16 @@
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
+
+
+
+    <script>
+        function showModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function hideModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+    </script>
     <%- include('../layouts/adminFooter.ejs') %>

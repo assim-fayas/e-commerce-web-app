@@ -721,7 +721,7 @@
                     </table>
                 </div>
                 <div class="cart_btn">
-                    <a href="cart.html" class="btn btn-primary">View Cart</a>
+                    <a href="/cart" class="btn btn-primary">View Cart</a>
                     <a href="checkout.html" class="btn btn-secondary">Checkout</a>
                 </div>
             </div>
@@ -806,7 +806,7 @@
 
 
                                                     <div class="ec-pro-actions">
-                                                        <button title="Add To Cart" class=" add-to-cart"><img
+                                                     <button title="Add To Cart" class=" add-to-cart" onClick="addtoCart('<%=value._id%>')"><img
                                                                 src="/images/icons/cart.svg" class="svg_img pro_svg"
                                                                 alt="" /> Add To Cart</button>
                                                         <a class="ec-btn-group wishlist"
@@ -1341,7 +1341,7 @@
                                                 <input class="qty-input" type="text" name="ec_qtybtn" value="1" />
                                             </div>
                                             <div class="ec-quickview-cart ">
-                                                <button class="btn btn-primary"><img src="/images/icons/cart.svg"
+                                                <button class="btn btn-primary"><img src="/addto-cart"
                                                         class="svg_img pro_svg" alt="" /> Add To Cart</button>
                                             </div>
                                         </div>
@@ -1606,80 +1606,5 @@
 
 
 
-        <!-- <script>
-            function deletewishlist(proid) {
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You wan't to delete!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'yes, delete!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "/deletewhishlist",
-                            data: {
-                                productId: proid
-                            },
-                            method: 'post',
-                            success: (response) => {
-                                console.log("waoring")
-
-                                $('#table').load('/whishlist #table')
-                                console.log(response);
-                                Swal.fire({
-                                    title: 'deleted!',
-                                    text: 'Your deleted',
-                                    icon: 'success',
-                                    showConfirmButton: false,
-                                    timer: 1000
-                                })
-
-
-                            }
-
-                        })
-                    }
-                })
-            }
-
-        </script> -->
-        <script>
-            function addtowhishlist(prodId) {
-                console.log('hi');
-                $.ajax({
-                    url: '/addtowhishlist',
-                    data: {
-                        productId: prodId
-                    },
-                    method: 'post',
-                    success: (res) => {
-                        if (res.status) {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'Your product added to wishlist',
-                                showConfirmButton: false,
-                                timer: 2000
-                            })
-
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Item already exist',
-
-
-                            })
-
-                        }
-                    }
-                })
-            }
-
-        </script>
 
         <%-include('../layouts/productsFooter.ejs') %>
