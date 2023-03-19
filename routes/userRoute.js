@@ -49,9 +49,19 @@ user_route.post('/loginOtpveryfy', userController.verifyNumOtp)
 
 //products
 
-user_route.get('/products', productController.viewProduct)
-user_route.get('/singleProduct',productController.singleProduct)
+user_route.get('/products',auth.isLogin, productController.viewProduct)
+user_route.get('/singleProduct',auth.isLogin,productController.singleProduct)
 // user_route.post('/search-product', productController.search_product)
+
+
+
+
+// wishlist
+
+user_route.get('/wishlist',auth.isLogin,productController.loadWishlist)
+user_route.post('/addtowhishlist',auth.isLogin,productController.AddTowishlist)
+user_route.post('/deletewhishlist',auth.isLogin,productController.deletewhishlist)
+
 
 
 

@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
     },
     image: {
         type: Array,
-       
+
     },
     subCategory: {
         type: String,
@@ -45,6 +45,7 @@ const productSchema = new mongoose.Schema({
     disable: {
         type: Boolean,
         default: false
-    }
+    },
+   
 }, { timestamps: true })
 module.exports = mongoose.model('Product', productSchema)

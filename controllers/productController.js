@@ -1,7 +1,7 @@
 const Products = require("../model/productModel")
 const Category = require("../model/categoryModel")
 const Brand = require("../model/brandModel");
-const User=require("../model/userModel")
+const User = require("../model/userModel")
 
 
 
@@ -59,7 +59,7 @@ const insertProduct = async (req, res) => {
 const viewProduct = async (req, res) => {
     try {
 
-        const productData = await Products.find({disable:false})
+        const productData = await Products.find({ disable: false })
         res.render('products', { productData })
     } catch (error) {
         console.log(error.message);
@@ -158,7 +158,7 @@ const updateProduct = async (req, res) => {
 //disable and enabling product 
 const disable = async (req, res) => {
     try {
-       const Id = req.query.id
+        const Id = req.query.id
         const Disable = await Products.findOne({ _id: Id }, { disable: 1, _id: Id })
         console.log(Disable);
         if (Disable.disable === true) {
@@ -167,7 +167,7 @@ const disable = async (req, res) => {
         }
         else {
             const enable = await Products.findByIdAndUpdate({ _id: Id }, { $set: { disable: true } })
-          
+
             res.redirect('/admin/products')
         }
     } catch (error) {
@@ -175,6 +175,79 @@ const disable = async (req, res) => {
     }
 }
 
+
+
+//wishlist
+
+const loadWishlist = async (req, res) => {
+    try {
+        const Id = await req.session.user_id
+        const userData = await User.findOne({ _id: Id }).populate('whishlist.product').exec()
+        console.log(userData);
+        res.render('wishlist', { userData })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const AddTowishlist = async (req, res) => {
+
+    try {
+        console.log('hi');
+        const productId = req.body.productId
+
+        let exist = await User.findOne({ id: req.session.user_id, 'whishlist.product': productId })
+
+
+        if (exist) {
+            res.json({ status: false })
+        } else {
+
+            const product = await Products.findOne({ _id: req.body.productId })
+
+            console.log(product);
+
+            const _id = req.session.user_id
+            console.log("user");
+            console.log(_id);
+            const userData = await User.findOne({ _id })
+
+
+            const result = await User.updateOne({ _id }, { $push: { whishlist: { product: product._id } } })
+            console.log(result);
+            if (result) {
+                res.json({ status: true })
+                console.log('its done');
+
+
+            } else {
+
+                console.log('not added to whishlist ');
+            }
+        }
+
+    } catch (error) {
+        console.log(error.message);
+
+        console.log('error from addtowishlist');
+    }
+}
+
+const deletewhishlist = async (req, res) => {
+
+    try {
+        const id = req.session.user_id
+        const deleteProId = req.body.productId
+        const deleteWishlist = await User.findByIdAndUpdate({ _id: id }, { $pull: { whishlist: { product: deleteProId } } })
+
+        if (deleteWishlist) {
+
+            res.json({ success: true })
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 
 module.exports = {
@@ -185,6 +258,9 @@ module.exports = {
     singleProduct,
     editProduct,
     updateProduct,
-    disable
+    disable,
+    loadWishlist,
+    AddTowishlist,
+    deletewhishlist
 
 }

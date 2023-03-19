@@ -28,6 +28,7 @@
 </body>
 
 <!-- Mirrored from loopinfosol.in/themeforest/ekka-html-v33/ekka-html/shop-full-width-col-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Jan 2023 23:50:26 GMT -->
+
 </html><!-- Vendor JS -->
 <script src="/js/vendor/jquery-3.5.1.min.js"></script>
 <script src="/js/vendor/popper.min.js"></script>
@@ -55,7 +56,88 @@
 <!-- Main Js -->
 <script src="/js/main.js"></script>
 
+// add to wishlist
+<script>
+    function addtowhishlist(prodId) {
+        console.log('hi');
+        $.ajax({
+            url: '/addtowhishlist',
+            data: {
+                productId: prodId
+            },
+            method: 'post',
+            success: (res) => {
+                if (res.status) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Your product added to wishlist',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Item already exist',
+
+
+                    })
+
+                }
+            }
+        })
+    }
+
+</script>
+
+//delete from wishlist
+
+<script>
+    function deletewishlist(proid) {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You wan't to delete!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'yes, delete!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/deletewhishlist",
+                    data: {
+                        productId: proid
+                    },
+                    method: 'post',
+                    success: (response) => {
+                        console.log("waoring")
+
+                        $('#table').load('/whishlist #table')
+                        console.log(response);
+                        Swal.fire({
+                            title: 'deleted!',
+                            text: 'Your deleted',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+
+
+                    }
+
+                })
+            }
+        })
+    }
+
+</script>
+
 </body>
 
 <!-- Mirrored from loopinfosol.in/themeforest/ekka-html-v33/ekka-html/shop-full-width-col-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Jan 2023 23:50:26 GMT -->
+
 </html>

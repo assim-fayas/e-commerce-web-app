@@ -144,7 +144,7 @@
                                 </div>
                                 <!-- Header User End -->
                                 <!-- Header wishlist Start -->
-                                <a href="wishlist.html" class="ec-header-btn ec-header-wishlist">
+                                <a href="/wishlist" class="ec-header-btn ec-header-wishlist">
                                     <div class="header-icon"><img src="/images/icons/wishlist.svg"
                                             class="svg_img header_svg" alt="" /></div>
                                     <span class="ec-header-count">4</span>
@@ -202,7 +202,7 @@
                         <div class="ec-main-menu">
                             <ul>
                                 <li><a href="/home">Home</a></li>
-                                <li class="dropdown position-static"><a href="/products">PRODUCTS</a></li>
+                                <li class="dropdown position-static"><a href="/products">Shop</a></li>
 
                                 <li class="dropdown"><a href="javascript:void(0)">Products</a>
                                     <ul class="sub-menu">
@@ -796,7 +796,7 @@
                                         <div class="ec-product-inner">
                                             <div class="ec-pro-image-outer">
                                                 <div class="ec-pro-image">
-                                                    <a href="product-left-sidebar.html" class="image">
+                                                    <a href="/singleProduct?id=<%=value._id%>" class="image">
                                                         <img class="main-image" src="/productImage/<%=value.image[0] %>"
                                                             alt="Product" />
                                                         <!-- <img class="hover-image" src="/images/product-image/6_2.jpg"
@@ -809,10 +809,12 @@
                                                         <button title="Add To Cart" class=" add-to-cart"><img
                                                                 src="/images/icons/cart.svg" class="svg_img pro_svg"
                                                                 alt="" /> Add To Cart</button>
-                                                        <a class="ec-btn-group wishlist" title="Wishlist"><img
-                                                                src="/images/icons/wishlist.svg" class="svg_img pro_svg"
-                                                                alt="" /></a>
-                                                        <!-- <a href="#" class="quickview" data-link-action="quickview"
+                                                        <a class="ec-btn-group wishlist"
+                                                            onClick=" addtowhishlist('<%=value._id%>')"
+                                                            title="Wishlist"><img src="/images/icons/wishlist.svg"
+                                                                class="svg_img pro_svg" alt="" /></a>
+                                                        <!-- addToWishlist('<%=value._id%>') -->
+                                                        <!-- <a href="#" class="quickview" data-link-action="quickview"addtowhishlist
                                                             title="Quick view" data-bs-toggle="modal"
                                                             data-bs-target="#ec_quickview_modal"><img
                                                                 src="/images/icons/quickview.svg"
@@ -821,30 +823,30 @@
 
                                                 </div>
                                             </div>
-                                        
-                                                <div class="ec-pro-content">
-                                                    <h5 class="ec-pro-title"><a href="/singleProduct?id=<%=value._id%>"><b>
-                                                                <%= value.productName%>
-                                                            </b></a></h5>
-                                                    <!-- <div class="ec-pro-rating">
+
+                                            <div class="ec-pro-content">
+                                                <h5 class="ec-pro-title"><a href="/singleProduct?id=<%=value._id%>"><b>
+                                                            <%= value.productName%>
+                                                        </b></a></h5>
+                                                <!-- <div class="ec-pro-rating">
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star"></i>
                                             </div> -->
-                                                    <div class="ec-pro-list-desc">
-                                                        <%= value.description %>
-                                                    </div>
-                                                    <span class="ec-price">
-                                                        <!-- <span class="old-price">$27.00</span> -->
-                                                        <span class="new-price"><b>
-                                                                <%=value.price%> ₹
-                                                            </b></span>
-                                                    </span>
-                                                    <!-- <div class="ec-pro-option">
+                                                <div class="ec-pro-list-desc">
+                                                    <%= value.description %>
+                                                </div>
+                                                <span class="ec-price">
+                                                    <!-- <span class="old-price">$27.00</span> -->
+                                                    <span class="new-price"><b>
+                                                            <%=value.price%> ₹
+                                                        </b></span>
+                                                </span>
+                                                <!-- <div class="ec-pro-option">
                                                 <div class="ec-pro-color"> -->
-                                                    <!-- <span class="ec-pro-opt-label">Color</span>
+                                                <!-- <span class="ec-pro-opt-label">Color</span>
                                                     <ul class="ec-opt-swatch ec-change-img">
                                                         <li class="active"><a href="#" class="ec-opt-clr-img"
                                                                 data-src="/images/product-image/6_1.jpg"
@@ -859,8 +861,8 @@
                                                                     style="background-color:#9cfdd5;"></span></a>
                                                         </li>
                                                     </ul> -->
-                                                    <!-- </div> -->
-                                                    <!-- <div class="ec-pro-size">
+                                                <!-- </div> -->
+                                                <!-- <div class="ec-pro-size">
                                                     <span class="ec-pro-opt-label">Size</span>
                                                     <ul class="ec-opt-size">
                                                         <li class="active"><a href="#" class="ec-opt-sz"
@@ -873,9 +875,9 @@
                                                         </li>
                                                     </ul>
                                                 </div> -->
-                                                    <!-- </div> -->
-                                                </div>
-                                          
+                                                <!-- </div> -->
+                                            </div>
+
                                         </div>
                                     </div>
                                     <%})%>
@@ -1602,5 +1604,82 @@
             </div>
         </div>
 
+
+
+        <!-- <script>
+            function deletewishlist(proid) {
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You wan't to delete!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'yes, delete!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/deletewhishlist",
+                            data: {
+                                productId: proid
+                            },
+                            method: 'post',
+                            success: (response) => {
+                                console.log("waoring")
+
+                                $('#table').load('/whishlist #table')
+                                console.log(response);
+                                Swal.fire({
+                                    title: 'deleted!',
+                                    text: 'Your deleted',
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 1000
+                                })
+
+
+                            }
+
+                        })
+                    }
+                })
+            }
+
+        </script> -->
+        <script>
+            function addtowhishlist(prodId) {
+                console.log('hi');
+                $.ajax({
+                    url: '/addtowhishlist',
+                    data: {
+                        productId: prodId
+                    },
+                    method: 'post',
+                    success: (res) => {
+                        if (res.status) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Your product added to wishlist',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Item already exist',
+
+
+                            })
+
+                        }
+                    }
+                })
+            }
+
+        </script>
 
         <%-include('../layouts/productsFooter.ejs') %>

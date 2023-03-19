@@ -4,22 +4,22 @@ const userSchema = new mongoose.Schema({
     userName: {
         type: String,
         required: true,
-        trim:true
+        trim: true
     },
     Email: {
         type: String,
         required: true,
-        trim:true
+        trim: true
     },
     Password: {
         type: String,
         required: true,
-        trim:true
+        trim: true
     },
     Mobile: {
         type: String,
         required: true,
-        trim:true
+        trim: true
     },
 
     is_Admin: {
@@ -37,7 +37,14 @@ const userSchema = new mongoose.Schema({
     block: {
         type: Boolean,
         default: true
-    }
+    },
+    whishlist: [{
+        product: {
+            type: mongoose.Types.ObjectId,
+            ref: 'Product',
+            requried: true
+        }
+    }]
 
 }, { timestamps: true });
 
