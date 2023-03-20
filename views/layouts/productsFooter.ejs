@@ -96,7 +96,6 @@
 
 <script>
     function deletewishlist(proid) {
-
         Swal.fire({
             title: 'Are you sure?',
             text: "You wan't to delete!",
@@ -137,16 +136,16 @@
 </script>
 
 <script>
-function addtoCart(Id) {
-    console.log('hi');
+    function addtoCart(Id) {
+        console.log('hi');
         $.ajax({
-            url: "/addtocart",
+            url: '/addtocart',
             data: {
                 productId: Id
             },
             method: 'post',
             success: (response) => {
-                if (res.status) {
+                if (response.status) {
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -167,7 +166,90 @@ function addtoCart(Id) {
                 }
             }
         })
-}
+    }
+</script>
+<script>
+    function deleteCart(cartId) {
+        console.log(cartId);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You wan't to delete!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'yes, delete!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/deleteCart',
+                    data: {
+                        productId: cartId
+                    },
+                    method: 'post',
+                    success: (response) => {
+                        console.log("success")
+
+                        $('#table').load('/cart #table')
+                        console.log(response);
+                        Swal.fire({
+                            title: 'deleted!',
+                            text: 'Your deleted',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+
+
+                    }
+
+                })
+
+
+        }
+
+        })
+        
+
+
+    }
+
+</script>
+
+
+
+<script>
+
+    function changeQuantity(userId, productId, count, proPrice) {  
+        let quantity = parseInt(document.getElementById(productId).innerHTML)
+        let procount = parseInt(count)
+        if(quantity <= 1 && procount === -1 ){
+        }else{
+          $.ajax({
+            url: '/change-quantity',
+            data: {
+              user: userId,
+              product: productId,
+              count: count,
+              Quantity: quantity,
+              proPrice:proPrice
+            },
+            method: 'post',
+            success: (response) => {
+              document.getElementById(productId).innerHTML = quantity+count
+              document.getElementsByClassName(productId)[0].innerHTML = response.productSinglePrice
+              document.getElementById('total').innerHTML = response.sum
+            
+            }
+          })
+          
+        }
+
+        
+    }
+    
+
+    
 
 </script>
 

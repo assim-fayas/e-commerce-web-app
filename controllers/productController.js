@@ -2,6 +2,8 @@ const Products = require("../model/productModel")
 const Category = require("../model/categoryModel")
 const Brand = require("../model/brandModel");
 const User = require("../model/userModel");
+const mongoose = require('mongoose')
+const { findOneAndUpdate } = require("../model/productModel");
 
 
 
@@ -252,7 +254,11 @@ const deletewhishlist = async (req, res) => {
 
 const loadCart = async (req, res) => {
     try {
-        res.render('cart')
+        Id = req.session.user_id
+        const temp = mongoose.Types.ObjectId(req.session.user_id)
+        const usercart = await User.aggregate([{ $match: { _id: temp } }, { $unwind: '$cart' }, { $group: { _id: null, totalcart: { $sum: '$cart.productTotalPrice' } } }])
+        const productData = await User.findOne({ _id: Id }).populate('cart.productId').exec()
+        res.render('cart', { productData })
     } catch (error) {
         console.log(error.message);
     }
@@ -265,25 +271,30 @@ const addtoCart = async (req, res) => {
     try {
         console.log("inside add to cart");
         const proId = req.body.productId;
-       const userid = req.session.user_id;
-        let existed = await User.findOne({ _id: userid, 'cart.productId': proId })
-        // console.log(exist ,"existed product id");
+        // console.log(proId);
+        const userid = req.session.user_id;
+        // console.log(userid);
+
+
+        let existed = await User.findOne({ id: userid, 'cart.productId': proId })
+        console.log(existed, "existed product id");
 
         if (existed) {
-            console.log(existed, "already existed");
+
             res.json({ status: false })
         }
         else {
-            console.log("product added to cart");
+
             const product = await Products.findOne({ _id: req.body.productId })
+            console.log(product, "pro");
             const userId = req.session.user_id
-            const user = await User.findOne({_id:userId })
-            console.log(user);
-            const productAdd = await User.updateOne({ _id:user }, { $push: { cart: { productId: product.userId } } })
-            console.log(productAdd);
+            const user = await User.findOne({ _id: userId })
+            const productAdd = await User.updateOne({ _id: user }, { $push: { cart: { productId: product._id } } })
+            console.log(productAdd, "add");
 
             if (productAdd) {
                 res.json({ status: true })
+                console.log("added success fully");
             }
             else {
 
@@ -296,6 +307,24 @@ const addtoCart = async (req, res) => {
         console.log(error.message);
     }
 }
+
+
+
+const deleteCart = async (req, res) => {
+    try {
+        console.log("delete cart");
+        const Id = req.body.productId
+        console.log(Id);
+        const userId = req.session.user_id
+        const deleteCart = await User.findOneAndUpdate({ _id: userId }, { $pull: { cart: { productId: Id } } })
+        if (deleteCart) {
+            res.json({ success: true })
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 
 
 module.exports = {
@@ -311,6 +340,7 @@ module.exports = {
     AddTowishlist,
     deletewhishlist,
     loadCart,
-    addtoCart
+    addtoCart,
+    deleteCart
 
 }
