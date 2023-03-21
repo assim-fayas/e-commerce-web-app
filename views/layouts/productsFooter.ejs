@@ -56,6 +56,12 @@
 <!-- Main Js -->
 <script src="/js/main.js"></script>
 
+
+
+
+
+
+
 <!-- add to wishlist -->
 <script>
     function addtowhishlist(prodId) {
@@ -221,8 +227,11 @@
 <script>
 
     function changeQuantity(userId, productId, count, proPrice) {  
+        console.log(userId, productId, count, proPrice,"all idssss");
         let quantity = parseInt(document.getElementById(productId).innerHTML)
+        console.log(quantity);
         let procount = parseInt(count)
+        console.log(procount);
         if(quantity <= 1 && procount === -1 ){
         }else{
           $.ajax({

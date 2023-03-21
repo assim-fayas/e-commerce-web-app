@@ -67,5 +67,10 @@ user_route.post('/deletewhishlist',auth.isLogin,productController.deletewhishlis
 user_route.get('/cart',auth.isLogin,productController.loadCart)
 user_route.post('/addtocart',auth.isLogin,productController.addtoCart)
 user_route.post('/deleteCart',auth.isLogin,productController.deleteCart)
+user_route.post('/change-quantity',auth.isLogin,productController.change_Quantities)
+
+
+//checkout
+user_route.get('/checkout',auth.isLogin,productController.loadCheckout)
 
 module.exports = user_route;

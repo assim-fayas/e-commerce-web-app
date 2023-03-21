@@ -254,11 +254,23 @@ const deletewhishlist = async (req, res) => {
 
 const loadCart = async (req, res) => {
     try {
+
         Id = req.session.user_id
         const temp = mongoose.Types.ObjectId(req.session.user_id)
         const usercart = await User.aggregate([{ $match: { _id: temp } }, { $unwind: '$cart' }, { $group: { _id: null, totalcart: { $sum: '$cart.productTotalPrice' } } }])
-        const productData = await User.findOne({ _id: Id }).populate('cart.productId').exec()
-        res.render('cart', { productData })
+        if (usercart.length > 0) {
+            const cartTotal = usercart[0].totalcart
+            // console.log(cartTotal);
+            const cartTotalUpdate = await User.updateOne({ _id: Id }, { $set: { cartTotalPrice: cartTotal } })
+            const userData = await User.findOne({ _id: Id }).populate('cart.productId').exec()
+            res.render('cart', { userData })
+            console.log("product dattaaaaaaaaa");
+        }
+        else {
+            const userData = await User.findOne({ Id })
+            res.render('cart', { userData })
+        }
+
     } catch (error) {
         console.log(error.message);
     }
@@ -317,9 +329,49 @@ const deleteCart = async (req, res) => {
         console.log(Id);
         const userId = req.session.user_id
         const deleteCart = await User.findOneAndUpdate({ _id: userId }, { $pull: { cart: { productId: Id } } })
+
         if (deleteCart) {
             res.json({ success: true })
         }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const change_Quantities = async (req, res) => {
+    try {
+        const { user, product, count, Quantity, proPrice } = req.body
+        const producttemp = mongoose.Types.ObjectId(product)
+        const usertemp = mongoose.Types.ObjectId(user)
+        const updateQTY = await User.findOneAndUpdate({ _id: usertemp, 'cart.productId': producttemp }, { $inc: { 'cart.$.qty': count } })
+
+        const currentqty = await User.findOne({ _id: usertemp, 'cart.productId': producttemp }, { _id: 0, 'cart.qty.$': 1 })
+
+        const qty = currentqty.cart[0].qty
+
+        const productSinglePrice = proPrice * qty
+
+        await User.updateOne({ _id: usertemp, 'cart.productId': producttemp }, { $set: { 'cart.$.productTotalPrice': productSinglePrice } })
+        const cart = await User.findOne({ _id: usertemp })
+        let sum = 0
+        for (let i = 0; i <= cart.cart.length; i++) {
+            sum = sum + cart.cart[i].productTotalPrice
+        }
+        const update = await User.updateOne({ _id: usertemp }, { $set: { cartTotalPrice: sum } })
+            .then(async (response) => {
+                res.json({ response: true, productSinglePrice, sum })
+            })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+//checkout
+
+const loadCheckout=async(req,res)=>{
+    try {
+        res.render('checkout')
     } catch (error) {
         console.log(error.message);
     }
@@ -341,6 +393,8 @@ module.exports = {
     deletewhishlist,
     loadCart,
     addtoCart,
-    deleteCart
+    deleteCart,
+    change_Quantities,
+    loadCheckout
 
 }
