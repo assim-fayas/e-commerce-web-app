@@ -47,6 +47,16 @@ user_route.post('/loginOtpveryfy', userController.verifyNumOtp)
 
 
 
+//profile
+
+user_route.get('/profile',auth.isLogin,userController.userprofile)
+user_route.post('/updateProfile',auth.isLogin,userController.updateProfile)
+
+//address
+user_route.post('/add-address',userController.addAddress)
+user_route.get('/add-address',auth.isLogin,userController.viewAddress)
+
+
 //products
 
 user_route.get('/products',auth.isLogin, productController.viewProduct)
@@ -72,5 +82,8 @@ user_route.post('/change-quantity',auth.isLogin,productController.change_Quantit
 
 //checkout
 user_route.get('/checkout',auth.isLogin,productController.loadCheckout)
+
+
+
 
 module.exports = user_route;

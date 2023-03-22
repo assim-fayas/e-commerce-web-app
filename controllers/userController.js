@@ -1,9 +1,11 @@
 const User = require('../model/userModel');
+const Address = require('../model/addressModel');
 const bcrypt = require('bcrypt');
 
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
-const config = require("../config/config")
+const config = require("../config/config");
+const { findById } = require('../model/addressModel');
 
 const { TWILIO_SERVICE_SID, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN } = process.env
 const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, {
@@ -384,6 +386,106 @@ const verifyNumOtp = async (req, res) => {
         console.log("verify otp section");
     }
 }
+
+
+
+
+//user profile
+
+const userprofile = async (req, res) => {
+    try {
+        let Id = req.session.user_id
+        const user = await User.findOne({ _id: Id })
+        const address = await Address.find({})
+        console.log(address.length);
+        res.render("profile", { user, address })
+    } catch (error) {
+        console.log(error.message);
+    }
+
+}
+
+
+
+
+const updateProfile = async (req, res) => {
+    try {
+        const Id = req.session.user_id
+        const name = req.body.name
+        const email = req.body.email
+        const mobile = req.body.mobile
+
+        const updateUser = await User.findByIdAndUpdate({ _id: Id }, { $set: { userName: name, Email: email, Mobile: mobile } })
+
+        if (updateUser) {
+
+            res.redirect("/profile")
+        }
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+//add address
+
+
+
+const viewAddress = async (req, res) => {
+    try {
+        Id = req.session.user_id
+        const addressData = await Address.findOne({ userId: Id })
+        console.log("addressesss", addressData);
+
+        res.render('address', { addressData })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+const addAddress = async (req, res) => {
+    try {
+        const fullname = req.body.fullname
+        const mobile = req.body.number
+        const address = req.body.houseAddress
+        const Street = req.body.street
+        const state = req.body.state
+        const city = req.body.city
+        const landmark = req.body.landmark
+        const pincode = req.body.zip
+
+        const addressDetails = new Address({
+
+            fullname: fullname,
+            mobileNumber: mobile,
+            pincode: pincode,
+            houseAddress: address,
+            streetAddress: Street,
+            landMark: landmark,
+            cityName: city,
+            state: state
+        })
+
+
+        const addressData = await addressDetails.save()
+
+        if (addressData) {
+            res.redirect('/address')
+        }
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+
+
+
+
+
 module.exports = {
     loadRegister,
     insertUser,
@@ -398,5 +500,9 @@ module.exports = {
     resetPassword,
     verifyNumOtp,
     loginOtp,
-    verifyNum
+    verifyNum,
+    userprofile,
+    updateProfile,
+    addAddress,
+    viewAddress
 }
