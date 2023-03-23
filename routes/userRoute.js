@@ -54,7 +54,10 @@ user_route.post('/updateProfile',auth.isLogin,userController.updateProfile)
 
 //address
 user_route.post('/add-address',userController.addAddress)
-user_route.get('/add-address',auth.isLogin,userController.viewAddress)
+user_route.get('/address',auth.isLogin,userController.viewAddress)
+user_route.get('/edit-address/:id/:adrsId',auth.isLogin,userController.editaddress)
+user_route.post('/edit-update-address/:addressIndex',auth.isLogin,userController.updateAddress)
+user_route.get('/delete-address/:id/:adrsId',auth.isLogin,userController.DeleteAddress)
 
 
 //products

@@ -1,7 +1,7 @@
 const User = require('../model/userModel');
 const Address = require('../model/addressModel');
 const bcrypt = require('bcrypt');
-
+const mongoose = require('mongoose')
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
 const config = require("../config/config");
@@ -447,44 +447,122 @@ const viewAddress = async (req, res) => {
 
 const addAddress = async (req, res) => {
     try {
-        const fullname = req.body.fullname
-        const mobile = req.body.number
-        const address = req.body.houseAddress
-        const Street = req.body.street
-        const state = req.body.state
-        const city = req.body.city
-        const landmark = req.body.landmark
-        const pincode = req.body.zip
-
-        const addressDetails = new Address({
-
-            fullname: fullname,
-            mobileNumber: mobile,
-            pincode: pincode,
-            houseAddress: address,
-            streetAddress: Street,
-            landMark: landmark,
-            cityName: city,
-            state: state
-        })
 
 
-        const addressData = await addressDetails.save()
+        if (req.session.user_id) {
 
-        if (addressData) {
-            res.redirect('/address')
+            Id = req.session.user_id
+            console.log(req.body, "request body");
+
+
+            const AddressObj ={
+
+                fullname: req.body.fullname,
+                mobileNumber: req.body.number,
+                pincode: req.body.zip,
+                houseAddress: req.body.houseAddress,
+                streetAddress: req.body.street,
+                landMark: req.body.landmark,
+                cityName: req.body.city,
+                state: req.body.state
+            }
+
+
+
+            const userAddress = await Address.findOne({ userId: Id })
+            if (userAddress) {
+                console.log("addred to exist address");
+                const userAdrs = await Address.findOne({ userId: Id }).populate('userId').exec()
+                // console.log(userAdrs);
+                userAdrs.userAddresses.push(AddressObj)
+                await userAdrs.save().then((resp) => {
+                    res.redirect('/address')
+                }).catch((err) => {
+                    res.send(err)
+                })
+                console.log(userAdrs);
+
+            } else {
+                console.log("added to new address ");
+                let userAddressObj = {
+                    userId: Id,
+                    userAddresses: [AddressObj]
+                }
+                await Address.create(userAddressObj).then((resp) => {
+                    res.redirect('/address')
+                })
+            }
+
         }
-
     } catch (error) {
         console.log(error.message);
     }
 }
 
 
+const editaddress=async(req,res)=>{
+    try {
+        console.log("inside edit address");
+        const adrsSchemaId = req.params.id
+        const adrsId = req.params.adrsId
+        const address=mongoose.Types.ObjectId(adrsSchemaId)
+        const addresses=mongoose.Types.ObjectId(adrsId)
+        console.log(address);
+        console.log(addresses);
+        const addressData = await Address.findOne({address})
+        console.log(addressData);
+        const addressIndex = await addressData.userAddresses.findIndex(data=> data.id == addresses)
+        
+        console.log(addressIndex);
+        const editAddress = addressData.userAddresses[addressIndex]
+        console.log(editAddress);
+        res.render('edit-address',{editAddress,addressIndex})
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const updateAddress = async(req,res) =>{
+    try{
+        // const userAddresses = req.params.id
+        console.log("update address");
+        const addressIndex = req.params.addressIndex
+        console.log(addressIndex);
+        const editData = { ...req.body }
+        const userId = req.session.user_id
+        const updateAdrs = await Address.findOne({userId})
+        updateAdrs.userAddresses[addressIndex]= {...editData}
+        await updateAdrs.save()
+        res.redirect('/address')
+
+    
+    }catch(error){
+        console.log(error.message);
+    }
+}
 
 
+const DeleteAddress = async(req,res)=>{
+    try{
+        const adrsSchemaId = req.params.id
+        const adrsId = req.params.adrsId
+        const addressId=mongoose.Types.ObjectId(adrsSchemaId)
+        const addresses=mongoose.Types.ObjectId(adrsId)
+        console.log(addressId);
+        console.log(addresses);
+        const addressData = await Address.findOne({addressId})
+        console.log(addressData);
+        const addressIndex = await addressData.userAddresses.findIndex(data=> data.id == addresses)
+        console.log(addressIndex);
+        addressData.userAddresses.splice(addressIndex,1)
+        await addressData.save()
+        res.redirect('/address')
+        
 
-
+    }catch(error){
+        console.log(error.message);
+    }
+}
 
 module.exports = {
     loadRegister,
@@ -504,5 +582,8 @@ module.exports = {
     userprofile,
     updateProfile,
     addAddress,
-    viewAddress
+    viewAddress,
+    editaddress,
+    updateAddress,
+    DeleteAddress
 }
