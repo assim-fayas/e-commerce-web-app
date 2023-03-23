@@ -2,6 +2,7 @@ const Products = require("../model/productModel")
 const Category = require("../model/categoryModel")
 const Brand = require("../model/brandModel");
 const User = require("../model/userModel");
+const Address = require("../model/addressModel");
 const mongoose = require('mongoose')
 const { findOneAndUpdate } = require("../model/productModel");
 
@@ -369,9 +370,12 @@ const change_Quantities = async (req, res) => {
 
 //checkout
 
-const loadCheckout=async(req,res)=>{
+const loadCheckout = async (req, res) => {
     try {
-        res.render('checkout')
+        Id=req.session.user_id;
+        const addressData=await Address.findOne({userAddress:Id})
+        console.log("addressssssssss",addressData);
+        res.render('checkout',{addressData})
     } catch (error) {
         console.log(error.message);
     }

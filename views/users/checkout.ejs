@@ -809,15 +809,14 @@
                                         <div class="ec-check-subtitle">Checkout Options</div>
                                         <span class="ec-bill-option">
                                             <span>
-                                                <input type="radio" id="bill1" name="radio-group">
-                                                <label for="bill1">I want to use an existing address</label>
+                                               
+                                                <label>I want to use new address<button type="button btn-sm submit" class="btn btn-primary">
+                                            add
+                                                </button></label>
                                             </span>
-                                            <span>
-                                                <input type="radio" id="bill2" name="radio-group" checked>
-                                                <label for="bill2">I want to use new address</label>
-                                            </span>
+                                           
                                         </span>
-                                        <div class="ec-check-bill-form">
+                                        <!-- <div class="ec-check-bill-form">
                                             <form action="#" method="post">
                                                 <span class="ec-bill-wrap ec-bill-half">
                                                     <label>First Name*</label>
@@ -880,7 +879,59 @@
                                                     </span>
                                                 </span>
                                             </form>
+                                        </div> -->
+                                        <div class="ec-shop-leftside ec-vendor-sidebar col-lg-3 col-md-12">
+                                            <table>
+                        
+                        
+                                                <%if(addressData==null){%>
+                                                    <%}else{ %>
+                                                        <% addressData.userAddresses.forEach((value,index)=>{%>
+                        
+                        
+                        
+                        
+                                                            <label>
+                                                              <a href="/edit-address/<%=addressData._id %>/<%= value._id %>"> <i class="fa-solid fa-pen-to-square"></i></a>  &nbsp &nbsp&nbsp; <a href="/delete-address/<%= addressData._id %>/<%= value._id %>"><i
+                                                                    class="fa-solid fa-trash"></i></a><br><br>
+                                                                    <input type="radio" id="bill1" name="radio-group">
+                                                                    <label for="bill1">
+                                                                <span>
+                                                                    <b>
+                                                                        <%= value.fullname%>
+                                                                    </b> <br>
+                                                                    <b>
+                                                                        <%= value.mobileNumber %>
+                                                                    </b> <br>
+                                                                    <b>
+                                                                        <%=value.houseAddress %>,<%= value.streetAddress %>
+                                                                    </b> ,
+                                                                    <b>
+                                                                        <%=value.landMark %>
+                                                                    </b> <br>
+                                                                    <b>
+                                                                        <%= value.cityName %>,<%=value.state %>
+                                                                    </b> <br>
+                        
+                                                                </span>
+                        
+                                                                    </label> 
                                         </div>
+                                        </label>
+                                        <br>
+                                        <hr>
+                        
+                        
+                        
+                        
+                        
+                        
+                                        <% })}%>
+                                            </table>
+                        
+                                          
+                        
+                                    </div>
 
                                     </div>
                                 </div>
