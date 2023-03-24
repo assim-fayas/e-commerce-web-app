@@ -302,7 +302,7 @@ const addtoCart = async (req, res) => {
             console.log(product, "pro");
             const userId = req.session.user_id
             const user = await User.findOne({ _id: userId })
-            const productAdd = await User.updateOne({ _id: user }, { $push: { cart: { productId: product._id } } })
+            const productAdd = await User.updateOne({ _id: user }, { $push: { cart: { productId: product._id ,qty:1,price:product.price,productTotalPrice:product.price} } })
             console.log(productAdd, "add");
 
             if (productAdd) {
@@ -341,6 +341,7 @@ const deleteCart = async (req, res) => {
 
 const change_Quantities = async (req, res) => {
     try {
+        console.log("inside cjange quantity");
         const { user, product, count, Quantity, proPrice } = req.body
         const producttemp = mongoose.Types.ObjectId(product)
         const usertemp = mongoose.Types.ObjectId(user)
@@ -349,17 +350,23 @@ const change_Quantities = async (req, res) => {
         const currentqty = await User.findOne({ _id: usertemp, 'cart.productId': producttemp }, { _id: 0, 'cart.qty.$': 1 })
 
         const qty = currentqty.cart[0].qty
+        console.log(qty);
 
         const productSinglePrice = proPrice * qty
+     
 
         await User.updateOne({ _id: usertemp, 'cart.productId': producttemp }, { $set: { 'cart.$.productTotalPrice': productSinglePrice } })
         const cart = await User.findOne({ _id: usertemp })
         let sum = 0
-        for (let i = 0; i <= cart.cart.length; i++) {
+        for (let i = 0; i < cart.cart.length; i++) {
             sum = sum + cart.cart[i].productTotalPrice
+            console.log(sum);
         }
+        
         const update = await User.updateOne({ _id: usertemp }, { $set: { cartTotalPrice: sum } })
+
             .then(async (response) => {
+               
                 res.json({ response: true, productSinglePrice, sum })
             })
     } catch (error) {
@@ -372,15 +379,72 @@ const change_Quantities = async (req, res) => {
 
 const loadCheckout = async (req, res) => {
     try {
-        Id=req.session.user_id;
-        const addressData=await Address.findOne({userAddress:Id})
-        console.log("addressssssssss",addressData);
-        res.render('checkout',{addressData})
+        Id = req.session.user_id;
+        const addressData = await Address.findOne({ userAddress: Id })
+        const userData = await User.findOne({_id:Id}).populate('cart.productId').exec()
+ 
+        res.render('checkout', { addressData, userData })
     } catch (error) {
         console.log(error.message);
     }
 }
 
+
+
+
+const  checkoutaddAddress = async (req, res) => {
+    try {
+
+
+        if (req.session.user_id) {
+
+            Id = req.session.user_id
+            console.log(req.body, "request body");
+
+
+            const AddressObj ={
+
+                fullname: req.body.fullname,
+                mobileNumber: req.body.number,
+                pincode: req.body.zip,
+                houseAddress: req.body.houseAddress,
+                streetAddress: req.body.street,
+                landMark: req.body.landmark,
+                cityName: req.body.city,
+                state: req.body.state
+            }
+
+
+
+            const userAddress = await Address.findOne({ userId: Id })
+            if (userAddress) {
+                console.log("addred to exist address");
+                const userAdrs = await Address.findOne({ userId: Id }).populate('userId').exec()
+                // console.log(userAdrs);
+                userAdrs.userAddresses.push(AddressObj)
+                await userAdrs.save().then((resp) => {
+                    res.redirect('/checkout')
+                }).catch((err) => {
+                    res.send(err)
+                })
+                console.log(userAdrs);
+
+            } else {
+                console.log("added to new address ");
+                let userAddressObj = {
+                    userId: Id,
+                    userAddresses: [AddressObj]
+                }
+                await Address.create(userAddressObj).then((resp) => {
+                    res.redirect('/checkout')
+                })
+            }
+
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 
 module.exports = {
@@ -399,6 +463,7 @@ module.exports = {
     addtoCart,
     deleteCart,
     change_Quantities,
-    loadCheckout
+    loadCheckout,
+    checkoutaddAddress
 
 }

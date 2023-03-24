@@ -245,6 +245,12 @@
             },
             method: 'post',
             success: (response) => {
+                console.log("from cskadhsui");
+                console.log(response.productSinglePrice);
+                console.log(response.sum);
+                console.log(quantity+count);
+                console.log(response);
+
               document.getElementById(productId).innerHTML = quantity+count
               document.getElementsByClassName(productId)[0].innerHTML = response.productSinglePrice
               document.getElementById('total').innerHTML = response.sum

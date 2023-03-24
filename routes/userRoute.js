@@ -49,21 +49,21 @@ user_route.post('/loginOtpveryfy', userController.verifyNumOtp)
 
 //profile
 
-user_route.get('/profile',auth.isLogin,userController.userprofile)
-user_route.post('/updateProfile',auth.isLogin,userController.updateProfile)
+user_route.get('/profile', auth.isLogin, userController.userprofile)
+user_route.post('/updateProfile', auth.isLogin, userController.updateProfile)
 
 //address
-user_route.post('/add-address',userController.addAddress)
-user_route.get('/address',auth.isLogin,userController.viewAddress)
-user_route.get('/edit-address/:id/:adrsId',auth.isLogin,userController.editaddress)
-user_route.post('/edit-update-address/:addressIndex',auth.isLogin,userController.updateAddress)
-user_route.get('/delete-address/:id/:adrsId',auth.isLogin,userController.DeleteAddress)
+user_route.post('/add-address', userController.addAddress)
+user_route.get('/address', auth.isLogin, userController.viewAddress)
+user_route.get('/edit-address/:id/:adrsId', auth.isLogin, userController.editaddress)
+user_route.post('/edit-update-address/:addressIndex', auth.isLogin, userController.updateAddress)
+user_route.get('/delete-address/:id/:adrsId', auth.isLogin, userController.DeleteAddress)
 
 
 //products
 
-user_route.get('/products',auth.isLogin, productController.viewProduct)
-user_route.get('/singleProduct',auth.isLogin,productController.singleProduct)
+user_route.get('/products', auth.isLogin, productController.viewProduct)
+user_route.get('/singleProduct', auth.isLogin, productController.singleProduct)
 // user_route.post('/search-product', productController.search_product)
 
 
@@ -71,21 +71,21 @@ user_route.get('/singleProduct',auth.isLogin,productController.singleProduct)
 
 // wishlist
 
-user_route.get('/wishlist',auth.isLogin,productController.loadWishlist)
-user_route.post('/addtowhishlist',auth.isLogin,productController.AddTowishlist)
-user_route.post('/deletewhishlist',auth.isLogin,productController.deletewhishlist)
+user_route.get('/wishlist', auth.isLogin, productController.loadWishlist)
+user_route.post('/addtowhishlist', auth.isLogin, productController.AddTowishlist)
+user_route.post('/deletewhishlist', auth.isLogin, productController.deletewhishlist)
 
 
 // cart
-user_route.get('/cart',auth.isLogin,productController.loadCart)
-user_route.post('/addtocart',auth.isLogin,productController.addtoCart)
-user_route.post('/deleteCart',auth.isLogin,productController.deleteCart)
-user_route.post('/change-quantity',auth.isLogin,productController.change_Quantities)
+user_route.get('/cart', auth.isLogin, productController.loadCart)
+user_route.post('/addtocart', auth.isLogin, productController.addtoCart)
+user_route.post('/deleteCart', auth.isLogin, productController.deleteCart)
+user_route.post('/change-quantity', auth.isLogin, productController.change_Quantities)
 
 
 //checkout
-user_route.get('/checkout',auth.isLogin,productController.loadCheckout)
-
+user_route.get('/checkout', auth.isLogin, productController.loadCheckout)
+user_route.post('/addCheckout-address', productController.checkoutaddAddress)
 
 
 

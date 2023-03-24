@@ -802,23 +802,24 @@
                     <div class="ec-cart-content">
                         <div class="ec-cart-inner">
                             <div class="row">
-                                
-                                    <div class="table-content cart-table-content">
+
+                                <div class="table-content cart-table-content">
 
 
 
-                                        <table id="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Product</th>
-                                                    <th>Price</th>
-                                                    <th style="text-align: center;">Quantity</th>
-                                                    <th>Total</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <%userData.cart.forEach((cart,index)=>{%>
+                                    <table id="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Price</th>
+                                                <th style="text-align: center;">Quantity</th>
+                                                <th>Total</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%userData.cart.forEach((cart,index)=>{%>
+                                                <%= console.log(cart)%>
 
 
                                                     <tr>
@@ -850,6 +851,7 @@
                                                         <td>
                                                             <h5 class="<%= cart.productId._id%>">
                                                                 <%= cart.productTotalPrice%>
+                                                                    <%console.log(cart.productTotalPrice,"aaim")%>
                                                             </h5>
                                                         </td>
                                                         <td data-label="Remove" class="ec-cart-pro-remove">
@@ -863,33 +865,33 @@
 
 
 
-                                            </tbody>
+                                        </tbody>
 
-                                            <% })%>
-                                                <tr>
-                                                    <td>
-                                                    </td>
-                                                    <td></td>
-                                                    <td> <span><b>Total Amount</b></span></td>
-                                                    <td id="total">
+                                        <% })%>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td></td>
+                                                <td> <span><b>Total Amount</b></span></td>
+                                                <td id="total">
 
-                                                        <span><b>
-                                                                <%=userData.cartTotalPrice %>
-                                                            </b></span>
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                        </table>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="ec-cart-update-bottom">
-                                                <a href="#">Continue Shopping</a>
-                                                <a href="/checkout"><button class="btn btn-primary">Check Out</button></a>
-                                            </div>
+                                                    <span><b>
+                                                            <%=userData.cartTotalPrice %>
+                                                        </b></span>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="ec-cart-update-bottom">
+                                            <a href="#">Continue Shopping</a>
+                                            <a href="/checkout"><button class="btn btn-primary">Check Out</button></a>
                                         </div>
                                     </div>
-                              
+                                </div>
+
                             </div>
                         </div>
                     </div>

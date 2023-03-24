@@ -798,25 +798,119 @@
         <div class="container">
             <div class="row">
                 <div class="ec-checkout-leftside col-lg-8 col-md-12 ">
-                    <!-- checkout content Start -->
-                    <div class="ec-checkout-content">
-                        <div class="ec-checkout-inner">
-                          
-                            <div class="ec-checkout-wrap margin-bottom-30 padding-bottom-3">
-                                <div class="ec-checkout-block ec-check-bill">
-                                    <h3 class="ec-checkout-title">Billing Details</h3>
-                                    <div class="ec-bl-block-content">
-                                        <div class="ec-check-subtitle">Checkout Options</div>
-                                        <span class="ec-bill-option">
-                                            <span>
-                                               
-                                                <label>I want to use new address<button type="button btn-sm submit" class="btn btn-primary">
-                                            add
-                                                </button></label>
+                    <form action="" method="post">
+                        <!-- checkout content Start -->
+                        <div class="ec-checkout-content">
+                            <div class="ec-checkout-inner">
+
+                                <div class="ec-checkout-wrap margin-bottom-30 padding-bottom-3  ">
+                                    <div class="ec-checkout-block ec-check-bill">
+                                        <h3 class="ec-checkout-title">Billing Details</h3>
+                                        <div class="ec-bl-block-content">
+
+                                            <span class="ec-bill-option">
+                                                <span>
+
+                                                    <label><b>I want to use new address</b>
+                                                        <button type="button md" class="btn btn-primary"
+                                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            Add Address
+                                                        </button></label>
+                                                </span>
+
                                             </span>
-                                           
-                                        </span>
-                                        <!-- <div class="ec-check-bill-form">
+
+                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add
+                                                                Address
+                                                            </h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="/addCheckout-address" method="post">
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">Full
+                                                                        name:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="recipient-name" name="fullname"
+                                                                        placeholder="Enter your name">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">Mobile Number:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="recipient-name" name="number"
+                                                                        placeholder="Enter mobile number" value="+91"
+                                                                        maxlength="13" minlength="13">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">Home
+                                                                        Address:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="recipient-name" name="houseAddress"
+                                                                        placeholder="Address">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">Street </label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="recipient-name" name="street"
+                                                                        placeholder="Enter street address">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">State:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="recipient-name" name="state"
+                                                                        placeholder="State">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">town/City:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="recipient-name" name="city"
+                                                                        placeholder="Town">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">LandMark:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="recipient-name" name="landmark"
+                                                                        placeholder="Landmark">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">Passcode/zip:</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="recipient-name" name="zip"
+                                                                        placeholder="Pincode">
+                                                                </div>
+                                                                <!-- <div class="mb-3">
+                                                  <label for="message-text" class="col-form-label">Message:</label>
+                                                  <textarea class="form-control" id="message-text"></textarea>
+                                                </div> -->
+
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Add
+                                                                        Address</button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="ec-check-bill-form">
                                             <form action="#" method="post">
                                                 <span class="ec-bill-wrap ec-bill-half">
                                                     <label>First Name*</label>
@@ -880,69 +974,60 @@
                                                 </span>
                                             </form>
                                         </div> -->
-                                        <div class="ec-shop-leftside ec-vendor-sidebar col-lg-3 col-md-12">
-                                            <table>
-                        
-                        
-                                                <%if(addressData==null){%>
-                                                    <%}else{ %>
-                                                        <% addressData.userAddresses.forEach((value,index)=>{%>
-                        
-                        
-                        
-                        
-                                                            <label>
-                                                              <a href="/edit-address/<%=addressData._id %>/<%= value._id %>"> <i class="fa-solid fa-pen-to-square"></i></a>  &nbsp &nbsp&nbsp; <a href="/delete-address/<%= addressData._id %>/<%= value._id %>"><i
-                                                                    class="fa-solid fa-trash"></i></a><br><br>
-                                                                    <input type="radio" id="bill1" name="radio-group">
-                                                                    <label for="bill1">
-                                                                <span>
-                                                                    <b>
-                                                                        <%= value.fullname%>
-                                                                    </b> <br>
-                                                                    <b>
-                                                                        <%= value.mobileNumber %>
-                                                                    </b> <br>
-                                                                    <b>
-                                                                        <%=value.houseAddress %>,<%= value.streetAddress %>
-                                                                    </b> ,
-                                                                    <b>
-                                                                        <%=value.landMark %>
-                                                                    </b> <br>
-                                                                    <b>
-                                                                        <%= value.cityName %>,<%=value.state %>
-                                                                    </b> <br>
-                        
-                                                                </span>
-                        
-                                                                    </label> 
+
+                                            <div class="ec-shop-leftside ec-vendor-sidebar col-lg-3 col-md-12">
+
+                                                <table>
+                                                    <% if (addressData==null) { %>
+                                                        <% } else { %>
+                                                            <% addressData.userAddresses.forEach((value, index)=> { %>
+                                                                <input type="radio" id="<%= index %>" value="<%=index%>"
+                                                                    name="address">
+                                                                <label for="<%= index %>">
+
+
+                                                                    <div class="mb-3 ms-5">
+                                                                        <span>
+                                                                            <b>
+                                                                                <%= value.fullname %><br>
+                                                                                    <%= value.mobileNumber %> <br>
+                                                                                        <%= value.houseAddress %>,<br>
+                                                                                            <%= value.streetAddress %>,
+                                                                                                <%= value.landMark %>
+                                                                                                    <br>
+                                                                                                    <%= value.cityName
+                                                                                                        %>,
+                                                                                                        <%= value.state
+                                                                                                            %>
+                                                                                                            <br>
+                                                                                                            <%= value.pincode
+                                                                                                                %>
+                                                                            </b>
+                                                                        </span>
+                                                                    </div>
+                                                                </label>
+                                                                <br>
+                                                                <hr>
+
+                                                                <% }) } %>
+                                                </table>
+
+
+
+                                            </div>
+
+
                                         </div>
-                                        </label>
-                                        <br>
-                                        <hr>
-                        
-                        
-                        
-                        
-                        
-                        
-                                        <% })}%>
-                                            </table>
-                        
-                                          
-                        
                                     </div>
 
-                                    </div>
                                 </div>
-
+                                <span class="ec-check-order-btn">
+                                    <a class="btn btn-primary" href="#">Place Order</a>
+                                </span>
                             </div>
-                            <span class="ec-check-order-btn">
-                                <a class="btn btn-primary" href="#">Place Order</a>
-                            </span>
                         </div>
-                    </div>
-                    <!--cart content End -->
+                        <!--cart content End -->
+                    </form>
                 </div>
                 <!-- Sidebar Area Start -->
                 <div class="ec-checkout-rightside col-lg-4 col-md-12">
@@ -954,31 +1039,41 @@
                             </div>
                             <div class="ec-sb-block-content">
                                 <div class="ec-checkout-summary">
-                                    <div>
-                                        <span class="text-left">Sub-Total</span>
-                                        <span class="text-right">$80.00</span>
-                                    </div>
-                                    <div>
-                                        <span class="text-left">Delivery Charges</span>
-                                        <span class="text-right">$80.00</span>
-                                    </div>
-                                    <div>
-                                        <span class="text-left">Coupan Discount</span>
-                                        <span class="text-right"><a class="ec-checkout-coupan">Apply Coupan</a></span>
-                                    </div>
-                                    <div class="ec-checkout-coupan-content">
-                                        <form class="ec-checkout-coupan-form" name="ec-checkout-coupan-form"
-                                            method="post" action="#">
-                                            <input class="ec-coupan" type="text" required=""
-                                                placeholder="Enter Your Coupan Code" name="ec-coupan" value="">
-                                            <button class="ec-coupan-btn button btn-primary" type="submit"
-                                                name="subscribe" value="">Apply</button>
-                                        </form>
-                                    </div>
-                                    <div class="ec-checkout-summary-total">
-                                        <span class="text-left">Total Amount</span>
-                                        <span class="text-right">$80.00</span>
-                                    </div>
+
+                                    
+                                        <div>
+                                            <span class="text-left">Sub-Total</span>
+                                            <span class="text-right">
+                                                <%= userData.cartTotalPrice %>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="text-left">Delivery Charges</span>
+                                            <span class="text-right">0</span>
+                                        </div>
+                                        <div>
+                                            
+                                                <span class="text-left">Coupan Discount</span>
+                                                <span class="text-right"><a class="ec-checkout-coupan">Apply
+                                                        Coupan</a></span>
+                                        </div>
+                                        <div class="ec-checkout-coupan-content">
+                                            <form class="ec-checkout-coupan-form" name="ec-checkout-coupan-form"
+                                                method="post" action="#">
+                                                <input class="ec-coupan" type="text" required=""
+                                                    placeholder="Enter Your Coupan Code" name="ec-coupan" value="">
+                                                <button class="ec-coupan-btn button btn-primary" type="submit"
+                                                    name="subscribe" value="">Apply</button>
+                                            </form>
+                                        </div>
+                                     
+                                            <div class="ec-checkout-summary-total">
+                                                <span class="text-left">Total Amount</span>
+                                                <span class="text-right">
+                                                    <%= userData.cartTotalPrice %>
+                                                </span>
+                                            </div>
+                                       
                                 </div>
 
                             </div>
@@ -999,18 +1094,13 @@
                                     <form action="#">
                                         <span class="ec-pay-option">
                                             <span>
-                                                <input type="radio" id="pay1" name="radio-group" checked>
-                                                <label for="pay1">Cash On Delivery</label>
+                                                <input type="radio" id="pay2" name="radio-group" value="cash">
+                                                <label for="pay2">Cash On Delivery</label>
                                             </span>
                                         </span>
-                                        <span class="ec-pay-commemt">
-                                            <span class="ec-pay-opt-head">Add Comments About Your Order</span>
-                                            <textarea name="your-commemt" placeholder="Comments"></textarea>
-                                        </span>
-                                        <span class="ec-pay-agree"><input type="checkbox" value=""><a href="#">I have
-                                                read and agree to the <span>Terms & Conditions</span></a><span
-                                                class="checked"></span></span>
-                                    </form>
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -1022,6 +1112,14 @@
                             <div class="ec-sb-title">
                                 <h3 class="ec-sidebar-title">Payment Method</h3>
                             </div>
+
+                            <span class="ec-pay-option">
+                                <span>
+                                    <input type="radio" id="pay1" name="radio-group" value="card">
+                                    <label for="pay1"> card payment</label>
+                                </span>
+                            </span>
+                            </form>
                             <div class="ec-sb-block-content">
                                 <div class="ec-check-pay-img-inner">
                                     <div class="ec-check-pay-img">
@@ -1056,7 +1154,7 @@
     </section>
 
     <!-- New Product Start -->
-  
+
     <!-- New Product end -->
 
     <!-- Footer Start -->
