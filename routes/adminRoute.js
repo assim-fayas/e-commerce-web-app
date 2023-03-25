@@ -73,6 +73,7 @@ const categoryController = require("../controllers/categoryController")
 const productController = require("../controllers/productController")
 const brandController = require("../controllers/brandController")
 const couponController = require("../controllers/couponController")
+const bannerController = require("../controllers/bannerController")
 
 const auth = require("../middleware/adminAuth")
 
@@ -107,10 +108,10 @@ admin_route.post('/addimage', upload.single('image'), categoryController.updateI
 admin_route.get('/brand', auth.isLogin, brandController.loadBrand)
 admin_route.get('/addBrand', auth.isLogin, brandController.addBrand)
 admin_route.post('/addBrand', uploadBrand.single('image'), brandController.insertBrand)
-admin_route.get('/disable-brand', auth.isLogin, brandController.disableBrand )
-admin_route.get('/edit-brand', auth.isLogin, brandController.editBrand )
-admin_route.post('/edit-brand', brandController.updateBrand )
-admin_route.post('/addimage-brand', uploadBrand.single('image'),brandController.updateImage)
+admin_route.get('/disable-brand', auth.isLogin, brandController.disableBrand)
+admin_route.get('/edit-brand', auth.isLogin, brandController.editBrand)
+admin_route.post('/edit-brand', brandController.updateBrand)
+admin_route.post('/addimage-brand', uploadBrand.single('image'), brandController.updateImage)
 
 
 // product controller
@@ -119,8 +120,8 @@ admin_route.get('/products', auth.isLogin, productController.loadProduct)
 admin_route.get('/addProduct', auth.isLogin, productController.addProduct)
 admin_route.post('/addProduct', uploadProduct.array('image', 4), productController.insertProduct)
 admin_route.get('/editProduct', auth.isLogin, productController.editProduct)
-admin_route.post('/editProduct',  productController.updateProduct)
-admin_route.get('/disable-product', auth.isLogin,  productController.disable)
+admin_route.post('/editProduct', productController.updateProduct)
+admin_route.get('/disable-product', auth.isLogin, productController.disable)
 
 
 
@@ -134,6 +135,14 @@ admin_route.post('/addCoupen', couponController.insertCoupen)
 admin_route.get('/editCoupen', auth.isLogin, couponController.editCoupen)
 admin_route.post('/editCoupen', couponController.updateCoupen)
 admin_route.get('/disable-coupen', couponController.disableCoupen)
+
+
+
+
+// banner
+admin_route.get('/banner', auth.isLogin, bannerController.loadbanner)
+
+
 
 
 

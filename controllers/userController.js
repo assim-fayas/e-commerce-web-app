@@ -1,11 +1,14 @@
 const User = require('../model/userModel');
 const Address = require('../model/addressModel');
+const Category = require('../model/categoryModel');
+const Product = require('../model/productModel');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose')
 const nodemailer = require("nodemailer");
 const randomstring = require("randomstring");
 const config = require("../config/config");
 const { findById } = require('../model/addressModel');
+const { find } = require('../model/userModel');
 
 const { TWILIO_SERVICE_SID, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN } = process.env
 const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, {
@@ -235,7 +238,14 @@ const verifyLogin = async (req, res) => {
 const loadHome = async (req, res) => {
 
     try {
-        res.render('home');
+        const category=await Category.find({})
+        const product=await Product.find({}).sort({_id:-1}).limit(4)
+    
+
+        if(category){
+            console.log(category,product,"categoryyyyy");
+        res.render('home',{category,product});
+        }
     }
     catch (error) {
         console.log(error.message);
