@@ -1215,7 +1215,7 @@
                                 <img src="/images/cat-banner/1.jpg" alt="" />
                             </div>
                             <span class="panel-overlay">
-                                <a href="shop-left-sidebar-col-3.html" class="btn btn-primary">View All</a>
+                                <a href="/products" class="btn btn-primary">View All</a>
                             </span>
                         </div>
                         <!-- 1st Category tab end -->
@@ -1272,12 +1272,14 @@
             </div>
             <div class="row">
                 <!-- New Product Content -->
+                <% product.forEach((value,index)=>{%>
                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6  ec-product-content" data-animation="flipInY">
+                   
                     <div class="ec-product-inner">
                         <div class="ec-pro-image-outer">
                             <div class="ec-pro-image">
-                                <a href="product-left-sidebar.html" class="image">
-                                    <img class="main-image" src="/images/product-image/9_1.jpg" alt="Product" />
+                                <a href="" class="image">
+                                    <img class="main-image" src="/productImage/<%=value.image[0]%>" alt="Product" />
                                     <!-- <img class="hover-image" src="/images/product-image/9_2.jpg" alt="Product" /> -->
                                 </a>
                                
@@ -1292,36 +1294,33 @@
                             </div>
                         </div>
                         <div class="ec-pro-content">
-                            <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Full Sleeve Cap T-Shirt</a>
+                            <h5 class="ec-pro-title"><a href="product-left-sidebar.html"><%= value.productName%></a>
                             </h5>
                             
                             <span class="ec-price">
                               
-                                <span class="new-price">$15.00</span>
+                                <span class="new-price"><%= value.price%> ₹ </span>
                             </span>
-                            <div class="ec-pro-option">
-                               
-                                <div class="ec-pro-size">
-                                    <span class="ec-pro-opt-label">Size</span>
-                                    <ul class="ec-opt-size">
-                                        <li class="active"><a href="#" class="ec-opt-sz" data-old="$20.00"
-                                                data-new="$15.00" data-tooltip="Small">S</a></li>
-                                        <li><a href="#" class="ec-opt-sz" data-old="$22.00" data-new="$17.00"
-                                                data-tooltip="Medium">M</a></li>
-                                        <li><a href="#" class="ec-opt-sz" data-old="$25.00" data-new="$20.00"
-                                                data-tooltip="Large">X</a></li>
-                                        <li><a href="#" class="ec-opt-sz" data-old="$27.00" data-new="$22.00"
-                                                data-tooltip="Extra Large">XL</a></li>
-                                    </ul>
-                                </div>
+                            <div class="ec-pro-size">
+                                <span class="ec-pro-opt-label">Size</span>
+                                <ul class="ec-opt-size">
+                                    <% value.size.forEach((size,index)=>{%>
+
+                                        <li ><a href="#" class="ec-opt-sz"  data-tooltip="Small" ><%=size%></a></li>
+                                  <% })%>
+                                   
+                                  
+                                </ul>
                             </div>
+                            
                         </div>
                     </div>
+            
                 </div>
-                
+                <% })%>
               
               
-                <div class="col-sm-12 shop-all-btn"><a href="shop-left-sidebar-col-3.html">Shop All Collection</a>
+                <div class="col-sm-12 shop-all-btn"><a href="/products">Shop All Collection</a>
                 </div>
             </div>
         </div>

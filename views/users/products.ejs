@@ -806,7 +806,8 @@
 
 
                                                     <div class="ec-pro-actions">
-                                                     <button title="Add To Cart" class=" add-to-cart" onClick="addtoCart('<%=value._id%>')"><img
+                                                        <button title="Add To Cart" class=" add-to-cart"
+                                                            onClick="addtoCart('<%=value._id%>')"><img
                                                                 src="/images/icons/cart.svg" class="svg_img pro_svg"
                                                                 alt="" /> Add To Cart</button>
                                                         <a class="ec-btn-group wishlist"
@@ -862,19 +863,15 @@
                                                         </li>
                                                     </ul> -->
                                                 <!-- </div> -->
-                                                <!-- <div class="ec-pro-size">
+                                                <div class="ec-pro-size">
                                                     <span class="ec-pro-opt-label">Size</span>
                                                     <ul class="ec-opt-size">
-                                                        <li class="active"><a href="#" class="ec-opt-sz"
-                                                                data-old="$25.00" data-new="$20.00"
-                                                                data-tooltip="Small">S</a></li>
-                                                        <li><a href="#" class="ec-opt-sz" data-old="$27.00"
-                                                                data-new="$22.00" data-tooltip="Medium">M</a></li>
-                                                        <li><a href="#" class="ec-opt-sz" data-old="$35.00"
-                                                                data-new="$30.00" data-tooltip="Extra Large">XL</a>
-                                                        </li>
+                                                        <% value.size.forEach((sizes,index)=>{%>
+                                                            <li><a href="#" class="ec-opt-sz" data-tooltip="Small"><%=sizes%></a>
+                                                            </li>
+                                                            <%});%>
                                                     </ul>
-                                                </div> -->
+                                                </div>
                                                 <!-- </div> -->
                                             </div>
 
