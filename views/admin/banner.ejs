@@ -153,7 +153,8 @@
                         Add
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/admin/addCategory">Add Category</a></li>
+                        <li><a class="dropdown-item" href="/admin/addbannerCaro">Add carousel banner</a></li>
+                        <li><a class="dropdown-item" href="/admin/addSubCategory">Sub Category</a></li>
                         <li><a class="dropdown-item" href="/admin/addSubCategory">Sub Category</a></li>
                     </ul>
                 </div>
@@ -165,30 +166,213 @@
 
 
                         <div class="container ">
-
+                            <div style="text-align:center;">
+                                <h4><b>sliding banner</b></h4>
+                            </div><br>
                             <table class="table table-dark table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Mobile</th>
-                                        <th scope="col">Verified</th>
+
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Description</th>
                                         <th scope="col">status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
 
-                                <tr>
-                                    <td> 1</td>
-                                    <td colspan="5">Users Not Found</td>
-                                </tr>
+                                <% bannerData.forEach((value,index)=>{%>
+                                    <% if(value.type==='sliding' ) { %>
+                                        <tr>
 
-                              
+                                            <td>
+                                                <img src="/bannerImage/<%= value.image[0] %>" alt=""
+                                                    style="width:80px;height:80px;">
+                                            </td>
+                                            <td>
+                                                <%= value.type %>
+                                            </td>
+                                            <td>
+                                                <%= value.description %>
+                                            </td>
+                                            <td></td>
+
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                        data-bs-toggle="dropdown" style="font-size: 25px ;color:#493a3a"
+                                                        ;>
+
+                                                        <!-- <i class="bx bx-dots-vertical-rounded"></i> -->
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"
+                                                                style="color:black;"></i>
+                                                            Edit</a>
+
+                                                        <a class="dropdown-item" href=""><i
+                                                                class="bx bx-trash me-1"></i>
+
+                                                            Disable
+                                                        </a>
+
+                                                    </div>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                            <%})%>
+
+
 
 
                             </table>
                         </div>
+                        <br><br>
+                        <div class="container ">
+                            <div style="text-align:center;">
+                                <h4><b>category banner</b></h4>
+                            </div><br>
+                            <table class="table table-dark table-hover">
+                                <thead>
+                                    <tr>
+
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+
+
+                                <% for(let i=0; i<bannerData.length; i++) { %>
+                                    <% if(bannerData[i].type==='category' ) { %>
+                                        <tr>
+
+                                            <td>
+                                                <img src="/bannerImage/<%= bannerData[i].image %>" alt=""
+                                                    style="width:80px;height:80px;">
+                                            </td>
+                                            <td>
+                                                <%= bannerData[i].type %>
+                                            </td>
+                                            <td>
+                                                <%= bannerData[i].description %>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                        data-bs-toggle="dropdown" style="font-size: 25px ;color:#493a3a"
+                                                        ;>
+
+                                                        <!-- <i class="bx bx-dots-vertical-rounded"></i> -->
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"
+                                                                style="color:black;"></i>
+                                                            Edit</a>
+
+                                                        <a class="dropdown-item" href=""><i
+                                                                class="bx bx-trash me-1"></i>
+
+                                                            Disable
+                                                        </a>
+
+                                                    </div>
+                                            </td>
+
+
+
+                                        </tr>
+                                        <% } %>
+                                            <% } %>
+
+
+
+
+
+                            </table>
+                        </div>
+                        <br><br>
+                        <br><br>
+                        <br>
+                        <br>
+
+
+
+                        <div class="container ">
+                            <div style="text-align:center;">
+                                <h4><b>offer banner</b></h4>
+                            </div><br>
+
+                            <table class="table table-dark table-hover">
+                                <thead>
+                                    <tr>
+
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+
+
+                                <% for(let i=0; i<bannerData.length; i++) { %>
+                                    <% if(bannerData[i].type==='offer' ) { %>
+                                        <tr>
+                                            <td>
+                                                <img src="/bannerImage/<%= bannerData[i].image %>" alt=""
+                                                    style="width:80px;height:80px;">
+                                            </td>
+                                            <td>
+                                                <%= bannerData[i].type %>
+                                            </td>
+                                            <td>
+                                                <%= bannerData[i].description %>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                        data-bs-toggle="dropdown" style="font-size: 25px ;color:#493a3a"
+                                                        ;>
+
+                                                        <!-- <i class="bx bx-dots-vertical-rounded"></i> -->
+                                                    </button>
+                                                   
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item"
+                                                                href="/admin/editBanner?id=<%=bannerData[i]._id %>">
+                                                                <i class="bx bx-edit-alt me-1" style="color:black;"></i>
+                                                                Edit</a>
+
+                                                            <a class="dropdown-item" href=""><i
+                                                                    class="bx bx-trash me-1"></i>
+
+                                                                Disable
+                                                            </a>
+
+                                                        </div>
+                                            </td>
+
+
+
+                                        </tr>
+                                        <% } %>
+                                            <% } %>
+
+
+
+
+                            </table>
+                        </div>
+                        <br><br>
                         <!-- Back to Top -->
                         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
                                 class="bi bi-arrow-up"></i></a>

@@ -32,3 +32,106 @@
 
 <!-- Mirrored from loopinfosol.in/themeforest/ekka-html-v33/ekka-html/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Jan 2023 23:48:46 GMT -->
 </html>
+<script>
+ 
+  
+  $("#checkout-form").submit((e)=>{
+    console.log("working sumbition");
+      e.preventDefault()
+      // const discount = document.getElementById('discountAmount').innerHTML
+      // console.log(discount,"here")
+      $.ajax({
+          url:'/place-order',
+          method:'post',
+          data:$('#checkout-form').serialize(),
+          success:(response) =>{
+              if(response.status){
+                  setTimeout(() => {
+                      window.location.href = '/ordersuccess'
+                      console.log(response)
+                  }, 1000)
+              }
+          }
+      })
+  })
+</script>
+
+
+<script>
+    function applyCoupon(code) {
+      console.log(code);
+      console.log("Applying coupon...");
+      
+      $.ajax({
+        url: "/coupon-apply",
+        data: {
+          code: code,
+        },
+        method: "post",
+        success: function (response) {
+          console.log("Coupon applied response:", response);
+          if (response.datefailed) {
+            console.log("Coupon expired.");
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Coupon expired.",
+            });
+          } else if (response.minimum) {
+            console.log("Purchase amount does not meet the minimum requirement for the coupon.");
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Purchase amount does not meet the minimum requirement for the coupon.",
+            });
+          } else if (response.used) {
+            console.log("Coupon already used.");
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Coupon already used.",
+            });
+          } else if(response.invalid) {
+            console.log("Coupon invalid.");
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Entered invalid Coupon .",
+            });
+          } else if (response.limit) {
+            console.log("Coupon limit exceeded.");
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Coupon limit exceeded.",
+            });
+          } else if (response.amountokey) {
+            console.log("Coupon granted.");
+            document.getElementById('code').value = response.code
+            document.getElementById('discount').innerHTML = response.discountValue
+            document.getElementById('discount1').value = response.discountValue
+            document.getElementById('total').innerHTML = response.value
+            document.getElementById('total1').value = response.value
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Coupon granted!",
+              text: "You have successfully applied the coupon.",
+              showConfirmButton: true,
+            });
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error("Error applying coupon:", errorThrown);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong. Please try again later.",
+          });
+        },
+      });
+    }
+    </script>
+    
+
+  <script>

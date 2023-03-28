@@ -302,7 +302,7 @@ const addtoCart = async (req, res) => {
             console.log(product, "pro");
             const userId = req.session.user_id
             const user = await User.findOne({ _id: userId })
-            const productAdd = await User.updateOne({ _id: user }, { $push: { cart: { productId: product._id ,qty:1,price:product.price,productTotalPrice:product.price} } })
+            const productAdd = await User.updateOne({ _id: user }, { $push: { cart: { productId: product._id, qty: 1, price: product.price, productTotalPrice: product.price } } })
             console.log(productAdd, "add");
 
             if (productAdd) {
@@ -353,7 +353,7 @@ const change_Quantities = async (req, res) => {
         console.log(qty);
 
         const productSinglePrice = proPrice * qty
-     
+
 
         await User.updateOne({ _id: usertemp, 'cart.productId': producttemp }, { $set: { 'cart.$.productTotalPrice': productSinglePrice } })
         const cart = await User.findOne({ _id: usertemp })
@@ -362,11 +362,11 @@ const change_Quantities = async (req, res) => {
             sum = sum + cart.cart[i].productTotalPrice
             console.log(sum);
         }
-        
+
         const update = await User.updateOne({ _id: usertemp }, { $set: { cartTotalPrice: sum } })
 
             .then(async (response) => {
-               
+
                 res.json({ response: true, productSinglePrice, sum })
             })
     } catch (error) {
@@ -381,8 +381,8 @@ const loadCheckout = async (req, res) => {
     try {
         Id = req.session.user_id;
         const addressData = await Address.findOne({ userAddress: Id })
-        const userData = await User.findOne({_id:Id}).populate('cart.productId').exec()
- 
+        const userData = await User.findOne({ _id: Id }).populate('cart.productId').exec()
+
         res.render('checkout', { addressData, userData })
     } catch (error) {
         console.log(error.message);
@@ -392,17 +392,18 @@ const loadCheckout = async (req, res) => {
 
 
 
-const  checkoutaddAddress = async (req, res) => {
+const checkoutaddAddress = async (req, res) => {
     try {
 
-
+        console.log("inside checkout address");
         if (req.session.user_id) {
 
-            Id = req.session.user_id
-            console.log(req.body, "request body");
+            Id = req.session.user_id;
+            console.log(Id);
 
 
-            const AddressObj ={
+
+            const AddressObj = {
 
                 fullname: req.body.fullname,
                 mobileNumber: req.body.number,
@@ -447,6 +448,96 @@ const  checkoutaddAddress = async (req, res) => {
 }
 
 
+
+const placeOrder = async (req, res) => {
+    try {
+        // console.log("get place order");
+        const userId = req.session.user_id
+        const index = req.body.address
+        console.log(req.body.couponDiscount);
+        console.log(req.body.total1);
+        console.log(req.body.couponC);
+
+        const discount = req.body.couponDiscount
+        const totel = req.body.total1
+        const coupon = req.body.couponC
+        const couponUpdate = await Coupon.updateOne({ couponCode: coupon }, { $push: { used: userId } })
+        console.log(couponUpdate);
+
+        console.log(index);
+
+        const address = await Address.findOne({ userId: userId })
+        const userAddress = address.userAddresses[index]
+        // console.log(userAddress);
+        const cartData = await User.findOne({ _id: userId }).populate('cart.productId')
+        const total = cartData.cartTotalPrice
+        // console.log(cartData);
+        const payment = req.body.payment
+        // console.log(payment);
+        let status = payment === 'COD' ? 'placed' : 'pending'
+        let orderObj = {
+            userId: userId,
+            address: {
+                fullName: userAddress.fullname,
+                mobileNumber: userAddress.mobileNumber,
+                pincode: userAddress.pincode,
+                houseAddress: userAddress.houseAddress,
+                streetAddress: userAddress.streetAddress,
+                landMark: userAddress.landMark,
+                cityName: userAddress.cityName,
+                state: userAddress.state
+            },
+            paymentMethod: payment,
+            orderStatus: status,
+            items: cartData.cart,
+            totalAmount: total,
+            discount: discount
+        }
+        await Order.create(orderObj)
+            .then(async (data) => {
+                const orderId = data._id.toString()
+                if (payment == 'COD') {
+                    await User.updateOne({ _id: userId }, { $set: { cart: [], cartTotalPrice: 0 } })
+                    console.log(data);
+                    res.json({ status: true })
+                } else {
+                    var instance = new Razorpay({
+                        key_id: process.env.KEY_ID,
+                        key_secret: process.env.KEY_SECRET,
+                    })
+                    let amount = total
+                    instance.orders.create({
+                        amount: amount * 100,
+                        currency: "INR",
+                        receipt: orderId,
+                    }, (err, order) => {
+                        console.log(order);
+                        res.json({ status: false, order })
+                    })
+                }
+            })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+
+       
+const orderSuccess = async(req,res) => {
+    try{
+        const userId = req.session.user_id
+        console.log(userId);
+        const userData = await User.findOne({_id:userId})
+        const catrData  = await User.findOne({_id:userId})
+        const orderData = await Order.findOne({userId:userId}).populate({path:'items',populate:{path:'productId',model:'product'}}).sort({createdAt:-1}).limit(1)
+        res.render('orderConfirmation',{orderData})
+
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
 module.exports = {
     loadProduct,
     addProduct,
@@ -464,6 +555,8 @@ module.exports = {
     deleteCart,
     change_Quantities,
     loadCheckout,
-    checkoutaddAddress
+    checkoutaddAddress,
+    placeOrder,
+    orderSuccess
 
 }

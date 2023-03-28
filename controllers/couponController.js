@@ -1,4 +1,6 @@
 const Coupon = require('../model/coupenModel')
+const User= require('../model/userModel')
+
 
 
 
@@ -99,11 +101,90 @@ const disableCoupen=async(req,res)=>{
         console.error(error.message);
     }
 }
+const couponApply = async (req, res) => {
+    try {
+        console.log("haiiiiiiiiiii");
+        
+        const userId = req.session.user_id
+        console.log(userId);
+        const user = await User.findOne({ _id:userId });
+        console.log(user);
+        let cartTotal = user.cartTotalPrice;
+        console.log("cart");
+        console.log(cartTotal);
+  
+      const exist = await Coupon.findOne({
+        couponCode: req.body.code,
+        used: { $in: [userId] },
+      });
+  
+      if (exist) {
+        console.log("ubhayokichu");
+        return res.json({ used: true });
+      } else {
+        const couponData = await Coupon.findOne({ couponCode: req.body.code });
+        if (couponData) {
+          if (couponData.expiryDate >= new Date()) {
+            if (couponData.limit !== 0) {
+              if (couponData.minCartAmount <= cartTotal) {
+                if (couponData.coupenAmountType === "fixed") {
+                  let discountValue = couponData. coupenAmount;
+                  let value = Math.round(cartTotal - couponData. coupenAmount);
+                  return res.json({
+                    amountokey: true,
+                    value,
+                    discountValue,
+                    code: req.body.code,
+                  });
+                } else if (couponData.coupenAmountType=== "percentage") {
+                  const discountPercentage =
+                    (cartTotal * couponData.coupenAmount) / 100;
+                  if (discountPercentage <= couponData.minRedeemAmount) {
+                    let discountValue = discountPercentage;
+                    let value = Math.round(cartTotal - discountPercentage);
+                    return res.json({
+                      amountokey: true,
+                      value,
+                      discountValue,
+                      code: req.body.code,
+                    });
+                  } else {
+                    let discountValue = couponData.minRedeemAmount;
+                    let value = Math.round(cartTotal - couponData.minRedeemAmount);
+                    return res.json({
+                      amountokey: true,
+                      value,
+                      discountValue,
+                      code: req.body.code,
+                    });
+                  }
+                }
+              } else {
+                console.log(`must purchase above ${couponData.minCartAmount}`);
+                res.json({ minimum: true });
+              }
+            } else {
+              res.json({ limit: true });
+            }
+          } else {
+            res.json({ datefailed: true });
+          }
+        } else {
+          res.json({ invalid: true });
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+
 module.exports = {
     loadCoupen,
     addCoupen,
     insertCoupen,
     editCoupen,
     updateCoupen,
-    disableCoupen
+    disableCoupen,
+    couponApply
 }

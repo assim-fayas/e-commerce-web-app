@@ -257,22 +257,22 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <% console.log(product._id)%>
-                                                <a class="dropdown-item"
-                                                    href="/admin/editProduct?id=<%=product._id%>"><i
-                                                        class="bx bx-edit-alt me-1" style="color:black;"></i>
-                                                    Edit</a>
-                                                <a class="dropdown-item"
-                                                    href="/admin/disable-product?id=<%=product._id%>"><i
-                                                        class="bx bx-trash me-1"></i>
+                                                    <a class="dropdown-item"
+                                                        href="/admin/editProduct?id=<%=product._id%>"><i
+                                                            class="bx bx-edit-alt me-1" style="color:black;"></i>
+                                                        Edit</a>
+                                                    <a class="dropdown-item"
+                                                        href="/admin/disable-product?id=<%=product._id%>"><i
+                                                            class="bx bx-trash me-1"></i>
 
-                                                    <%if(product.disable==true ){%>
+                                                        <%if(product.disable==true ){%>
 
-                                                        Enable
-                                                        <% } else{ %>
-                                                            Disable
+                                                            Enable
+                                                            <% } else{ %>
+                                                                Disable
 
-                                                            <%}%>
-                                                </a>
+                                                                <%}%>
+                                                    </a>
 
                                             </div>
 

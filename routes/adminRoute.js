@@ -68,6 +68,25 @@ const uploadProduct = multer({ storage: productStorage })
 
 
 
+
+
+
+
+
+const bannerStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, '../assets/bannerImage'));
+    },
+
+    filename: function (req, file, cb) {
+        const name = Date.now() + '-' + file.originalname;
+        cb(null, name);
+    }
+})
+const uploadBanner = multer({ storage: bannerStorage })
+
+
+
 const adminController = require("../controllers/adminController")
 const categoryController = require("../controllers/categoryController")
 const productController = require("../controllers/productController")
@@ -141,6 +160,10 @@ admin_route.get('/disable-coupen', couponController.disableCoupen)
 
 // banner
 admin_route.get('/banner', auth.isLogin, bannerController.loadbanner)
+admin_route.get('/addbannerCaro',auth.isLogin,bannerController.loadBannerCaro)
+admin_route.post('/addbannerCaro',uploadBanner.array('image',2),bannerController.insertBannerCaro)
+admin_route.get('/editBanner',auth.isLogin,bannerController.editBanner)
+
 
 
 

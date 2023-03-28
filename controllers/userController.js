@@ -239,7 +239,7 @@ const loadHome = async (req, res) => {
 
     try {
         const category=await Category.find({})
-        const product=await Product.find({}).sort({_id:-1}).limit(4)
+        const product=await Product.find({disable:false}).sort({_id:-1}).limit(4)
     
 
         if(category){
