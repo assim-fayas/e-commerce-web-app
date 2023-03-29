@@ -3,6 +3,8 @@ const Category = require("../model/categoryModel")
 const Brand = require("../model/brandModel");
 const User = require("../model/userModel");
 const Address = require("../model/addressModel");
+const Coupon = require("../model/coupenModel")
+const Order=require("../model/orderModel")
 const mongoose = require('mongoose')
 const { findOneAndUpdate } = require("../model/productModel");
 
@@ -53,7 +55,7 @@ const insertProduct = async (req, res) => {
         const Product = await productData.save()
         if (Product) {
             res.redirect('/admin/products')
-            console.log(productData);
+            // console.log(productData);
         }
     } catch (error) {
         console.log(error.message);
@@ -113,7 +115,7 @@ const singleProduct = async (req, res) => {
     try {
         const productId = req.query.id;
         const productData = await Products.findById({ _id: productId })
-        console.log(productData);
+        // console.log(productData);
         res.render('singleProduct', { productData })
     } catch (error) {
         console.log(error.message);
@@ -187,7 +189,7 @@ const loadWishlist = async (req, res) => {
     try {
         const Id = await req.session.user_id
         const userData = await User.findOne({ _id: Id }).populate('whishlist.product').exec()
-        console.log(userData);
+        // console.log(userData);
         res.render('wishlist', { userData })
     } catch (error) {
         console.log(error.message);
@@ -265,7 +267,7 @@ const loadCart = async (req, res) => {
             const cartTotalUpdate = await User.updateOne({ _id: Id }, { $set: { cartTotalPrice: cartTotal } })
             const userData = await User.findOne({ _id: Id }).populate('cart.productId').exec()
             res.render('cart', { userData })
-            console.log("product dattaaaaaaaaa");
+            // console.log("product dattaaaaaaaaa");
         }
         else {
             const userData = await User.findOne({ Id })
@@ -282,7 +284,7 @@ const loadCart = async (req, res) => {
 
 const addtoCart = async (req, res) => {
     try {
-        console.log("inside add to cart");
+        // console.log("inside add to cart");
         const proId = req.body.productId;
         // console.log(proId);
         const userid = req.session.user_id;
@@ -399,7 +401,7 @@ const checkoutaddAddress = async (req, res) => {
         if (req.session.user_id) {
 
             Id = req.session.user_id;
-            console.log(Id);
+            console.log(Id,"idd");
 
 
 
@@ -451,7 +453,7 @@ const checkoutaddAddress = async (req, res) => {
 
 const placeOrder = async (req, res) => {
     try {
-        // console.log("get place order");
+        console.log("get place order");
         const userId = req.session.user_id
         const index = req.body.address
         console.log(req.body.couponDiscount);
@@ -523,17 +525,18 @@ const placeOrder = async (req, res) => {
 
 
 
-       
-const orderSuccess = async(req,res) => {
-    try{
+
+const orderSuccess = async (req, res) => {
+    try {
+        console.log("inside order conformation");
         const userId = req.session.user_id
         console.log(userId);
-        const userData = await User.findOne({_id:userId})
-        const catrData  = await User.findOne({_id:userId})
-        const orderData = await Order.findOne({userId:userId}).populate({path:'items',populate:{path:'productId',model:'product'}}).sort({createdAt:-1}).limit(1)
-        res.render('orderConfirmation',{orderData})
+        const userData = await User.findOne({ _id: userId })
+        const catrData = await User.findOne({ _id: userId })
+        const orderData = await Order.findOne({ userId: userId }).populate({ path: 'items', populate: { path: 'productId', model: 'product' } }).sort({ createdAt: -1 }).limit(1)
+        res.render('orderConfirmation', { orderData })
 
-    }catch(error){
+    } catch (error) {
         console.log(error.message);
     }
 }

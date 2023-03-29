@@ -799,7 +799,7 @@
         <div class="container">
 
             <div class="row">
-                <form action="" id="checkout-form" >
+                <form action="" id="checkout-form">
                     <div class="ec-checkout-leftside col-lg-8 col-md-6 ">
 
 
@@ -874,7 +874,7 @@
 
                                 </div>
 
-                               
+
 
 
 
@@ -924,15 +924,15 @@
                                                     Coupan</a></span>
                                         </div>
                                         <div class="ec-checkout-coupan-content">
-                                            <form class="ec-checkout-coupan-form" name="ec-checkout-coupan-form"
-                                                method="" action="#">
-                                                <input class="ec-coupan" type="text" required=""
-                                                    placeholder="Enter Your Coupan Code" name="ec-coupan"
-                                                    id="couponCode" value="">
-                                                <button class="ec-coupan-btn button btn-primary" type="button"
-                                                    onclick="applyCoupon($('#couponCode').val())" name="couponCode"
-                                                    value="">Apply</button>
-                                            </form>
+
+                                            <p id="CouponError"></p>
+                                            <div class="">
+                                                <input type="text" placeholder="Enter coupon code" name="couponCode"
+                                                    id="couponCode" />
+                                                <button class="tp_btn" type="button"
+                                                    onclick="applyCoupon($('#couponCode').val())">Apply Coupon</button>
+                                            </div>
+
                                         </div>
 
                                         <div class="ec-checkout-summary-total">
@@ -960,13 +960,13 @@
                                         <div class="ec-pay-desc">Please select the preferred payment method to use on
                                             this
                                             order.</div>
-                                        <form action="#">
-                                            <span class="ec-pay-option">
-                                                <span>
-                                                    <input type="radio" id="pay2" name="radio-group" value="cash">
-                                                    <label for="pay2">Cash On Delivery</label>
-                                                </span>
+
+                                        <span class="ec-pay-option">
+                                            <span>
+                                                <input type="radio" id="pay2" name="radio-group" value="COD">
+                                                <label for="pay2">Cash On Delivery</label>
                                             </span>
+                                        </span>
 
 
 
@@ -984,7 +984,7 @@
 
                                 <span class="ec-pay-option">
                                     <span>
-                                        <input type="radio" id="pay1" name="radio-group" value="card">
+                                        <input type="radio" id="pay1" name="online" value="card">
                                         <label for="pay1"> card payment</label>
                                     </span>
                                 </span>
@@ -1015,15 +1015,15 @@
                                     </div>
                                 </div>
                             </div>
-                            
 
 
-                           
-                           
+
+
+
                             <!-- Sidebar Payment Block -->
                         </div>
                         <button type="submit" class="btn btn-primary"> Place Order
-                        </button> 
+                        </button>
                     </div>
                 </form>
             </div>

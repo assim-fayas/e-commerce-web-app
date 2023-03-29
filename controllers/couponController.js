@@ -114,9 +114,10 @@ const couponApply = async (req, res) => {
         console.log(cartTotal);
   
       const exist = await Coupon.findOne({
-        couponCode: req.body.code,
+        couponCode: req.ody.bcode,
         used: { $in: [userId] },
       });
+      console.log(exist,"esxist kittyyyyy moneeee");
   
       if (exist) {
         console.log("ubhayokichu");
@@ -127,7 +128,7 @@ const couponApply = async (req, res) => {
           if (couponData.expiryDate >= new Date()) {
             if (couponData.limit !== 0) {
               if (couponData.minCartAmount <= cartTotal) {
-                if (couponData.coupenAmountType === "fixed") {
+                if (couponData.coupenAmountType === "flat") {
                   let discountValue = couponData. coupenAmount;
                   let value = Math.round(cartTotal - couponData. coupenAmount);
                   return res.json({

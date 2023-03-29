@@ -26,6 +26,7 @@
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.20",
     "randomstring": "^1.2.3",
+    "razorpay": "^2.8.6",
     "twilio": "^4.8.0"
   },
   "keywords": [],
