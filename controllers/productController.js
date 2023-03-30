@@ -537,7 +537,7 @@ const placeOrder = async (req, res) => {
         console.log(req.body.couponC);
 
         const discount = req.body.couponDiscount;
-        const total = req.body.total1;
+        const totel = req.body.total1;
         const coupon = req.body.couponC;
         console.log(req.body);
         const couponUpdate = await Coupon.updateOne({ Coupencode: coupon }, { $push: { used: userId } });
@@ -550,9 +550,10 @@ const placeOrder = async (req, res) => {
         const userAddress = address.userAddresses[index];
 
         const cartData = await User.findOne({ _id: userId }).populate("cart.productId");
+        const total = cartData.cartTotalPrice
         const payment = req.body.payment;
         let status = req.body.payment === "COD" ? "placed" : "pending";
-        console.log(payment, "vivee payment");
+        console.log(payment, "payment");
         let orderObj = {
             userId: userId,
             address: {
@@ -565,13 +566,13 @@ const placeOrder = async (req, res) => {
                 cityName: userAddress.cityName,
                 state: userAddress.state,
             },
-            paymentMethod: payment,
+            paymentMethod:payment,
             orderStatus: status,
             items: cartData.cart,
             totalAmount: total,
             discount: discount,
         };
-        console.log(orderObj, "vive");
+        console.log( orderObj,"viveee order obj");
         await Order.create(orderObj)
             .then(async (data) => {
                 const orderId = data._id.toString()
@@ -591,7 +592,7 @@ const placeOrder = async (req, res) => {
                         currency: "INR",
                         receipt: orderId,
                     }, (err, order) => {
-                        console.log(order);
+                        console.log(order,"orderaaaa");
                         res.json({ status: false, order })
                     })
                 }
