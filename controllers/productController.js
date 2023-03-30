@@ -6,8 +6,8 @@ const Address = require("../model/addressModel");
 const Coupon = require("../model/coupenModel")
 const Order = require("../model/orderModel")
 const mongoose = require('mongoose')
-const Razorpay=require('razorpay')
-const crypto=require('crypto')
+const Razorpay = require('razorpay')
+const crypto = require('crypto')
 const { findOneAndUpdate } = require("../model/productModel");
 
 
@@ -66,11 +66,85 @@ const insertProduct = async (req, res) => {
 }
 const viewProduct = async (req, res) => {
     try {
+        const category = req.query.categoryId;
+        const search = req.query.search || "";
+        const sort = req.query.sort || "";
+        console.log(category + " - " + search + " - " + sort);
+        let isRender = false;
 
-        const productData = await Products.find({ disable: false })
-        res.render('products', { productData })
+        if (req.query.isRender) {
+            isRender = true;
+        }
+
+        const searchData = new String(search).trim();
+
+        const query = {
+            is_delete: false,
+        };
+
+        let sortQuery = { price: 1 };
+        if (sort == "high-to-low") {
+            sortQuery = { price: -1 };
+        }
+
+        if (search) {
+            query["$or"] = [
+                { productName: { $regex: ".*" + searchData + ".*", $options: "i" } },
+                { description: { $regex: searchData, $options: "i" } },
+            ];
+        }
+
+        if (category) {
+            query["$or"] = [{ mainCategory: category }];
+        }
+
+        const product = await Products.find(query).sort(sortQuery);
+
+        //console.log(product);
+
+        const productsPerPage = 5;
+        const page = req.query.page || 1;
+        const startIndex = (page - 1) * productsPerPage;
+        const endIndex = startIndex + productsPerPage;
+        const pageProducts = product.slice(startIndex, endIndex);
+        const totalPages = Math.ceil(product.length / productsPerPage);
+        // console.log(
+        //   page +
+        //     " - " +
+        //     startIndex +
+        //     " - " +
+        //     endIndex +
+        //     " - " +
+        //     pageProducts +
+        //     " - " +
+        //     totalPages
+        // );
+        // -----------Category finding
+        const categoryData = await Category.find({});
+
+        // ----------------------
+
+        if (isRender == true) {
+            res.json({
+                pageProducts,
+                totalPages,
+                currentPage: parseInt(page, 10),
+                product,
+                // cartCount,
+                // wishListCount
+            });
+        } else {
+            res.render("products", {
+                pageProducts,
+                totalPages,
+                currentPage: parseInt(page, 10),
+                product,
+                categoryData,
+            });
+        }
     } catch (error) {
         console.log(error.message);
+        console.log("------------------Product Page Section-----------");
     }
 }
 
@@ -456,7 +530,7 @@ const placeOrder = async (req, res) => {
     try {
         console.log("get place order");
         const userId = req.session.user_id;
-        console.log(userId,"userId");
+        console.log(userId, "userId");
         const index = req.body.address;
         console.log(req.body.couponDiscount);
         console.log(req.body.total1);
@@ -466,19 +540,19 @@ const placeOrder = async (req, res) => {
         const total = req.body.total1;
         const coupon = req.body.couponC;
         console.log(req.body);
-        const couponUpdate = await Coupon.updateOne({ Coupencode: coupon },{ $push: { used: userId } });
-        console.log(couponUpdate);                    
+        const couponUpdate = await Coupon.updateOne({ Coupencode: coupon }, { $push: { used: userId } });
+        console.log(couponUpdate);
 
         console.log(index);
 
         const address = await Address.findOne({ userId: userId });
-    
+
         const userAddress = address.userAddresses[index];
 
         const cartData = await User.findOne({ _id: userId }).populate("cart.productId");
         const payment = req.body.payment;
         let status = req.body.payment === "COD" ? "placed" : "pending";
-        console.log(payment,"vivee payment");
+        console.log(payment, "vivee payment");
         let orderObj = {
             userId: userId,
             address: {
@@ -497,70 +571,70 @@ const placeOrder = async (req, res) => {
             totalAmount: total,
             discount: discount,
         };
-        console.log(orderObj,"vive");
+        console.log(orderObj, "vive");
         await Order.create(orderObj)
-        .then(async(data) => {
-            const orderId = data._id.toString()
-            if(payment == 'COD'){
-                await User.updateOne({_id:userId},{$set:{cart:[],cartTotalPrice:0}})
-                console.log(data);
-                res.json({status:true})
-            }
-            else{
-                var instance = new Razorpay({
-                    key_id: process.env.KEY_ID,
-                    key_secret: process.env.KEY_SECRET,
-                })
-                let amount  = total
-                instance.orders.create({
-                    amount:amount*100,
-                    currency:"INR",
-                    receipt:orderId,
-                },(err,order) => {
-                    console.log(order);
-                    res.json({status:false,order})
-                })
-            }
-        })
+            .then(async (data) => {
+                const orderId = data._id.toString()
+                if (payment == 'COD') {
+                    await User.updateOne({ _id: userId }, { $set: { cart: [], cartTotalPrice: 0 } })
+                    console.log(data);
+                    res.json({ status: true })
+                }
+                else {
+                    var instance = new Razorpay({
+                        key_id: process.env.KEY_ID,
+                        key_secret: process.env.KEY_SECRET,
+                    })
+                    let amount = total
+                    instance.orders.create({
+                        amount: amount * 100,
+                        currency: "INR",
+                        receipt: orderId,
+                    }, (err, order) => {
+                        console.log(order);
+                        res.json({ status: false, order })
+                    })
+                }
+            })
 
 
-        
-       
+
+
     } catch (error) {
         console.log(error.message);
     }
 };
 
-const verifyPayment = async(req,res)=>{
-    try{
+const verifyPayment = async (req, res) => {
+    try {
         console.log("inside verifypayment ");
         console.log(req.body);
         const userId = req.session.user_id
-            const details = req.body
-            console.log(details.payment); 
-            let hmac = crypto.createHmac('sha256', process.env.KEY_SECRET);
-            hmac.update(details.payment.razorpay_order_id + '|' + details.payment.razorpay_payment_id);
-            hmac = hmac.digest('hex')
-    
-            const orderId = details.order.receipt
-            console.log(orderId);
-            if (hmac == details.payment.razorpay_signature) {
-    
-                console.log('order Successfull')
-                await User.updateOne({_id:userId},{$set:{cart:[],cartTotalPrice:0}})
-                await Order.findByIdAndUpdate(orderId, { $set: { orderStatus: 'placed' } }).then((data) => {
-                    res.json({ status: true, data })
-                }).catch((err) => {
-                    console.log(err);
-                    res.data({ status: false, err })
-                })
-    
-            } else {
-                res.json({ status: false })
-                console.log('payment failed');
-            }
+        const details = req.body
+        console.log(details.payment);
+        let hmac = crypto.createHmac('sha256', process.env.KEY_SECRET);
+        hmac.update(details.payment.razorpay_order_id + '|' + details.payment.razorpay_payment_id);
+        hmac = hmac.digest('hex')
 
-    }catch(error){
+        const orderId = details.order.receipt
+        console.log(orderId);
+        if (hmac == details.payment.razorpay_signature) {
+
+            console.log('order Successfull')
+            await User.updateOne({ _id: userId }, { $set: { cart: [], cartTotalPrice: 0 } })
+            await Order.findByIdAndUpdate(orderId, { $set: { orderStatus: 'placed' } }).then((data) => {
+                res.json({ status: true, data })
+            }).catch((err) => {
+                console.log(err);
+                res.data({ status: false, err })
+            })
+
+        } else {
+            res.json({ status: false })
+            console.log('payment failed');
+        }
+
+    } catch (error) {
         console.log(error.message);
     }
 }

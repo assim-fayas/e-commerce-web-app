@@ -212,10 +212,10 @@
                 })
 
 
-        }
+            }
 
         })
-        
+
 
 
     }
@@ -226,47 +226,51 @@
 
 <script>
 
-    function changeQuantity(userId, productId, count, proPrice) {  
-        console.log(userId, productId, count, proPrice,"all idssss");
+    function changeQuantity(userId, productId, count, proPrice) {
+        console.log(userId, productId, count, proPrice, "all idssss");
         let quantity = parseInt(document.getElementById(productId).innerHTML)
         console.log(quantity);
         let procount = parseInt(count)
         console.log(procount);
-        if(quantity <= 1 && procount === -1 ){
-        }else{
-          $.ajax({
-            url: '/change-quantity',
-            data: {
-              user: userId,
-              product: productId,
-              count: count,
-              Quantity: quantity,
-              proPrice:proPrice
-            },
-            method: 'post',
-            success: (response) => {
-                console.log("from cskadhsui");
-                console.log(response.productSinglePrice);
-                console.log(response.sum);
-                console.log(quantity+count);
-                console.log(response);
+        if (quantity <= 1 && procount === -1) {
+        } else {
+            $.ajax({
+                url: '/change-quantity',
+                data: {
+                    user: userId,
+                    product: productId,
+                    count: count,
+                    Quantity: quantity,
+                    proPrice: proPrice
+                },
+                method: 'post',
+                success: (response) => {
+                    console.log("from cskadhsui");
+                    console.log(response.productSinglePrice);
+                    console.log(response.sum);
+                    console.log(quantity + count);
+                    console.log(response);
 
-              document.getElementById(productId).innerHTML = quantity+count
-              document.getElementsByClassName(productId)[0].innerHTML = response.productSinglePrice
-              document.getElementById('total').innerHTML = response.sum
-            
-            }
-          })
-          
+                    document.getElementById(productId).innerHTML = quantity + count
+                    document.getElementsByClassName(productId)[0].innerHTML = response.productSinglePrice
+                    document.getElementById('total').innerHTML = response.sum
+
+                }
+            })
+
         }
 
-        
-    }
-    
 
-    
+    }
+
+
 
 </script>
+
+
+<!-- serach ,sort ,filter -->
+
+
 
 </body>
 

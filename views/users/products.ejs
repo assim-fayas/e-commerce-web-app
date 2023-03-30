@@ -1,6 +1,6 @@
 <%-include('../layouts/productsHeader.ejs') %>
 
-<div id="ec-overlay"><span class="loader_img"></span></div>
+    <div id="ec-overlay"><span class="loader_img"></span></div>
 
     <!-- Header start  -->
     <header class="ec-header">
@@ -13,10 +13,14 @@
                         <div class="header-top-social">
                             <span class="social-text text-upper">Follow us on:</span>
                             <ul class="mb-0">
-                                <li class="list-inline-item"><a class="hdr-facebook" href="#"><i class="ecicon eci-facebook"></i></a></li>
-                                <li class="list-inline-item"><a class="hdr-twitter" href="#"><i class="ecicon eci-twitter"></i></a></li>
-                                <li class="list-inline-item"><a class="hdr-instagram" href="#"><i class="ecicon eci-instagram"></i></a></li>
-                                <li class="list-inline-item"><a class="hdr-linkedin" href="#"><i class="ecicon eci-linkedin"></i></a></li>
+                                <li class="list-inline-item"><a class="hdr-facebook" href="#"><i
+                                            class="ecicon eci-facebook"></i></a></li>
+                                <li class="list-inline-item"><a class="hdr-twitter" href="#"><i
+                                            class="ecicon eci-twitter"></i></a></li>
+                                <li class="list-inline-item"><a class="hdr-instagram" href="#"><i
+                                            class="ecicon eci-instagram"></i></a></li>
+                                <li class="list-inline-item"><a class="hdr-linkedin" href="#"><i
+                                            class="ecicon eci-linkedin"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -78,8 +82,8 @@
                             <!-- Header Cart End -->
                             <!-- Header Cart Start -->
                             <a href="/cart" class="ec-header-btn ec-side-toggle">
-                                <div class="header-icon"><img src="/images/icons/cart.svg"
-                                        class="svg_img header_svg" alt="" /></div>
+                                <div class="header-icon"><img src="/images/icons/cart.svg" class="svg_img header_svg"
+                                        alt="" /></div>
                                 <span class="ec-header-count cart-count-lable">3</span>
                             </a>
                             <!-- Header Cart End -->
@@ -195,7 +199,7 @@
                         <div class="ec-main-menu">
                             <ul>
                                 <li><a href="/home">Home</a></li>
-                               
+
                                 <li class="dropdown"><a href="/products">Shop</a>
                                     <ul class="sub-menu">
                                         <li class="dropdown position-static"><a href="javascript:void(0)">Product page
@@ -593,10 +597,14 @@
                     <div class="header-res-social">
                         <div class="header-top-social">
                             <ul class="mb-0">
-                                <li class="list-inline-item"><a class="hdr-facebook" href="#"><i class="ecicon eci-facebook"></i></a></li>
-                                <li class="list-inline-item"><a class="hdr-twitter" href="#"><i class="ecicon eci-twitter"></i></a></li>
-                                <li class="list-inline-item"><a class="hdr-instagram" href="#"><i class="ecicon eci-instagram"></i></a></li>
-                                <li class="list-inline-item"><a class="hdr-linkedin" href="#"><i class="ecicon eci-linkedin"></i></a></li>
+                                <li class="list-inline-item"><a class="hdr-facebook" href="#"><i
+                                            class="ecicon eci-facebook"></i></a></li>
+                                <li class="list-inline-item"><a class="hdr-twitter" href="#"><i
+                                            class="ecicon eci-twitter"></i></a></li>
+                                <li class="list-inline-item"><a class="hdr-instagram" href="#"><i
+                                            class="ecicon eci-instagram"></i></a></li>
+                                <li class="list-inline-item"><a class="hdr-linkedin" href="#"><i
+                                            class="ecicon eci-linkedin"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -741,11 +749,39 @@
                     </div>
                     <!-- Shop Top End -->
 
+                    <div>
+                        <div>
+                            <select id="sort" name="sort">
+                                <option value="low-to-high">Low to High</option>
+                                <option value="high-to-low">High to Low</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="search" name="search" class="w-25" id="searchField" placeholder="Search" />
+                        </div>
+
+                        
+
+                        <div class="dropdown" id="filter">
+                            <label for="category"><b>Choose a category:</b></label>
+                            <select id="category" name="parentCategory">
+                                <% categoryData.forEach((category)=>{ %>
+                                    <option value="dropdown-item">
+                                        <%= category.name %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                            <button id="button1" type="button" class="btn btn-primary">
+                                Choose Category
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Shop content Start ----------------------------------------------------------------------------------------- -->
                     <div class="shop-pro-content">
                         <div class="shop-pro-inner">
-                            <div class="row">
-                                <% productData.forEach((value,index)=>{%>
+                            <div class="row" id="product">
+                                <% pageProducts.forEach((value,index)=>{%>
 
                                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
                                         <div class="ec-product-inner">
@@ -822,7 +858,9 @@
                                                     <span class="ec-pro-opt-label">Size</span>
                                                     <ul class="ec-opt-size">
                                                         <% value.size.forEach((sizes,index)=>{%>
-                                                            <li><a href="#" class="ec-opt-sz" data-tooltip="Small"><%=sizes%></a>
+                                                            <li><a href="#" class="ec-opt-sz" data-tooltip="Small">
+                                                                    <%=sizes%>
+                                                                </a>
                                                             </li>
                                                             <%});%>
                                                     </ul>
@@ -839,7 +877,7 @@
                             </div>
                         </div>
                         <!-- Ec Pagination Start -->
-                        <div class="ec-pro-pagination">
+                        <!-- <div class="ec-pro-pagination">
                             <span>Showing 1-12 of 21 item(s)</span>
                             <ul class="ec-pro-pagination-inner">
                                 <li><a class="active" href="#">1</a></li>
@@ -849,196 +887,224 @@
                                 <li><a href="#">5</a></li>
                                 <li><a class="next" href="#">Next <i class="ecicon eci-angle-right"></i></a></li>
                             </ul>
+                        </div> -->
+                        <!-- Ec Pagination End -->
+                        <div>
+                            <div class="text-center pt-5 mt-5">
+                                <% for (let i=1; i <=totalPages; i++) { %>
+                                    <% if (i===currentPage) { %>
+                                        <span>
+                                            <!-- <button>
+                                      <%= i %>
+                                    </button> -->
+
+                                            <button onclick="toAjax('<%= i%>')">
+                                                <%= i %>
+                                            </button>
+                                        </span>
+
+                                        <% } else { %>
+                                            <!-- <a href="/shope?page=<%= i %>">
+                                      <button>
+                                        <%= i %>
+                                      </button>
+                                    </a> -->
+
+                                            <button onclick="toAjax('<%=i%>')">
+                                                <%= i %>
+                                            </button>
+
+                                            <% } %>
+                                                <% } %>
+                            </div>
                         </div>
                         <!-- Ec Pagination End -->
                     </div>
-                    <!--Shop content End -->
                 </div>
-                <!-- Sidebar Area Start -->
-                <div class="filter-sidebar-overlay"></div>
-                <div class="ec-shop-leftside filter-sidebar">
-                    <div class="ec-sidebar-heading">
-                        <h1>Filter Products By</h1>
-                        <a class="filter-cls-btn" href="javascript:void(0)">×</a>
-                    </div>
-                    <div class="ec-sidebar-wrap">
-                        <!-- Sidebar Category Block -->
-                        <div class="ec-sidebar-block">
-                            <div class="ec-sb-title">
-                                <h3 class="ec-sidebar-title">Category</h3>
-                            </div>
-                            <div class="ec-sb-block-content">
-                                <ul>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" checked /> <a href="#">clothes</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" /> <a href="#">Bags</a><span class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" /> <a href="#">Shoes</a><span class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" /> <a href="#">cosmetics</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" /> <a href="#">electrics</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" /> <a href="#">phone</a><span class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li id="ec-more-toggle-content" style="padding: 0; display: none;">
-                                        <ul>
-                                            <li>
-                                                <div class="ec-sidebar-block-item">
-                                                    <input type="checkbox" /> <a href="#">Watch</a><span
-                                                        class="checked"></span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="ec-sidebar-block-item">
-                                                    <input type="checkbox" /> <a href="#">Cap</a><span
-                                                        class="checked"></span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item ec-more-toggle">
-                                            <span class="checked"></span><span id="ec-more-toggle">More
-                                                Categories</span>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
+                <!--Shop content End -->
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="filter-sidebar-overlay"></div>
+            <div class="ec-shop-leftside filter-sidebar">
+                <div class="ec-sidebar-heading">
+                    <h1>Filter Products By</h1>
+                    <a class="filter-cls-btn" href="javascript:void(0)">×</a>
+                </div>
+                <div class="ec-sidebar-wrap">
+                    <!-- Sidebar Category Block -->
+                    <div class="ec-sidebar-block">
+                        <div class="ec-sb-title">
+                            <h3 class="ec-sidebar-title">Category</h3>
                         </div>
-                        <!-- Sidebar Size Block -->
-                        <div class="ec-sidebar-block">
-                            <div class="ec-sb-title">
-                                <h3 class="ec-sidebar-title">Size</h3>
-                            </div>
-                            <div class="ec-sb-block-content">
-                                <ul>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" value="" checked /><a href="#">S</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" value="" /><a href="#">M</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" value="" /> <a href="#">L</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" value="" /><a href="#">XL</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" value="" /><a href="#">XXL</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Sidebar Color item -->
-                        <div class="ec-sidebar-block ec-sidebar-block-clr">
-                            <div class="ec-sb-title">
-                                <h3 class="ec-sidebar-title">Color</h3>
-                            </div>
-                            <div class="ec-sb-block-content">
-                                <ul>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#c4d6f9;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#ff748b;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#000000;"></span></div>
-                                    </li>
-                                    <li class="active">
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#2bff4a;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#ff7c5e;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#f155ff;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#ffef00;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#c89fff;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#7bfffa;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#56ffc1;"></span></div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- Sidebar Price Block -->
-                        <div class="ec-sidebar-block">
-                            <div class="ec-sb-title">
-                                <h3 class="ec-sidebar-title">Price</h3>
-                            </div>
-                            <div class="ec-sb-block-content es-price-slider">
-                                <div class="ec-price-filter">
-                                    <div id="ec-sliderPrice" class="filter__slider-price" data-min="0" data-max="250"
-                                        data-step="10"></div>
-                                    <div class="ec-price-input">
-                                        <label class="filter__label"><input type="text" class="filter__input"></label>
-                                        <span class="ec-price-divider"></span>
-                                        <label class="filter__label"><input type="text" class="filter__input"></label>
+                        <div class="ec-sb-block-content">
+                            <ul>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" checked /> <a href="#">clothes</a><span
+                                            class="checked"></span>
                                     </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" /> <a href="#">Bags</a><span class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" /> <a href="#">Shoes</a><span class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" /> <a href="#">cosmetics</a><span class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" /> <a href="#">electrics</a><span class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" /> <a href="#">phone</a><span class="checked"></span>
+                                    </div>
+                                </li>
+                                <li id="ec-more-toggle-content" style="padding: 0; display: none;">
+                                    <ul>
+                                        <li>
+                                            <div class="ec-sidebar-block-item">
+                                                <input type="checkbox" /> <a href="#">Watch</a><span
+                                                    class="checked"></span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="ec-sidebar-block-item">
+                                                <input type="checkbox" /> <a href="#">Cap</a><span
+                                                    class="checked"></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item ec-more-toggle">
+                                        <span class="checked"></span><span id="ec-more-toggle">More
+                                            Categories</span>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Sidebar Size Block -->
+                    <div class="ec-sidebar-block">
+                        <div class="ec-sb-title">
+                            <h3 class="ec-sidebar-title">Size</h3>
+                        </div>
+                        <div class="ec-sb-block-content">
+                            <ul>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" value="" checked /><a href="#">S</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" value="" /><a href="#">M</a><span class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" value="" /> <a href="#">L</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" value="" /><a href="#">XL</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item">
+                                        <input type="checkbox" value="" /><a href="#">XXL</a><span
+                                            class="checked"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Sidebar Color item -->
+                    <div class="ec-sidebar-block ec-sidebar-block-clr">
+                        <div class="ec-sb-title">
+                            <h3 class="ec-sidebar-title">Color</h3>
+                        </div>
+                        <div class="ec-sb-block-content">
+                            <ul>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span style="background-color:#c4d6f9;"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span style="background-color:#ff748b;"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span style="background-color:#000000;"></span>
+                                    </div>
+                                </li>
+                                <li class="active">
+                                    <div class="ec-sidebar-block-item"><span style="background-color:#2bff4a;"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span style="background-color:#ff7c5e;"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span style="background-color:#f155ff;"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span style="background-color:#ffef00;"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span style="background-color:#c89fff;"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span style="background-color:#7bfffa;"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ec-sidebar-block-item"><span style="background-color:#56ffc1;"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Sidebar Price Block -->
+                    <div class="ec-sidebar-block">
+                        <div class="ec-sb-title">
+                            <h3 class="ec-sidebar-title">Price</h3>
+                        </div>
+                        <div class="ec-sb-block-content es-price-slider">
+                            <div class="ec-price-filter">
+                                <div id="ec-sliderPrice" class="filter__slider-price" data-min="0" data-max="250"
+                                    data-step="10"></div>
+                                <div class="ec-price-input">
+                                    <label class="filter__label"><input type="text" class="filter__input"></label>
+                                    <span class="ec-price-divider"></span>
+                                    <label class="filter__label"><input type="text" class="filter__input"></label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
+
+        </div>
         </div>
     </section>
     <!-- End Shop page -->
@@ -1194,7 +1260,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <button type="button" class="btn-close qty_close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <% productData.forEach((value,index)=>{%>
+                <% pageProducts.forEach((value,index)=>{%>
                     <div class="modal-body">
                         <div class="row">
 
@@ -1555,7 +1621,92 @@
                 </div>
             </div>
         </div>
+        <script>
 
+
+
+            var categoryId;
+            var selectedValue;
+            let searchValue;
+
+            // searching the products
+            const searchInput = document.querySelector("#searchField");
+            searchInput.addEventListener("input", (event) => {
+                event.preventDefault();
+                const search = event.target.value;
+                searchValue = search;
+                toAjax();
+            });
+
+            // Filtering the products
+            // $("a.dropdown-item").click(function (e) {
+            //   e.preventDefault();
+            //   categoryId = $(this).data("category");
+
+            //   toAjax();
+            // });
+
+            $(document).ready(function () {
+                $("#button1").click(function () {
+                    categoryId = $("#category :selected").text();
+                    console.log(categoryId);
+                    toAjax();
+                });
+            });
+
+            // sort Products
+            const sortSelect = document.getElementById("sort");
+            sortSelect.addEventListener("change", (event) => {
+                selectedValue = event.target.value;
+
+                toAjax();
+            });
+
+            function toAjax(page) {
+                $.ajax({
+                    url: "/products",
+                    data: {
+                        categoryId: categoryId,
+                        sort: selectedValue,
+                        page: page,
+                        search: searchValue,
+                        isRender: "true",
+                    },
+                    method: "get",
+                    success: (response) => {
+                        if (response.product) {
+                            let html = "";
+                            for (let i = 0; i < response.pageProducts.length; i++) {
+                                html += `
+              <div class="col-12 col-md-4 col-lg-3">
+      <div class="box pt-3">
+        <div class="card" style="width: 18rem; ">
+          <img height="250px" width="100%" src="/productImage/${response.pageProducts[i].image[0]}" alt="">
+          <div class="card-body "> 
+            <div class="text-center">
+            <span><h6 class="card-title">
+              ${response.pageProducts[i].productName}
+            </h6>Rs.${response.pageProducts[i].price}</span>
+            <p class="card-text">
+              ${response.pageProducts[i].description}
+            </p>
+          </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+              `;
+                            }
+                            document.getElementById("product").innerHTML = html;
+                        }
+                    },
+                });
+            }
+
+
+
+        </script>
 
 
 
