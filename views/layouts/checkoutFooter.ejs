@@ -38,8 +38,6 @@
   $("#checkout-form").submit((e)=>{
     console.log("working sumbition");
       e.preventDefault()
-      // const discount = document.getElementById('discountAmount').innerHTML
-      // console.log(discount,"here")
       $.ajax({
           url:'/place-order',
           method:'post',
@@ -50,6 +48,10 @@
                       window.location.href = '/ordersuccess'
                       console.log(response)
                   }, 1000)
+              }
+              else{
+                razorpayPayment(response)
+                console.log(rsponse,"response from razor pay");
               }
           }
       })
@@ -134,4 +136,70 @@
     </script>
     
 
-  <script>
+    <script>
+      function razorpayPayment(order){
+        console.log("in razor");
+        var options = {
+        "key": "rzp_test_f3ZH5uMQCpo9jx", // Enter the Key ID generated from the Dashboard
+        "amount": order.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Assim Fayas", //your business name
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": order.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+        "prefill": {
+            "name": "Gaurav Kumar", //your customer's name
+            "email": "gaurav.kumar@example.com",
+            "contact": "9000090000"
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        },
+                "handler": function (response) {
+                  console.log(response);
+                  console.log(order.order);
+                    verifyPayment(response, order.order);
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open()
+      }
+    </script>
+
+    <script>
+    function verifyPayment(payment,order){
+        console.log("from verifyPayment");
+            $.ajax({
+                url:'/verify-payment',
+                data:{
+                    payment,
+                    order
+                },
+                method:'post',
+                success:(response)=>{
+                    console.log(response);
+                    if(response.status){
+                        window.location.href = '/ordersuccess'
+                    }else{
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Payment failed',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                        // alert('Your Product Deleted from Cart')
+                        // setTimeout(() => {
+                        //     location.reload()
+                        // }, 1200);
+                        // window.location.href = '/ordersuccess'
+                    }
+                }
+            })
+        }
+    </script>
+    

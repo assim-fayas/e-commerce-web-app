@@ -22,7 +22,7 @@ user_route.use(bodyParser.json())
 user_route.use(bodyParser.urlencoded({ extended: true }))
 const userController = require("../controllers/userController");
 const productController = require("../controllers/productController");
-const couponController=require("../controllers/couponController");
+const couponController = require("../controllers/couponController");
 
 
 
@@ -90,13 +90,14 @@ user_route.post('/addCheckoutaddress', productController.checkoutaddAddress)
 
 
 //apply coupen
-user_route.post('/coupon-apply',couponController.couponApply)
+user_route.post('/coupon-apply', couponController.couponApply)
 
 
 //placeorder
 
-user_route.post('/place-order',productController.placeOrder)
-user_route.get('/ordersuccess',auth.isLogin,productController.orderSuccess);
+user_route.post('/place-order', productController.placeOrder)
+user_route.post('/verify-payment',auth.isLogin,productController.verifyPayment)
+user_route.get('/ordersuccess', auth.isLogin, productController.orderSuccess);
 
 
 

@@ -799,7 +799,7 @@
         <div class="container">
 
             <div class="row">
-                <form action="" id="checkout-form">
+                <form  id="checkout-form">
                     <div class="ec-checkout-leftside col-lg-8 col-md-6 ">
 
 
@@ -927,17 +927,24 @@
 
                                             <p id="CouponError"></p>
                                             <div class="">
-                                                <input type="text" placeholder="Enter coupon code" name="couponCode"
-                                                    id="couponCode" />
-                                                <button class="tp_btn" type="button"
-                                                    onclick="applyCoupon($('#couponCode').val())">Apply Coupon</button>
+                                                <input type="text" placeholder="Enter coupon code"  name="couponCode" id="code" />
+                                                <button class="tp_btn" type="button" name="couponCode"
+                                                    onclick="applyCoupon($('#code').val())">Apply Coupon</button>
                                             </div>
 
                                         </div>
 
                                         <div class="ec-checkout-summary-total">
+                                            <span class="text-left">Discount</span>
+                                            <span class="text-right" id="discount">
+                                                <p id="discount1"></p>
+                                                ₹ <%= userData.cartTotalPrice %>
+                                            </span>
+                                        </div>
+
+                                        <div class="ec-checkout-summary-total">
                                             <span class="text-left">Total Amount</span>
-                                            <span class="text-right">
+                                            <span class="text-right" id="total">
                                                 ₹ <%= userData.cartTotalPrice %>
                                             </span>
                                         </div>
@@ -963,7 +970,7 @@
 
                                         <span class="ec-pay-option">
                                             <span>
-                                                <input type="radio" id="pay2" name="radio-group" value="COD">
+                                                <input type="radio" id="pay2" name="payment" value="COD">
                                                 <label for="pay2">Cash On Delivery</label>
                                             </span>
                                         </span>
@@ -984,7 +991,7 @@
 
                                 <span class="ec-pay-option">
                                     <span>
-                                        <input type="radio" id="pay1" name="online" value="card">
+                                        <input type="radio" id="pay1" name="payment" value="card">
                                         <label for="pay1"> card payment</label>
                                     </span>
                                 </span>

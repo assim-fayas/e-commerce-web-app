@@ -4,8 +4,10 @@ const Brand = require("../model/brandModel");
 const User = require("../model/userModel");
 const Address = require("../model/addressModel");
 const Coupon = require("../model/coupenModel")
-const Order=require("../model/orderModel")
+const Order = require("../model/orderModel")
 const mongoose = require('mongoose')
+const Razorpay=require('razorpay')
+const crypto=require('crypto')
 const { findOneAndUpdate } = require("../model/productModel");
 
 
@@ -401,7 +403,7 @@ const checkoutaddAddress = async (req, res) => {
         if (req.session.user_id) {
 
             Id = req.session.user_id;
-            console.log(Id,"idd");
+            console.log(Id, "idd");
 
 
 
@@ -450,33 +452,33 @@ const checkoutaddAddress = async (req, res) => {
 }
 
 
-
 const placeOrder = async (req, res) => {
     try {
         console.log("get place order");
-        const userId = req.session.user_id
-        const index = req.body.address
+        const userId = req.session.user_id;
+        console.log(userId,"userId");
+        const index = req.body.address;
         console.log(req.body.couponDiscount);
         console.log(req.body.total1);
         console.log(req.body.couponC);
 
-        const discount = req.body.couponDiscount
-        const totel = req.body.total1
-        const coupon = req.body.couponC
-        const couponUpdate = await Coupon.updateOne({ couponCode: coupon }, { $push: { used: userId } })
-        console.log(couponUpdate);
+        const discount = req.body.couponDiscount;
+        const total = req.body.total1;
+        const coupon = req.body.couponC;
+        console.log(req.body);
+        const couponUpdate = await Coupon.updateOne({ Coupencode: coupon },{ $push: { used: userId } });
+        console.log(couponUpdate);                    
 
         console.log(index);
 
-        const address = await Address.findOne({ userId: userId })
-        const userAddress = address.userAddresses[index]
-        // console.log(userAddress);
-        const cartData = await User.findOne({ _id: userId }).populate('cart.productId')
-        const total = cartData.cartTotalPrice
-        // console.log(cartData);
-        const payment = req.body.payment
-        // console.log(payment);
-        let status = payment === 'COD' ? 'placed' : 'pending'
+        const address = await Address.findOne({ userId: userId });
+    
+        const userAddress = address.userAddresses[index];
+
+        const cartData = await User.findOne({ _id: userId }).populate("cart.productId");
+        const payment = req.body.payment;
+        let status = req.body.payment === "COD" ? "placed" : "pending";
+        console.log(payment,"vivee payment");
         let orderObj = {
             userId: userId,
             address: {
@@ -487,38 +489,78 @@ const placeOrder = async (req, res) => {
                 streetAddress: userAddress.streetAddress,
                 landMark: userAddress.landMark,
                 cityName: userAddress.cityName,
-                state: userAddress.state
+                state: userAddress.state,
             },
             paymentMethod: payment,
             orderStatus: status,
             items: cartData.cart,
             totalAmount: total,
-            discount: discount
-        }
+            discount: discount,
+        };
+        console.log(orderObj,"vive");
         await Order.create(orderObj)
-            .then(async (data) => {
-                const orderId = data._id.toString()
-                if (payment == 'COD') {
-                    await User.updateOne({ _id: userId }, { $set: { cart: [], cartTotalPrice: 0 } })
-                    console.log(data);
-                    res.json({ status: true })
-                } else {
-                    var instance = new Razorpay({
-                        key_id: process.env.KEY_ID,
-                        key_secret: process.env.KEY_SECRET,
-                    })
-                    let amount = total
-                    instance.orders.create({
-                        amount: amount * 100,
-                        currency: "INR",
-                        receipt: orderId,
-                    }, (err, order) => {
-                        console.log(order);
-                        res.json({ status: false, order })
-                    })
-                }
-            })
+        .then(async(data) => {
+            const orderId = data._id.toString()
+            if(payment == 'COD'){
+                await User.updateOne({_id:userId},{$set:{cart:[],cartTotalPrice:0}})
+                console.log(data);
+                res.json({status:true})
+            }
+            else{
+                var instance = new Razorpay({
+                    key_id: process.env.KEY_ID,
+                    key_secret: process.env.KEY_SECRET,
+                })
+                let amount  = total
+                instance.orders.create({
+                    amount:amount*100,
+                    currency:"INR",
+                    receipt:orderId,
+                },(err,order) => {
+                    console.log(order);
+                    res.json({status:false,order})
+                })
+            }
+        })
+
+
+        
+       
     } catch (error) {
+        console.log(error.message);
+    }
+};
+
+const verifyPayment = async(req,res)=>{
+    try{
+        console.log("inside verifypayment ");
+        console.log(req.body);
+        const userId = req.session.user_id
+            const details = req.body
+            console.log(details.payment); 
+            let hmac = crypto.createHmac('sha256', process.env.KEY_SECRET);
+            hmac.update(details.payment.razorpay_order_id + '|' + details.payment.razorpay_payment_id);
+            hmac = hmac.digest('hex')
+    
+            const orderId = details.order.receipt
+            console.log(orderId);
+            if (hmac == details.payment.razorpay_signature) {
+    
+                console.log('order Successfull')
+                await User.updateOne({_id:userId},{$set:{cart:[],cartTotalPrice:0}})
+                await Order.findByIdAndUpdate(orderId, { $set: { orderStatus: 'placed' } }).then((data) => {
+                    res.json({ status: true, data })
+                }).catch((err) => {
+                    console.log(err);
+                    res.data({ status: false, err })
+                })
+    
+            } else {
+                res.json({ status: false })
+                console.log('payment failed');
+            }
+
+    }catch(error){
         console.log(error.message);
     }
 }
@@ -532,8 +574,8 @@ const orderSuccess = async (req, res) => {
         const userId = req.session.user_id
         console.log(userId);
         const userData = await User.findOne({ _id: userId })
-        const catrData = await User.findOne({ _id: userId })
-        const orderData = await Order.findOne({ userId: userId }).populate({ path: 'items', populate: { path: 'productId', model: 'product' } }).sort({ createdAt: -1 }).limit(1)
+
+        const orderData = await Order.findOne({ userId: userId }).populate({ path: 'items', populate: { path: 'productId', model: 'Product' } }).sort({ createdAt: -1 }).limit(1)
         res.render('orderConfirmation', { orderData })
 
     } catch (error) {
@@ -560,6 +602,7 @@ module.exports = {
     loadCheckout,
     checkoutaddAddress,
     placeOrder,
-    orderSuccess
+    orderSuccess,
+    verifyPayment
 
 }
