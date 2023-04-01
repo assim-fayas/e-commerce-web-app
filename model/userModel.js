@@ -1,3 +1,4 @@
+const { string } = require("joi");
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -45,27 +46,30 @@ const userSchema = new mongoose.Schema({
             requried: true
         }
     }],
-    cart:[{
-        productId:{
-            type:mongoose.Types.ObjectId,
-            ref:'Product',
-            required:true
+    cart: [{
+        productId: {
+            type: mongoose.Types.ObjectId,
+            ref: 'Product',
+            required: true
         },
-        price:{
-            type:Number
+        name: {
+            type: String
         },
-        qty:{
-            type:Number,
-            required:true,
-            default:1
+        price: {
+            type: Number
         },
-        productTotalPrice:{
-            type:Number,
-            required:true
+        qty: {
+            type: Number,
+            required: true,
+            default: 1
+        },
+        productTotalPrice: {
+            type: Number,
+            required: true
         },
     }],
-    cartTotalPrice:{
-        type:Number,
+    cartTotalPrice: {
+        type: Number,
         // default:0
     }
 

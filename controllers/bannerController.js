@@ -12,7 +12,7 @@ const loadbanner = async (req, res) => {
 
         if (bannerData)
 
-        res.render('banner', { bannerData })
+            res.render('banner', { bannerData })
 
     } catch (error) {
         console.log(error.message);
@@ -57,14 +57,14 @@ const editBanner = async (req, res) => {
         const Id = req.query.id
         console.log(Id);
 
-        const banner = await Banner.findOne({ _Id:Id })
+        const banner = await Banner.findOne({ _Id: Id })
         console.log(banner);
 
 
         if (banner) {
 
             console.log("success");
-            res.render('editbanner',{banner})
+            res.render('editbanner', { banner })
         }
 
     } catch (error) {
@@ -72,10 +72,35 @@ const editBanner = async (req, res) => {
         console.log("kljhvcvx");
     }
 }
+const blockbanner = async (req, res) => {
+    try {
+      const Id= req.query.id
+      console.log(Id,"id vanuuu");
+         Disable = await Banner.findOne({ _id: Id }, { block: 1, _id: Id })
+            console.log("banner block");
+            if (Disable.block === true) {
+                console.log("inside disable true");
+                const disable = await Banner.findByIdAndUpdate({ _id: Id }, { $set: { block: false } })
+                res.redirect('/admin/banner')
+            }
+            else {
+                const enable = await Banner.findByIdAndUpdate({ _id: Id }, { $set:{ block: true } })
+    
+                res.redirect('/admin/banner')
+            }
+            
+            
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
 
 module.exports = {
-    loadbanner,
-    loadBannerCaro,
-    insertBannerCaro,
-    editBanner
-}
+        loadbanner,
+        loadBannerCaro,
+        insertBannerCaro,
+        editBanner,
+        blockbanner,
+    
+    }

@@ -160,9 +160,12 @@ admin_route.get('/disable-coupen', couponController.disableCoupen)
 
 // banner
 admin_route.get('/banner', auth.isLogin, bannerController.loadbanner)
-admin_route.get('/addbannerCaro',auth.isLogin,bannerController.loadBannerCaro)
-admin_route.post('/addbannerCaro',uploadBanner.array('image',2),bannerController.insertBannerCaro)
-admin_route.get('/editBanner',auth.isLogin,bannerController.editBanner)
+admin_route.get('/addbannerCaro', auth.isLogin, bannerController.loadBannerCaro)
+admin_route.post('/addbannerCaro', uploadBanner.array('image', 2), bannerController.insertBannerCaro)
+admin_route.get('/editBanner', auth.isLogin, bannerController.editBanner)
+admin_route.get('/blockBanner', auth.isLogin, bannerController.blockbanner)
+
+
 
 
 

@@ -98,6 +98,7 @@ user_route.post('/coupon-apply', couponController.couponApply)
 user_route.post('/place-order', productController.placeOrder)
 user_route.post('/verify-payment',auth.isLogin,productController.verifyPayment)
 user_route.get('/ordersuccess', auth.isLogin, productController.orderSuccess);
+user_route.get('/orders', auth.isLogin, productController.OrderHistory);
 
 
 

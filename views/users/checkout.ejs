@@ -792,19 +792,20 @@
         </div>
     </div>
     <!-- Ec breadcrumb end -->
+    <form id="checkout-form">
+        <!-- Ec checkout page -->
+        <section class="ec-page-content section-space-p">
 
-    <!-- Ec checkout page -->
-    <section class="ec-page-content section-space-p">
+            <div class="container">
 
-        <div class="container">
+                <div class="row">
 
-            <div class="row">
-                <form  id="checkout-form">
                     <div class="ec-checkout-leftside col-lg-8 col-md-6 ">
 
 
                         <!-- checkout content Start -->
                         <div class="ec-checkout-content">
+
                             <div class="ec-checkout-inner">
 
                                 <div class="ec-checkout-wrap margin-bottom-30 padding-bottom-3  ">
@@ -927,7 +928,8 @@
 
                                             <p id="CouponError"></p>
                                             <div class="">
-                                                <input type="text" placeholder="Enter coupon code"  name="couponCode" id="code" />
+                                                <input type="text" placeholder="Enter coupon code" name="couponCode"
+                                                    id="code" />
                                                 <button class="tp_btn" type="button" name="couponCode"
                                                     onclick="applyCoupon($('#code').val())">Apply Coupon</button>
                                             </div>
@@ -938,7 +940,7 @@
                                             <span class="text-left">Discount</span>
                                             <span class="text-right" id="discount">
                                                 <p id="discount1"></p>
-                                              
+
                                             </span>
                                         </div>
 
@@ -1032,10 +1034,10 @@
                         <button type="submit" class="btn btn-primary"> Place Order
                         </button>
                     </div>
-                </form>
-            </div>
+    </form>
+    </div>
 
-        </div>
+    </div>
     </section>
 
 

@@ -16,7 +16,7 @@ description:{
 },
 block:{
     type:Boolean,
-    default:false
+    default:true
 }
 
 })

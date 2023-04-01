@@ -2,6 +2,7 @@ const User = require('../model/userModel');
 const Address = require('../model/addressModel');
 const Category = require('../model/categoryModel');
 const Product = require('../model/productModel');
+const Banner = require('../model/bannerModel');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose')
 const nodemailer = require("nodemailer");
@@ -240,11 +241,12 @@ const loadHome = async (req, res) => {
     try {
         const category=await Category.find({})
         const product=await Product.find({disable:false}).sort({_id:-1}).limit(4)
+        const banner = await Banner.find({ $and: [{ block: true }, { type: "category" }] })
     
 
         if(category){
-            console.log(category,product,"categoryyyyy");
-        res.render('home',{category,product});
+            console.log(banner,"banner");
+        res.render('home',{category,product,banner});
         }
     }
     catch (error) {

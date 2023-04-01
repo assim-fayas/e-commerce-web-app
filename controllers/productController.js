@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 const Razorpay = require('razorpay')
 const crypto = require('crypto')
 const { findOneAndUpdate } = require("../model/productModel");
+const { v4: uuidv4 } = require('uuid');
 
 
 
@@ -380,7 +381,7 @@ const addtoCart = async (req, res) => {
             console.log(product, "pro");
             const userId = req.session.user_id
             const user = await User.findOne({ _id: userId })
-            const productAdd = await User.updateOne({ _id: user }, { $push: { cart: { productId: product._id, qty: 1, price: product.price, productTotalPrice: product.price } } })
+            const productAdd = await User.updateOne({ _id: user }, { $push: { cart: { productId: product._id, qty: 1, name:product.productName, price: product.price, productTotalPrice: product.price } } })
             console.log(productAdd, "add");
 
             if (productAdd) {
@@ -530,16 +531,13 @@ const placeOrder = async (req, res) => {
     try {
         console.log("get place order");
         const userId = req.session.user_id;
-        console.log(userId, "userId");
+
         const index = req.body.address;
-        console.log(req.body.couponDiscount);
-        console.log(req.body.total1);
-        console.log(req.body.couponC);
 
         const discount = req.body.couponDiscount;
         const totel = req.body.total1;
         const coupon = req.body.couponC;
-        console.log(req.body);
+
         const couponUpdate = await Coupon.updateOne({ Coupencode: coupon }, { $push: { used: userId } });
         console.log(couponUpdate);
 
@@ -554,6 +552,20 @@ const placeOrder = async (req, res) => {
         const payment = req.body.payment;
         let status = req.body.payment === "COD" ? "placed" : "pending";
         console.log(payment, "payment");
+
+        //this is random string options
+        // const v4options = {
+        //     random: [
+        //         0x10, 0x91, 0x56, 0xbe, 0xc4, 0xfb, 0xc1, 0xea, 0x71, 0xb4, 0xef, 0xe1, 0x67, 0x1c, 0x58, 0x36,
+        //     ],
+        //     clockseq: 0x1234,
+        //     node: [0x01, 0x23, 0x45, 0x67, 0x89, 0xab],
+        //     nsecs: 5678,
+        //     msecs: new Date('2022-01-01').getTime(),
+        // };
+        const randomstring = uuidv4().slice(0,5)
+        console.log( randomstring,"random string");
+
         let orderObj = {
             userId: userId,
             address: {
@@ -566,16 +578,22 @@ const placeOrder = async (req, res) => {
                 cityName: userAddress.cityName,
                 state: userAddress.state,
             },
-            paymentMethod:payment,
+            paymentMethod: payment,
             orderStatus: status,
             items: cartData.cart,
             totalAmount: total,
             discount: discount,
+            orderid: randomstring
+
         };
-        console.log( orderObj,"viveee order obj");
         await Order.create(orderObj)
             .then(async (data) => {
                 const orderId = data._id.toString()
+
+                // const orderedId=await Order.find({_id:},{$set:{orderid:orderId}})
+
+
+
                 if (payment == 'COD') {
                     await User.updateOne({ _id: userId }, { $set: { cart: [], cartTotalPrice: 0 } })
                     console.log(data);
@@ -592,7 +610,7 @@ const placeOrder = async (req, res) => {
                         currency: "INR",
                         receipt: orderId,
                     }, (err, order) => {
-                        console.log(order,"orderaaaa");
+                        console.log(order, "orderaaaa");
                         res.json({ status: false, order })
                     })
                 }
@@ -651,8 +669,22 @@ const orderSuccess = async (req, res) => {
         const userData = await User.findOne({ _id: userId })
 
         const orderData = await Order.findOne({ userId: userId }).populate({ path: 'items', populate: { path: 'productId', model: 'Product' } }).sort({ createdAt: -1 }).limit(1)
-        res.render('orderConfirmation', { orderData })
+        res.render('oo', { orderData })
 
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+const OrderHistory = async (req, res) => {
+    try {
+        Id = req.session.user_id
+        console.log(Id);
+        const orderedData = await Order.find({ userId: Id })
+        if (orderedData) {
+            res.render('orderHistory', { orderedData })
+        }
     } catch (error) {
         console.log(error.message);
     }
@@ -678,6 +710,7 @@ module.exports = {
     checkoutaddAddress,
     placeOrder,
     orderSuccess,
-    verifyPayment
+    verifyPayment,
+    OrderHistory
 
 }

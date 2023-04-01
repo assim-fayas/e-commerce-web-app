@@ -195,7 +195,17 @@
                                             <td>
                                                 <%= value.description %>
                                             </td>
-                                            <td></td>
+
+                                            <td>
+                                                <%if( value.block===false ){%>
+                                                    <p style="color:red;">Disabled</p>
+
+                                                    <%} else{%>
+
+                                                        <p style="color:green;">enabled</p>
+
+
+                                                        <% }%>
 
                                             <td>
                                                 <div class="dropdown">
@@ -210,10 +220,17 @@
                                                                 style="color:black;"></i>
                                                             Edit</a>
 
-                                                        <a class="dropdown-item" href=""><i
+                                                        <a class="dropdown-item"
+                                                            href="/admin/blockBanner?id=<%=value._id%>"><i
                                                                 class="bx bx-trash me-1"></i>
-
-                                                            Disable
+                                                                <%if(value.disable==true ){%>
+                                                                    Enable
+        
+                                                                    <% } else{ %>
+        
+                                                                        Disable
+                                                                        <%}%>
+                                                          
                                                         </a>
 
                                                     </div>
@@ -243,24 +260,30 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-
-
-                                <% for(let i=0; i<bannerData.length; i++) { %>
-                                    <% if(bannerData[i].type==='category' ) { %>
+                                <% bannerData.forEach((value,index)=>{%>
+                                    <% if(value.type==='category' ) { %>
                                         <tr>
 
                                             <td>
-                                                <img src="/bannerImage/<%= bannerData[i].image %>" alt=""
+                                                <img src="/bannerImage/<%= value.image[0] %>" alt=""
                                                     style="width:80px;height:80px;">
                                             </td>
                                             <td>
-                                                <%= bannerData[i].type %>
+                                                <%= value.type %>
                                             </td>
                                             <td>
-                                                <%= bannerData[i].description %>
+                                                <%= value.description %>
                                             </td>
                                             <td>
+                                                <%if( value.block===false ){%>
+                                                    <p style="color:red;">Disabled</p>
 
+                                                    <%} else{%>
+
+                                                        <p style="color:green;">enabled</p>
+
+
+                                                        <% }%>
                                             </td>
                                             <td>
                                                 <div class="dropdown">
@@ -275,20 +298,26 @@
                                                                 style="color:black;"></i>
                                                             Edit</a>
 
-                                                        <a class="dropdown-item" href=""><i
+                                                        <a class="dropdown-item"
+                                                            href="/admin/blockBanner?id=<%=value._id%>"><i
                                                                 class="bx bx-trash me-1"></i>
-
-                                                            Disable
+                                                                <%if(value.disable==true ){%>
+                                                                    Enable
+        
+                                                                    <% } else{ %>
+        
+                                                                        Disable
+                                                                        <%}%>
+                                                          
                                                         </a>
 
                                                     </div>
                                             </td>
 
 
-
                                         </tr>
                                         <% } %>
-                                            <% } %>
+                                            <%})%>
 
 
 
@@ -302,7 +331,7 @@
                         <br>
 
 
-
+                        <!-- 
                         <div class="container ">
                             <div style="text-align:center;">
                                 <h4><b>offer banner</b></h4>
@@ -344,7 +373,7 @@
                                                         ;>
 
                                                         <!-- <i class="bx bx-dots-vertical-rounded"></i> -->
-                                                    </button>
+                        <!-- </button>
                                                    
                                                         <div class="dropdown-menu">
                                                             <a class="dropdown-item"
@@ -367,27 +396,27 @@
                                         <% } %>
                                             <% } %>
 
+ -->
+
+
+                        </table>
+                    </div> -->
+                    <br><br>
+                    <!-- Back to Top -->
+                    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+                            class="bi bi-arrow-up"></i></a>
+                </div>
 
 
 
-                            </table>
-                        </div>
-                        <br><br>
-                        <!-- Back to Top -->
-                        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
-                                class="bi bi-arrow-up"></i></a>
-                    </div>
 
+                <script>
+                    function showModal() {
+                        document.getElementById("myModal").style.display = "block";
+                    }
 
-
-
-                    <script>
-                        function showModal() {
-                            document.getElementById("myModal").style.display = "block";
-                        }
-
-                        function hideModal() {
-                            document.getElementById("myModal").style.display = "none";
-                        }
-                    </script>
-                    <%- include('../layouts/adminFooter.ejs') %>
+                    function hideModal() {
+                        document.getElementById("myModal").style.display = "none";
+                    }
+                </script>
+                <%- include('../layouts/adminFooter.ejs') %>
