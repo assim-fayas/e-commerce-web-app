@@ -36,13 +36,12 @@
                         <a href="/admin/users" class="nav-link"><i class="fa fa-laptop me-2"></i>User's List</a>
 
                     </div>
-                    <a href="/admin/category" class="nav-item nav-link active"><i
-                            class="fa fa-keyboard me-2"></i>Catagory</a>
+                    <a href="/admin/category" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Catagory</a>
                     <a href="/admin/products" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Products</a>
                     <a href="/admin/brand" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Brand</a>
                     <a href="/admin/coupen" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Coupen</a>
                     <a href="/admin/banner" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Banner</a>
-                    <a href="/admin/orders" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Order</a>
+                    <a href="/admin/orders" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Order</a>
 
 
                 </div>
@@ -156,7 +155,7 @@
         </div> -->
         <!-- start of the button -->
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown container ">
-            <div class="btn-group container mx-auto mt-5 mx-3 " role="group">
+            <!-- <div class="btn-group container mx-auto mt-5 mx-3 " role="group">
                 <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown"
                     aria-expanded="false">
                     Add
@@ -165,11 +164,11 @@
                     <li><a class="dropdown-item" href="/admin/addCategory">Add Category</a></li>
                     <li><a class="dropdown-item" href="/admin/addSubCategory">Sub Category</a></li>
                 </ul>
-            </div>
+            </div> -->
         </div>
 
         <!-- end of the button -->
-        <div class="container-fluid mt-3">
+        <div class="container-fluid mt-5">
             <div class="row  justify-content-center">
 
                 <div class="col-md-8 mt-0">
@@ -181,66 +180,126 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Thumb</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Sub Categories</th>
-                                    <th scope="col">Description</th>
+                                    <th scope="col">Order Id</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Payment Method</th>
+                                    <th scope="col">Order Status</th>
+                                    <th scope="col">Total Amount</th>
                                     <th scope="col">Action</th>
+                                    <th scope="col">View</th>
 
                                 </tr>
                             </thead>
 
-                            <% if(category.length> 0){
-                                for(let i=0;i< category.length;i++){ %>
-                                    <tr>
-                                        <td>
-                                            <%= i+1 %>
-                                        </td>
+                            <% if(orderList.length<=0){%>
+
+                                <p>
+                                <h1 style="color: brown;">You Haven't Orderd Yet</h1>
+                                </p>
+
+                                <% } else{%>
+                                    <%for(let i=0;i< orderList.length;i++){%>
+
+                                        <tr>
 
 
-                                        <td>
-                                            <img src="/categoryImage/<%= category[i].image %>" alt=""
-                                                style="width:80px;height:80px;">
-                                        </td>
+                                            <td>
+                                                <%= i+1 %>
+                                            </td>
+                                            <td>
+                                                <%= orderList[i].orderid %>
+                                            </td>
 
 
-                                        <td>
-                                            <%= category[i].name %>
-                                        </td>
-                                        <td>
+                                            <td>
+                                                <%=
+                                                    orderList[i].date.toLocaleString({day:'2-digit',month:'2-digit',year:'2-digit'})%>
+                                            </td>
+                                            <td>
 
-                                            <% category[i].subCategories.forEach((subcategoryItem)=> { %>
-                                                <%= subcategoryItem.name %>
-                                                    <% }) %>
-                                                       
-                                        </td>
+                                                <%=orderList[i].address.fullName%> <br>
+                                                    <%=orderList[i].address.mobileNumber%><br>
+                                                        <%=orderList[i].address.pincode%><br>
+                                                            <%=orderList[i].address.houseAddress%>
+                                                                <%=orderList[i].address.streetAddress%><br>
+                                                                    <%=orderList[i].address. landMark%>
+                                                                        <%=orderList[i].address.cityName%>
+                                                                            <br>
 
-                                        <td>
-                                            <%= category[i].description %>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown" style="font-size: 25px ;color:#493a3a" ;>
-                                                    <!-- <i class="bx bx-dots-vertical-rounded"></i> -->
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item"
-                                                        href="/admin/edit-category?id=<%= category[i]._id %>"><i
-                                                            class="bx bx-edit-alt me-1" style="color:black;"></i>
-                                                        Edit</a>
-                                                    <a class="dropdown-item"
-                                                        href="/admin/delete-category?id=<%= category[i]._id %>"><i
-                                                            class="bx bx-trash me-1"></i> Delete</a>
+                                            </td>
 
+
+                                            <td>
+                                                <%=orderList[i].paymentMethod %>
+                                            </td>
+                                            <td>
+
+                                                <%= orderList[i].orderStatus %>
+                                            </td>
+
+                                            <td>
+                                                <%= orderList[i].totalAmount %>
+                                            </td>
+                                            <td>
+
+                                                <div class="btn-group">
+                                                    <button class="btn btn-primary dropdown-toggle" type="button"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <%= orderList[i].orderStatus %>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <% if (orderList[i].orderStatus==="pending" ) { %>
+                                                            <li><a class="dropdown-item"
+                                                                    href="/admin/order-status-placed?id=<%=orderList[i]._id%>">Placed</a>
+                                                            </li>
+                                                            <li><a class="dropdown-item"
+                                                                    href="/admin/order-status-shipped?id=<%=orderList[i]._id%>">Shipped</a>
+                                                            </li>
+                                                            <li><a class="dropdown-item"
+                                                                    href="/admin/order-status-delivered?id=<%=orderList[i]._id%>">Delivered</a>
+                                                            </li>
+                                                            <% } else if (orderList[i].orderStatus==="placed" ) { %>
+                                                                <li><a class="dropdown-item"
+                                                                        href="/admin/order-status-shipped?id=<%=orderList[i]._id%>">Shipped</a>
+                                                                </li>
+                                                                <li><a class="dropdown-item"
+                                                                        href="/admin/order-status-delivered?id=<%=orderList[i]._id%>">Delivered</a>
+                                                                </li>
+                                                                <% } else if (orderList[i].orderStatus==="Shipped" ) {
+                                                                    %>
+                                                                    <li><a class="dropdown-item"
+                                                                            href="/admin/order-status-delivered?id=<%=orderList[i]._id%>">Delivered</a>
+                                                                    </li>
+                                                                    <% } else if (orderList[i].orderStatus==="Delivered"
+                                                                        ) { %>
+                                                                        <li><span
+                                                                                class="dropdown-item disabled">Delivered</span>
+                                                                        </li>
+                                                                        <% } else if
+                                                                            (orderList[i].orderStatus==="return requested"
+                                                                            ) { %>
+                                                                            <li><a class="dropdown-item"
+                                                                                    href="/admin/order-status-acceptReturn?id=<%=orderList[i]._id%>">Accept
+                                                                                    Return</a></li>
+                                                                            <li><a class="dropdown-item"
+                                                                                    href="/admin/order-status-rejectReturn?id=<%=orderList[i]._id%>">Reject
+                                                                                    Return</a></li>
+                                                                            <% } %>
+                                                    </ul>
                                                 </div>
 
-                                            </div>
+
+                                            </td>
+
+                                            <td>
+                                                <a href="/admin/orderPreview?orderid=<%=orderList[i].orderid%>"> <i
+                                                        class="fa-sharp fa-regular fa-eye fa-spin-pulse"></i></a>
+                                            </td>
 
 
-                                        </td>
-                                    </tr>
-                                    <% } } %>
+                                        </tr>
+                                        <%} }%>
 
                         </table>
 

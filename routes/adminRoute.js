@@ -93,6 +93,7 @@ const productController = require("../controllers/productController")
 const brandController = require("../controllers/brandController")
 const couponController = require("../controllers/couponController")
 const bannerController = require("../controllers/bannerController")
+const orderController=require("../controllers/orderController")
 
 const auth = require("../middleware/adminAuth")
 
@@ -166,7 +167,14 @@ admin_route.get('/editBanner', auth.isLogin, bannerController.editBanner)
 admin_route.get('/blockBanner', auth.isLogin, bannerController.blockbanner)
 
 
-
+//orders
+admin_route.get('/orders',auth.isLogin,orderController.loadOrder)
+admin_route.get('/order-status-placed',auth.isLogin,orderController.orderPlaced)
+admin_route.get('/order-status-shipped',auth.isLogin,orderController.orderShipped)
+admin_route.get('/order-status-delivered',auth.isLogin,orderController.orderDelivered)
+admin_route.get('/order-status-rejectRerturn',auth.isLogin,orderController.rejectReturn)
+admin_route.get('/order-status-acceptReturn',auth.isLogin,orderController.acceptReturn)
+admin_route.get('/orderPreview',auth.isLogin,orderController.orderView)
 
 
 
