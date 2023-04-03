@@ -91,6 +91,79 @@ const orderView = async (req, res) => {
 }
 
 
+const returnRequest = async (req, res) => {
+    try {
+        Id = req.query.id
+        const Datee = await Order.findOne({ _id: Id })
+        if (Datee) {
+            const orderDate = Datee.date
+            const orderDateObj = new Date(orderDate);
+            const currentDateObj = new Date();
+            const timeDiff = currentDateObj.getTime() - orderDateObj.getTime();
+            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+            if (daysDiff <= 30) {
+                const returnOrder = await Order.updateOne({ _id: Id }, { $set: { orderStatus: "return requested" } })
+
+                res.redirect("/orders")
+            } else {
+                const expiredOrder = await Order.updateOne({ _id: Id }, { $set: { expireStatus: "expired" } })
+                res.redirect("/orders")
+            }
+
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const cancelRequest = async (req, res) => {
+    try {
+        Id = req.query.id
+        console.log(Id, "cancell req id ");
+        const Datee = await Order.findOne({ _id: Id })
+        if (Datee) {
+            const orderDate = Datee.date
+            const orderDateObj = new Date(orderDate);
+            const currentDateObj = new Date();
+            const timeDiff = currentDateObj.getTime() - orderDateObj.getTime();
+            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+            if (daysDiff <= 30) {
+                const cancelOrder = await Order.updateOne({ _id: Id }, { $set: { orderStatus: "Cancelled" } })
+
+
+                if (cancelOrder) {
+                    res.redirect("/orders")
+                }
+
+
+
+
+            }
+
+
+        }
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+const cancelreturnRequested = async (req, res) => {
+    try {
+        Id = req.query.id
+        const cancelreturnreq = await Order.updateOne({ _id: Id }, { $set: { orderStatus: "Delivered" } })
+        if (cancelreturnreq) {
+
+            res.redirect("/orders")
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+
 
 module.exports = {
     loadOrder,
@@ -99,5 +172,8 @@ module.exports = {
     acceptReturn,
     rejectReturn,
     orderDelivered,
-    orderView
+    orderView,
+    returnRequest,
+    cancelRequest,
+    cancelreturnRequested
 }

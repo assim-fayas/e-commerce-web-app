@@ -59,6 +59,10 @@ const orderSchema = mongoose.Schema({
     },
     discount: {
         type: Number
+    },
+    expireStatus: {
+        type:String,
+        default:"not expired"
     }
 }, { timestamps: true })
 

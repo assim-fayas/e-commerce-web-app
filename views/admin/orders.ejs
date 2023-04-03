@@ -285,7 +285,25 @@
                                                                             <li><a class="dropdown-item"
                                                                                     href="/admin/order-status-rejectReturn?id=<%=orderList[i]._id%>">Reject
                                                                                     Return</a></li>
-                                                                            <% } %>
+                                                                            <% } else if
+                                                                                (orderList[i].orderStatus==="Accept  Return"
+                                                                                ) { %>
+                                                                                <li><span
+                                                                                        class="dropdown-item disabled">Accept
+                                                                                        Return</span>
+                                                                                </li>
+
+                                                                                <% } else if
+                                                                                    (orderList[i].orderStatus==="Reject Return"
+                                                                                    ) { %>
+
+                                                                                    <li><span
+                                                                                            class="dropdown-item disabled">Reject
+                                                                                            Return</span>
+                                                                                    </li>
+
+
+                                                                                    <% } %>
                                                     </ul>
                                                 </div>
 

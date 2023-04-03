@@ -611,54 +611,101 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <% if(orderedData.length<=0){%>
+                                      <% if (orderedData.length <= 0) { %>
+                                        <td colspan="8">
+                                          <h1 style="color: brown;">You Haven't Ordered Yet</h1>
+                                        </td>
+                                      <% } else { %>
+                                        <% for (let i = 0; i < orderedData.length; i++) { %>
+                                          <tr>
+                                            <td rowspan="<%= orderedData[i].items.length %>"><%= orderedData[i].orderid %></td>
+                                            <% orderedData[i].items.forEach((val, index) => { %>
+                                              <% if (index > 0) { %>
+                                                </tr><tr>
+                                              <% } %>
+                                              <td><%= val.name %></td>
+                                            <% }) %>
+                                            <td rowspan="1">
+                                              <%= orderedData[i].address.fullName %><br>
+                                              <%= orderedData[i].address.mobileNumber %><br>
+                                              <%= orderedData[i].address.pincode %><br>
+                                              <%= orderedData[i].address.houseAddress %> <%= orderedData[i].address.streetAddress %><br>
+                                              <%= orderedData[i].address.landMark %><br>
+                                              <%= orderedData[i].address.cityName %>
+                                            </td>
+                                            <td rowspan="1"><%= orderedData[i].date.toLocaleString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }) %></td>
+                                            <td rowspan="1"><%= orderedData[i].totalAmount %></td>
 
-                                            <p>
-                                            <h1 style="color: brown;">You Haven't Orderd Yet</h1>
-                                            </p>
-
-                                            <%} else{%>
-                                                <%for(let i=0;i<orderedData.length;i++){%>
-
-                                                    <td rowspan="1">
-                                                        <%=orderedData[i].orderid%>
-                                                    </td>
-                                                    <%orderedData[i].items.forEach((val,index)=>{%>
-                                                    <td rowspan="1">
-                                                        
-                                                         <%=val.name%>
-                                                              
-
-                                                    </td>
-                                                    <% })%>
-
-                                                    <td rowspan="1">
-                                                        <%=orderedData[i].address. fullName%> <br>
-                                                            <%=orderedData[i].address.mobileNumber%><br>
-                                                                <%=orderedData[i].address.pincode%><br>
-                                                                    <%=orderedData[i].address.houseAddress%>
-                                                                        <%=orderedData[i].address.streetAddress%><br>
-                                                                            <%=orderedData[i].address. landMark%>
-                                                                                <%=orderedData[i].address. cityName%>
-                                                                                    <br>
-                                                    </td>
-                                                    <td rowspan="1"><%=orderedData[i].date.toLocaleString({day:'2-digit',month:'2-digit',year:'2-digit'})%>
-                                                    </td>
-                                                    <td rowspan="1">
-                                                        <%=orderedData[i].totalAmount%>
-                                                    </td>
-                                                    <td rowspan="1">
-                                                        <%=orderedData[i].orderStatus%>
-                                                    </td>
-                                                    <td rowspan="1">
-<button class="btn-sm btn-danger"> cancel</button>
-                                                    </td>
-
+                                            <%if(orderedData[i].orderStatus =="pending"){%>
+                                                <td rowspan="1"><p style="color: #ff7f50;"><%= orderedData[i].orderStatus %></p></td>
+                                                <% } else if (orderedData[i].orderStatus == "Delivered") { %>
+                                                    <td rowspan="1"><p style="color: rgb(13, 110, 13);"><%= orderedData[i].orderStatus %></p></td>
+                                                <% } else if (orderedData[i].orderStatus == "Shipped") { %>
+                                                    <td rowspan="1"><p style="color: rgb(193, 203, 8);"><%= orderedData[i].orderStatus %></p></td>
+                                                <% } else if (orderedData[i].orderStatus == "cancel") { %>
+                                                    <td rowspan="1"><p style="color: rgb(181, 0, 18);"><%= orderedData[i].orderStatus %></p></td>
+                                                    <% } else if (orderedData[i].orderStatus == "return requested") { %>
+                                                        <td rowspan="1"><p style="color: rgb(194, 84, 6);"><%= orderedData[i].orderStatus %></p></td>
+                                                    <% } else if (orderedData[i].orderStatus == "Return Accepted") { %>
+                                                        <td rowspan="1"><p style="color: rgb(9, 135, 11);"><%= orderedData[i].orderStatus %></p></td>
+                                                    <% } else if (orderedData[i].orderStatus == "Return rejected") { %>
+                                                        <td rowspan="1"><p style="color: rgb(141, 12, 12);"><%= orderedData[i].orderStatus %></p></td>
+                                            <%}%>
+                                        
+                                            <% if (orderedData[i].orderStatus == "Delivered" && orderedData[i].expireStatus === "expired") { %>
+                                              <td rowspan="1">
+                                                <p><b style="color: brown;">Return Not <br> Available</b></p>
+                                              </td>
+                                              <% } else if (orderedData[i].orderStatus == "Delivered") { %>
+                                              <td rowspan="1">
+                                                <a href="/returnRequested?id=<%= orderedData[i]._id %>">
+                                                  <button class="btn-sm btn-danger">return order</button>
+                                                </a>
+                                              </td>
+                                              <% } else if (orderedData[i].orderStatus == "return requested") { %>
+                                              <td rowspan="1">
+                                                <a href="/cancelreturnRequested?id=<%= orderedData[i]._id %>">
+                                                  <button class="btn-sm btn-danger">cancel request</button>
+                                                </a>
+                                              </td>
+                                              <% } else if (orderedData[i].orderStatus == "Return Accepted") { %>
+                                              <td rowspan="1">
+                                               
+                                              </td>
+                                            <% } else if (orderedData[i].expireStatus == "expired" && orderedData[i].orderStatus === "cancel") { %>
+                                              <td rowspan="1">
+                                              
+                                              </td>
+                                            <% } else if ( orderedData[i].orderStatus == "cancel") { %>
+                                              <td rowspan="1">
+                                                <button class="btn-sm btn-danger ">cancel order</button>
+                                              </td>
+                                            <% } else if ( orderedData[i]. orderStatus== "Return rejected") { %>
+                                              <td rowspan="1">
+                                                <p><b style="color: brown;">Return Rejected </b></p>
+                                              </td>
+                                            <% } else if ( orderedData[i]. orderStatus== "Return Accepted") { %>
+                                              <td rowspan="1">
+                                                <p><b style="color: rgb(26, 112, 17);">Return Success </b></p>
+                                              </td>
+                                            <% } else if ( orderedData[i]. orderStatus== "Shipped") { %>
+                                              <td rowspan="1">
+                                                <a href="/cancelRequest?id=<%= orderedData[i]._id %>">
+                                                    <button class="btn-sm btn-danger">cancel order</button>
+                                                  </a>
+                                              </td>
+                                            <% } else { %>
+                                              <td rowspan="1">
+                                               
+                                                
+                                              </td>
+                                            <% } %>
+                                          </tr>
+                                        <% } %>
+                                      <% } %>
                                     </tr>
-                                    <%}%>
-                                        <%}%>
-
-                                </tbody>
+                                  </tbody>
+                                  
                             </table>
                         </div>
                     </div>

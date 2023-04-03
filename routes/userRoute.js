@@ -23,6 +23,7 @@ user_route.use(bodyParser.urlencoded({ extended: true }))
 const userController = require("../controllers/userController");
 const productController = require("../controllers/productController");
 const couponController = require("../controllers/couponController");
+const orderController = require("../controllers/orderController");
 
 
 
@@ -93,12 +94,15 @@ user_route.post('/addCheckoutaddress', productController.checkoutaddAddress)
 user_route.post('/coupon-apply', couponController.couponApply)
 
 
-//placeorder
+//order
 
 user_route.post('/place-order', productController.placeOrder)
-user_route.post('/verify-payment',auth.isLogin,productController.verifyPayment)
+user_route.post('/verify-payment', auth.isLogin, productController.verifyPayment)
 user_route.get('/ordersuccess', auth.isLogin, productController.orderSuccess);
 user_route.get('/orders', auth.isLogin, productController.OrderHistory);
+user_route.get('/returnRequested',auth.isLogin, orderController.returnRequest)
+user_route.get('/cancelRequest',auth.isLogin, orderController.cancelRequest)
+user_route.get('/cancelreturnRequested',auth.isLogin, orderController.cancelreturnRequested)
 
 
 
