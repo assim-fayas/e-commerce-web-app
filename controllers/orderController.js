@@ -163,6 +163,34 @@ const cancelreturnRequested = async (req, res) => {
 }
 
 
+const salesReport = async (req, res) => {
+    try {
+        res.render("salesReports")
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const ViewSalesReport = async (req, res) => {
+    try {
+
+        const startDate = new Date(req.body.startdate)
+        const endDate = new Date(req.body.enddate)
+        endDate.setHours(23, 59, 59, 999); // set the time to the end of the day
+        const salesData = await Order.find({
+            orderStatus: 'Delivered', date: { $gte: startDate, $lte: endDate }
+
+        })
+        console.log(salesData);
+        if (salesData) {
+            res.render('viewReports', { salesData })
+        }
+
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 
 module.exports = {
@@ -175,5 +203,7 @@ module.exports = {
     orderView,
     returnRequest,
     cancelRequest,
-    cancelreturnRequested
+    cancelreturnRequested,
+    salesReport,
+    ViewSalesReport
 }

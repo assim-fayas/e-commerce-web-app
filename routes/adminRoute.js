@@ -177,6 +177,10 @@ admin_route.get('/order-status-acceptReturn',auth.isLogin,orderController.accept
 admin_route.get('/orderPreview',auth.isLogin,orderController.orderView)
 
 
+//sales Report
+admin_route.get('/salesReport',auth.isLogin,orderController.salesReport)
+admin_route.post('/salesReport',orderController.ViewSalesReport)
+
 
 
 
