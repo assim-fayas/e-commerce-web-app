@@ -1,5 +1,10 @@
 const User = require('../model/userModel');
 const Products = require('../model/productModel')
+const Order = require('../model/orderModel')
+const Category = require('../model/categoryModel')
+const Coupon = require('../model/coupenModel')
+const Brand = require('../model/brandModel')
+const Banner = require('../model/bannerModel')
 const bcrypt = require('bcrypt');
 
 
@@ -58,7 +63,71 @@ const verifyLogin = async (req, res) => {
 
 const loadDashboard = async (req, res) => {
     try {
-        res.render('home')
+        let todayDate = new Date().toLocaleDateString()
+        let totalOrders = await Order.find({}).count()
+        let totalDelivery = await Order.find({ orderStatus: "Delivered" }).count()
+        let totalProduct = await Products.find({}).count()
+        let totalCategory = await Category.find({}).count()
+        let totalBrand = await Brand.find({}).count()
+        let totalUsers = await User.find({}).count()
+        let totalCoupon = await Coupon.find({}).count()
+        let totalbanner = await Banner.find({}).count()
+        const online = await Order.find({ paymentMethod: 'card' }).count()
+        const cod = await Order.find({ paymentMethod: 'COD' }).count()
+        const wallet = await Order.find({ paymentMethod: 'WALLET' }).count()
+
+
+        const weeklyRevenueOf = await Order.aggregate([
+            {
+                $match:{
+                    date:{
+                        $gte:new Date(new Date().setDate(new Date().getDate()-7))
+                    },orderStatus:{
+                        $eq:'Delivered'
+                    }
+                }
+            },
+            {
+                $group:{
+                    _id:null,
+                    Revenue:{$sum:'$totalAmount'}
+                }
+            }
+        ]);
+        const weeklyRevenue = weeklyRevenueOf.map((item) => {
+            return item.Revenue
+        });
+        const weeklySales = await Order.aggregate([
+            {
+                $match:{
+                    orderStatus:{
+                        $eq:'Delivered'
+                    }
+                }
+            },
+            {
+                $group:{
+                    _id:
+                        { $dateToString:{ format : "%d-%m-%Y", date: "$date"}},
+                    sales:{$sum:"$totalAmount"}
+                }
+            },
+            {
+                $sort:{_id:1}
+            },
+            {
+                $limit:7
+            },
+            
+        ])
+        const date = weeklySales.map((item) => { 
+            return item._id
+        })
+        const Sales = weeklySales.map((item) => { 
+            return item.sales
+        })
+
+        res.render('home', { todayDate, totalOrders, totalDelivery, totalProduct, totalCategory, totalBrand, totalUsers, totalCoupon, totalbanner,weeklyRevenue,online,cod, wallet,weeklySales,date,Sales  })
     } catch (error) {
         console.log(error.message);
 
