@@ -282,67 +282,64 @@
 
 
         <!-- bar chart -->
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Sales Chart</h5>
+        <div class="card" style="background: black;">
+            <br><br>
+            <br><br>
+            <br><br>
+            <br><br>
+            <div class="card-body">
+                <h5 class="card-title">Sales Chart</h5>
 
-                    <!-- Bar Chart -->
-                    <!-- <br><br>
-                    <br><br>
-                    <br><br> -->
-                    <canvas id="barChart" style="max-height: 400px; width: 100%;"></canvas>
+                <!-- Bar Chart -->
+                <canvas id="barChart" style="max-height: 600px; width: 100%;"></canvas>
 
-                    <script>
-                        document.addEventListener("DOMContentLoaded", () => {
-                            new Chart(document.querySelector('#barChart'), {
-                                type: 'bar',
-                                data: {
-
-                                    labels: ['<%=date[0]%>', '<%=date[1]%>', '<%=date[2]%>', '<%=date[3]%>', '<%=date[4]%>', '<%=date[5]%>', '<%=date[6]%>'],
-                                    datasets: [{
-                                        label: 'Daily sales',
-                                        data: ["<%=Sales[0]%>", "<%=Sales[1]%>", "<%=Sales[2]%>", "<%=Sales[3]%>", "<%=Sales[4]%>", "<%=Sales[5]%>", "<%=Sales[6]%>"],
-
-                                        backgroundColor: [
-                                            'rgba(255, 99, 132, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)',
-                                            'rgba(255, 205, 86, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(201, 203, 207, 0.2)'
-                                        ],
-                                        borderColor: [
-                                            'rgb(255, 99, 132)',
-                                            'rgb(255, 159, 64)',
-                                            'rgb(255, 205, 86)',
-                                            'rgb(75, 192, 192)',
-                                            'rgb(54, 162, 235)',
-                                            'rgb(153, 102, 255)',
-                                            'rgb(201, 203, 207)'
-                                        ],
-                                        borderWidth: 1
-                                    }]
-                                },
-                                options: {
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
+                <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        new Chart(document.querySelector('#barChart'), {
+                            type: 'line',
+                            data: {
+                                labels: ['<%=date[0]%>', '<%=date[1]%>', '<%=date[2]%>', '<%=date[3]%>', '<%=date[4]%>', '<%=date[5]%>', '<%=date[6]%>'],
+                                datasets: [{
+                                    label: 'Daily sales',
+                                    data: ["<%=Sales[0]%>", "<%=Sales[1]%>", "<%=Sales[2]%>", "<%=Sales[3]%>", "<%=Sales[4]%>", "<%=Sales[5]%>", "<%=Sales[6]%>"],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)',
+                                        'rgba(255, 205, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgb(255,255,255)',
+                                        'rgba(201, 203, 207, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)',
+                                        'rgb(255,255,255)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
                                     }
                                 }
-                            });
+                            }
                         });
-                    </script>
-                    <!-- End Bar CHart -->
+                    });
+                </script>
+                <!-- End Bar CHart -->
+            </div>
+        </div>
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
 
-
-                    <!-- Back to Top -->
-                    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
-                            class="bi bi-arrow-up"></i></a>
-                </div>
-
-                <%- include('../layouts/adminFooter.ejs') %>
+        <%- include('../layouts/adminFooter.ejs') %>
