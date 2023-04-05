@@ -71,6 +71,9 @@ const userSchema = new mongoose.Schema({
     cartTotalPrice: {
         type: Number,
         // default:0
+    },
+    wallet:{
+        type:Number,
     }
 
 }, { timestamps: true });

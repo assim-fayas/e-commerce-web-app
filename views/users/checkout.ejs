@@ -960,6 +960,7 @@
 
                         <div class="ec-sidebar-wrap ec-checkout-pay-wrap">
                             <!-- Sidebar Payment Block -->
+
                             <div class="ec-sidebar-block">
                                 <div class="ec-sb-title">
                                     <h3 class="ec-sidebar-title">Payment Method</h3>
@@ -969,11 +970,34 @@
                                         <div class="ec-pay-desc">Please select the preferred payment method to use on
                                             this
                                             order.</div>
+                                        <br>
+                                        <span class="ec-pay-option">
+                                            <span>
+                                                <input type="radio" id="pay3" name="payment" value="wallet">
+                                                <label for="pay3"> <b> Wallet Payment</b> <br>&nbsp;<p> <b
+                                                            style="color: rgb(179, 2, 2);"> balence: </b><b
+                                                            style="color: rgb(20, 154, 51);">
+                                                            <%=userData.wallet%> ₹
+                                                        </b></p></label>
+                                            </span>
+                                        </span>
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="ec-sidebar-block">
+
+                                <div class="ec-sb-block-content">
+                                    <div class="ec-checkout-pay">
+
 
                                         <span class="ec-pay-option">
                                             <span>
                                                 <input type="radio" id="pay2" name="payment" value="COD">
-                                                <label for="pay2">Cash On Delivery</label>
+                                                <label for="pay2"><b> Cash On Delivery</b></label>
                                             </span>
                                         </span>
 
@@ -982,24 +1006,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Sidebar Payment Block -->
-                        </div>
-                        <div class="ec-sidebar-wrap ec-check-pay-img-wrap">
-                            <!-- Sidebar Payment Block -->
+
                             <div class="ec-sidebar-block">
                                 <div class="ec-sb-title">
-                                    <h3 class="ec-sidebar-title">Payment Method</h3>
+                                    <!-- <h3 class="ec-sidebar-title">Payment Method</h3> -->
                                 </div>
 
                                 <span class="ec-pay-option">
                                     <span>
                                         <input type="radio" id="pay1" name="payment" value="card">
-                                        <label for="pay1"> card payment</label>
+                                        <label for="pay1"><b> card payment</b></label>
                                     </span>
                                 </span>
 
                                 <div class="ec-sb-block-content">
-                                    <div class="ec-check-pay-img-inner">
+                                    <br>
+                                    <div class="ec-check-pay-img-inner"
+                                        style="display: flex; justify-content: space-between; align-items: center;">
                                         <div class="ec-check-pay-img">
                                             <img src="/images/icons/payment1.png" alt="">
                                         </div>
@@ -1024,13 +1047,18 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
                             <!-- Sidebar Payment Block -->
                         </div>
+                        <!-- <div class="ec-sidebar-wrap ec-check-pay-img-wrap"> -->
+                        <!-- Sidebar Payment Block -->
+
+
+
+
+
+
+                        <!-- Sidebar Payment Block -->
+                        <!-- </div> -->
                         <button type="submit" class="btn btn-primary"> Place Order
                         </button>
                     </div>

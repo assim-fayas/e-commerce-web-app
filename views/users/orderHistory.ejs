@@ -599,7 +599,7 @@
                             <table class="table" style="text-align: left;">
                                 <thead>
                                     <tr>
-                                   
+
                                         <th>Order</th>
                                         <th>Products</th>
                                         <th>Address</th>
@@ -620,7 +620,7 @@
                                             <% } else { %>
                                                 <% for (let i=0; i < orderedData.length; i++) { %>
                                     <tr>
-                                   
+
                                         <td rowspan="<%= orderedData[i].items.length %>">
                                             <%= orderedData[i].orderid %>
                                         </td>
@@ -680,19 +680,21 @@
                                                             <% } else if (orderedData[i].orderStatus=="Return Accepted"
                                                                 ) { %>
                                                                 <td rowspan="1">
-
+                                                                    <p><b
+                                                                        style="color: rgb(26, 112, 17);">Return <br>
+                                                                        Success </b></p>
                                                                 </td>
                                                                 <% } else if (orderedData[i].expireStatus=="expired" &&
-                                                                    orderedData[i].orderStatus==="cancel" ) { %>
+                                                                    orderedData[i].orderStatus==="Cancelled" ) { %>
                                                                     <td rowspan="1">
 
                                                                     </td>
-                                                                    <% } else if ( orderedData[i].orderStatus=="cancel"
-                                                                        ) { %>
-                                                                        <td rowspan="1">
-                                                                            <button class="btn-sm btn-danger ">cancel
-                                                                                order</button>
-                                                                        </td>
+                                                                    <% } else if (
+                                                                        orderedData[i].orderStatus=="Cancelled" ) { %>
+                                                                            <td rowspan="1">
+                                                                                <p><b style="color: brown;">Order <br>Cancelled </b></p>
+                                                                            </td>
+
                                                                         <% } else if ( orderedData[i].
                                                                             orderStatus=="Return rejected" ) { %>
                                                                             <td rowspan="1">
@@ -719,7 +721,12 @@
                                                                                     <% } else { %>
                                                                                         <td rowspan="1">
 
-
+                                                                                            <a
+                                                                                                href="/cancelRequest?id=<%= orderedData[i]._id %>">
+                                                                                                <button
+                                                                                                    class="btn-sm btn-danger">cancel
+                                                                                                    order</button>
+                                                                                            </a>
                                                                                         </td>
                                                                                         <% } %>
                                     </tr>

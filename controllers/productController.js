@@ -381,7 +381,7 @@ const addtoCart = async (req, res) => {
             console.log(product, "pro");
             const userId = req.session.user_id
             const user = await User.findOne({ _id: userId })
-            const productAdd = await User.updateOne({ _id: user }, { $push: { cart: { productId: product._id, qty: 1, name:product.productName, price: product.price, productTotalPrice: product.price } } })
+            const productAdd = await User.updateOne({ _id: user }, { $push: { cart: { productId: product._id, qty: 1, name: product.productName, price: product.price, productTotalPrice: product.price } } })
             console.log(productAdd, "add");
 
             if (productAdd) {
@@ -538,7 +538,7 @@ const placeOrder = async (req, res) => {
         const totel = req.body.total1;
         const coupon = req.body.couponC;
 
-        const couponUpdate = await Coupon.updateOne({ Coupencode: coupon }, { $push: { used: userId } });
+        const couponUpdate = await Coupon.updateOne({ Coupencode: coupon }, { $push: { used: userId } },{$inc:{limit:-1}}) ;
         console.log(couponUpdate);
 
         console.log(index);
@@ -551,20 +551,12 @@ const placeOrder = async (req, res) => {
         const total = cartData.cartTotalPrice
         const payment = req.body.payment;
         let status = req.body.payment === "COD" ? "placed" : "pending";
-        console.log(payment, "payment");
+        // console.log(payment, "payment");
 
-        //this is random string options
-        // const v4options = {
-        //     random: [
-        //         0x10, 0x91, 0x56, 0xbe, 0xc4, 0xfb, 0xc1, 0xea, 0x71, 0xb4, 0xef, 0xe1, 0x67, 0x1c, 0x58, 0x36,
-        //     ],
-        //     clockseq: 0x1234,
-        //     node: [0x01, 0x23, 0x45, 0x67, 0x89, 0xab],
-        //     nsecs: 5678,
-        //     msecs: new Date('2022-01-01').getTime(),
-        // };
-        const randomstring = uuidv4().slice(0,5)
-        console.log( randomstring,"random string");
+
+
+        const randomstring = uuidv4().slice(0, 5)
+        console.log(randomstring, "random string");
 
         let orderObj = {
             userId: userId,
@@ -599,7 +591,28 @@ const placeOrder = async (req, res) => {
                     console.log(data);
                     res.json({ status: true })
                 }
-                else {
+                else if (payment == 'wallet') {
+                    const userData = await User.findOne({ _id: userId })
+                    if (userData.wallet >= total) {
+                        const cartData = userData.cart
+                        for (let i = 0; i < cartData.length; i++) {
+                            const productStock = await Products.findById(cartData[i].productId)
+                            productStock.quantity -= cartData[i].qty
+                            await productStock.save()
+                        }
+                        walletBalence= await Order.totalAmount - await User.wallet
+
+                        await User.updateOne({ _id: userId }, { $set: { cart: [], cartTotalPrice: 0 ,  wallet: walletBalence} })
+                        
+                        await Order.updateOne({ _id: orderId }, { $set: { paymentMethod: 'Wallet', orderStatus: 'placed' } })
+                       const wallet= User.wallet
+
+                        res.json({ status: true })
+                    }
+                    else {
+                        res.json({ walletBalance: true })
+                    }
+                } else {
                     var instance = new Razorpay({
                         key_id: process.env.KEY_ID,
                         key_secret: process.env.KEY_SECRET,

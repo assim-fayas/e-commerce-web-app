@@ -1,4 +1,6 @@
 const Order = require('../model/orderModel')
+const Product = require('../model/productModel')
+const User = require('../model/userModel')
 
 
 const loadOrder = async (req, res) => {
@@ -65,9 +67,22 @@ const acceptReturn = async (req, res) => {
     try {
         id = req.query.id
         const changeStatus = await Order.findByIdAndUpdate({ _id: id }, { $set: { orderStatus: "Return Accepted" } })
-        if (changeStatus) {
-            res.redirect('/admin/orders')
+        const orderData = await Order.findOne({ _id: id })
+        if (orderData.paymentMethod == 'card') {
+            const refund = await User.updateOne({ _id: orderData.userId }, { $inc: { wallet: orderData.totalAmount } })
         }
+        const quantity = orderData.items
+
+        for (let i = 0; i < quantity.length; i++) {
+
+            const productstock = await Product.updateOne({ _id: quantity[i].productId }, { $inc: { qty: quantity[i].qty } })
+
+            res.redirect('/admin/orders')
+
+        }
+
+ 
+
 
     } catch (error) {
         console.log(error.message);
@@ -117,33 +132,21 @@ const returnRequest = async (req, res) => {
 }
 
 const cancelRequest = async (req, res) => {
-    try {
-        Id = req.query.id
-        console.log(Id, "cancell req id ");
-        const Datee = await Order.findOne({ _id: Id })
-        if (Datee) {
-            const orderDate = Datee.date
-            const orderDateObj = new Date(orderDate);
-            const currentDateObj = new Date();
-            const timeDiff = currentDateObj.getTime() - orderDateObj.getTime();
-            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
-            if (daysDiff <= 30) {
-                const cancelOrder = await Order.updateOne({ _id: Id }, { $set: { orderStatus: "Cancelled" } })
-
-
-                if (cancelOrder) {
-                    res.redirect("/orders")
-                }
-
-
-
-
-            }
-
-
+    try{
+        const orderId = req.query.id
+        const order = await Order.findById(orderId)
+        if(order.paymentMethod == "card" && order.orderStatus == 'placed'){
+            const refund = await User.findOneAndUpdate({_id:order.userId},{$inc:{wallet:order.totalAmount}})
+            order.orderStatus = 'Cancelled'
+            order.save()
+            res.redirect('/profile')
+        }else{
+            order.orderStatus = 'Cancelled'
+            order.save()
+            res.redirect('/profile')
         }
 
-    } catch (error) {
+     } catch (error) {
         console.log(error.message);
     }
 }
