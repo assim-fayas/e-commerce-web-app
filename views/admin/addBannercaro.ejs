@@ -151,41 +151,117 @@
             <div class="col-md-10  ">
                 <form action="/admin/addbannerCaro" method="post" enctype="multipart/form-data"
                     style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
-                    class="text-left  form-sm">
+                    class="text-left  form-sm" id="bannerForm" onsubmit="return validateForm()">
                     <div class="form-group mb-4">
                         <label for="thumbnail">Image</label>
                         <div class="input-group">
                             <div class="custom-file col-">
-                                <input type="file" multiple class="custom-file-input bg-dark" id="thumbnail" name="image"
-                                    accept="image/*" />
-
+                                <input type="file" multiple class="custom-file-input bg-dark" id="thumbnail"
+                                    name="image" accept="image/jpg,image/jpeg,image/png,image/webpeg" />
                                 <label class="custom-file-label" for="thumbnail">choose file</label>
                             </div>
                         </div>
+                        <span id="thumbnailError" style="color: red; display: none;">Please select an image file.</span>
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="bannertype">Banner Type</label>
                         <select class="form-control bg-dark col-4" id="bannertype" name="bannertype">
+                            <option value="">Select banner type</option>
                             <option value="sliding">Sliding Banner</option>
                             <option value="category">Category Banner</option>
-                            <!-- <option value="offer">Offer Banner</option> -->
                         </select>
+                        <span id="bannerTypeError" style="color: red; display: none;">Please select a banner
+                            type.</span>
                     </div>
-                    
-                    
+
                     <div class="form-group mb-4">
-                        <label for="name">Descreption</label>
+                        <label for="name">Description</label>
                         <div class="input-group">
                             <input type="text" class="form-control bg-dark col-4" id="description" name="description"
                                 placeholder="Enter Description">
                         </div>
+                        <span id="descriptionError" style="color: red; display: none;">Please provide a
+                            description.</span>
                     </div>
-
                     <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
             </div>
+
+
         </div>
+
+
+        </form>
+
+        <script>
+            function validateForm() {
+                // Get form inputs
+                const thumbnail = document.getElementById('thumbnail');
+                const bannerType = document.getElementById('bannertype');
+                const description = document.getElementById('description');
+
+                // Get error message elements
+                const thumbnailError = document.getElementById('thumbnailError');
+                const bannerTypeError = document.getElementById('bannerTypeError');
+                const descriptionError = document.getElementById('descriptionError');
+
+                // Set flag variable to track if any errors were found
+                let errorFound = false;
+
+                // Check if thumbnail is selected
+                if (thumbnail.files.length === 0) {
+                    thumbnailError.style.display = 'block';
+                    errorFound = true;
+                } else {
+                    thumbnailError.style.display = 'none';
+                }
+
+                // Check if banner type is selected
+                if (bannerType.value === '') {
+                    bannerTypeError.style.display = 'block';
+                    errorFound = true;
+                } else {
+                    bannerTypeError.style.display = 'none';
+                }
+
+                // Check if description is provided
+                if (description.value === '') {
+                    descriptionError.style.display = 'block';
+                    errorFound = true;
+                } else {
+                    descriptionError.style.display = 'none';
+                }
+
+                // Return false if any errors were found
+                if (errorFound) {
+                    return false;
+                }
+
+                // Submit form if no errors were found
+                return true;
+            }
+
+            // Get form element
+            const bannerForm = document.getElementById('bannerForm');
+
+            // Attach event listener to form submit event
+            bannerForm.addEventListener('submit', function (event) {
+                // Prevent default form submission
+                event.preventDefault();
+
+                // Validate form
+                const formValid = validateForm();
+
+                // Submit form if valid
+                if (formValid) {
+                    this.submit();
+                }
+            });
+        </script>
+
+        <!-- Add error message elements to the form -->
+
+
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>

@@ -151,16 +151,18 @@
             <div class="col-md-10  ">
                 <form action="/admin/addCategory" method="post" enctype="multipart/form-data"
                     style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
-                    class="text-left  form-sm">
+                    class="text-left  form-sm" onsubmit="return validateForm()">
                     <div class="form-group mb-4">
                         <label for="thumbnail">Image</label>
                         <div class="input-group">
                             <div class="custom-file col-">
-                                <input type="file" class="custom-file-input bg-dark" id="thumbnail" name="image" accept="image/*" />
+                                <input type="file" class="custom-file-input bg-dark" id="thumbnail" name="image"
+                                    accept="image/jpeg,image/png,image/webpeg" />
 
                                 <label class="custom-file-label" for="thumbnail">choose file</label>
                             </div>
                         </div>
+                        <span id="thumbnailError" class="error"></span>
                     </div>
                     <div class="form-group mb-4">
                         <label for="name">Name</label>
@@ -168,14 +170,63 @@
                             <input type="text" class="form-control bg-dark col-4" id="name" name="name"
                                 placeholder="Enter name">
                         </div>
+                        <span id="nameError" class="error"></span>
                     </div>
                     <div class="form-group mb-4">
                         <label for="description">Short Description</label>
                         <textarea class="form-control bg-dark col-4" id="description" name="description" rows="3"
                             placeholder="Enter description"></textarea>
+                        <span id="descriptionError" class="error"></span>
                     </div><br><br>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+
+                <style>
+                    .error {
+                        color: rgb(250, 7, 7);
+                        font-weight: bolder;
+                    }
+                </style>
+
+                <script>
+                   function validateForm() {
+  // Get form fields and trim input values
+  var thumbnail = document.getElementById("thumbnail").value.trim();
+  var name = document.getElementById("name").value.trim();
+  var description = document.getElementById("description").value.trim();
+
+  // Validate fields
+  var thumbnailValid = thumbnail !== "";
+  var nameValid = name !== "";
+  var descriptionValid = description !== "";
+
+  // Display error messages for invalid fields
+  if (!thumbnailValid) {
+    document.getElementById("thumbnailError").innerHTML = "Please choose an image.";
+  } else {
+    document.getElementById("thumbnailError").innerHTML = "";
+  }
+
+  if (!nameValid) {
+    document.getElementById("nameError").innerHTML = "Please enter a name.";
+  } else {
+    document.getElementById("nameError").innerHTML = "";
+  }
+
+  if (!descriptionValid) {
+    document.getElementById("descriptionError").innerHTML = "Please enter a description.";
+  } else {
+    document.getElementById("descriptionError").innerHTML = "";
+  }
+
+  // Submit form if all fields are valid
+  return thumbnailValid && nameValid && descriptionValid;
+}
+
+                </script>
+
+
+
             </div>
         </div>
 

@@ -151,17 +151,18 @@
             <div class="col-md-10  ">
                 <form action="/admin/addBrand" method="post" enctype="multipart/form-data"
                     style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
-                    class="text-left  form-sm">
+                    class="text-left  form-sm" onsubmit="return validateForm()">
                     <div class="form-group mb-4">
                         <label for="thumbnail">Image</label>
                         <div class="input-group">
                             <div class="custom-file col-">
                                 <input type="file" class="custom-file-input bg-dark" id="thumbnail" name="image"
-                                    accept="image/jpeg,image/png,image/webpeg" />
-
-                                <label class="custom-file-label" for="thumbnail">choose file</label>
+                                    accept="image/jpeg,image/png,image/webpeg" onchange="validateImage()" />
+                                <label class="custom-file-label" for="thumbnail">Choose file</label>
                             </div>
                         </div>
+                        <span id="imageError" style="color: red; display: none;">Please select a valid image file
+                            (jpeg/png/webp).</span>
                     </div>
                     <div class="form-group mb-4">
                         <label for="name">Name</label>
@@ -169,10 +170,31 @@
                             <input type="text" class="form-control bg-dark col-4" id="name" name="name"
                                 placeholder="Enter name">
                         </div>
+                        <span id="nameError" style="color: red; display: none;">Please enter a name.</span>
                     </div>
-
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+
+              <script>
+                function validateForm() {
+                    var image = document.getElementById("thumbnail");
+                    var name = document.getElementById("name");
+                  
+                    if (image.files.length == 0) {
+                      document.getElementById("imageError").style.display = "block";
+                      return false;
+                    }
+                  
+                    if (name.value.trim() == "") {
+                      document.getElementById("nameError").style.display = "block";
+                      return false;
+                    }
+                  
+                    return true;
+                  }
+                  
+</script>
+
             </div>
         </div>
 

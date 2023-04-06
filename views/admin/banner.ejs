@@ -150,15 +150,11 @@
         <div class="container mt-4">
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown container ">
                 <div class="btn-group container mx-auto mt-5 mx-3 " role="group">
-                    <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Add
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/admin/addbannerCaro">Add carousel banner</a></li>
-                        <li><a class="dropdown-item" href="/admin/addSubCategory">Sub Category</a></li>
-                        <li><a class="dropdown-item" href="/admin/addSubCategory">Sub Category</a></li>
-                    </ul>
+                    <a href="/admin/addbannerCaro"> <button type="button" class="btn btn-primary   "
+                           >
+                    Add
+                    </button></a>
+
                 </div>
             </div>
             <div class="container-fluid mt-3">
@@ -225,14 +221,14 @@
                                                         <a class="dropdown-item"
                                                             href="/admin/blockBanner?id=<%=value._id%>"><i
                                                                 class="bx bx-trash me-1"></i>
-                                                                <%if(value.disable==true ){%>
-                                                                    Enable
-        
-                                                                    <% } else{ %>
-        
-                                                                        Disable
-                                                                        <%}%>
-                                                          
+                                                            <%if(value.disable==true ){%>
+                                                                Enable
+
+                                                                <% } else{ %>
+
+                                                                    Disable
+                                                                    <%}%>
+
                                                         </a>
 
                                                     </div>
@@ -303,14 +299,14 @@
                                                         <a class="dropdown-item"
                                                             href="/admin/blockBanner?id=<%=value._id%>"><i
                                                                 class="bx bx-trash me-1"></i>
-                                                                <%if(value.disable==true ){%>
-                                                                    Enable
-        
-                                                                    <% } else{ %>
-        
-                                                                        Disable
-                                                                        <%}%>
-                                                          
+                                                            <%if(value.disable==true ){%>
+                                                                Enable
+
+                                                                <% } else{ %>
+
+                                                                    Disable
+                                                                    <%}%>
+
                                                         </a>
 
                                                     </div>

@@ -150,32 +150,61 @@
 
             <div class="col-md-10  ">
                 <form action="/admin/addSubCategory" method="post"
-                    style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
-                    class="text-left  form-sm">
-
-                    <div class="form-group mb-4">
-                        <label for="name">Name</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-dark col-4" id="name" name="name"
-                                placeholder="Enter name">
-                        </div>
+                style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
+                class="text-left  form-sm" onsubmit="return validateForm()">
+                      
+                <div class="form-group mb-4">
+                    <label for="name">Name</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-dark col-4" id="name" name="name"
+                            placeholder="Enter name">
                     </div>
-                    <div class="form-group mb-4">
-                        <label for="category"> Parent Category</label>
-                        <select class="form-control bg-dark col-4" id="category" name="parentCategory">
-                            <% categories.forEach((category)=>{ %>
-                                <option>
-                                    <%= category.name %>
-                                </option>
-                                <% }) %>
-
-
-
-                        </select>
-                    </div>
-                    <br><br>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                    <span id="nameError" style="color: red; display: none;">Please enter a name.</span>
+                </div>
+                      
+                <div class="form-group mb-4">
+                    <select class="form-control bg-dark col-4" id="category" name="parentCategory">
+                        <option value="">Please select</option>
+                        <% categories.forEach((category)=>{ %>
+                        <option value="<%= category.name %>">
+                            <%= category.name %>
+                        </option>
+                        <% }) %>
+                    </select>
+                    <span id="categoryError" style="color: red; display: none;">Please select a category.</span>
+                    
+                </div>
+                      
+                <br><br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+                      
+            <script>
+                function validateForm() {
+                    const nameInput = document.getElementById("name");
+                    const categoryInput = document.getElementById("category");
+                    const nameError = document.getElementById("nameError");
+                    const categoryError = document.getElementById("categoryError");
+                      
+                    if (nameInput.value.trim() === "") {
+                        nameError.style.display = "block";
+                        return false;
+                    } else {
+                        nameError.style.display = "none";
+                    }
+                      
+                    if (categoryInput.value === "") {
+                        categoryError.style.display = "block";
+                        return false;
+                    } else {
+                        categoryError.style.display = "none";
+                    }
+                      
+                    return true;
+                }
+            </script>
+            
+          
             </div>
         </div>
 
