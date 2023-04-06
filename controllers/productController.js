@@ -587,8 +587,16 @@ const placeOrder = async (req, res) => {
 
 
                 if (payment == 'COD') {
-                    await User.updateOne({ _id: userId }, { $set: { cart: [], cartTotalPrice: 0 } })
-                    console.log(data);
+                    const userData = await User.findOne({_id:userId})
+                  
+                    const cartData = userData.cart
+
+                    for(let i=0;i<cartData.length;i++){
+                        const productStock = await Products.findById(cartData[i].productId)
+                        productStock.quantity -= cartData[i].qty
+                        await productStock.save()
+                    }
+                    await User.updateOne({_id:userId},{$set:{cart:[],cartTotalPrice:0}})
                     res.json({ status: true })
                 }
                 else if (payment == 'wallet') {
@@ -600,9 +608,9 @@ const placeOrder = async (req, res) => {
                             productStock.quantity -= cartData[i].qty
                             await productStock.save()
                         }
-                        walletBalence= await Order.totalAmount - await User.wallet
+                         const walletBalence= userData.wallet - userData.cartTotalPrice ;
 
-                        await User.updateOne({ _id: userId }, { $set: { cart: [], cartTotalPrice: 0 ,  wallet: walletBalence} })
+                        await User.updateOne({ _id: userId }, { $set: { cart: [], cartTotalPrice: 0 ,  wallet:walletBalence} })
                         
                         await Order.updateOne({ _id: orderId }, { $set: { paymentMethod: 'Wallet', orderStatus: 'placed' } })
                        const wallet= User.wallet
