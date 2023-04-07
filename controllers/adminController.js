@@ -74,7 +74,7 @@ const loadDashboard = async (req, res) => {
         let totalbanner = await Banner.find({}).count()
         const online = await Order.find({ paymentMethod: 'card' }).count()
         const cod = await Order.find({ paymentMethod: 'COD' }).count()
-        const wallet = await Order.find({ paymentMethod: 'WALLET' }).count()
+        const wallet = await Order.find({ paymentMethod: 'Wallet' }).count()
 
 
         const weeklyRevenueOf = await Order.aggregate([

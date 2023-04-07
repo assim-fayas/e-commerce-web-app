@@ -105,31 +105,31 @@ const couponApply = async (req, res) => {
   try {
 
     const userId = req.session.user_id
-    console.log(userId);
-    const user = await User.findOne({ _id: userId });
-    console.log(user);
+    const user = await User.findOne({ _id:userId });
     let cartTotal = user.cartTotalPrice;
-    console.log("cart");
     console.log(cartTotal);
 
     // const exist = await Coupon.findOne(
     //   { couponCode: req.body.code, used: userId },
     //   { used: { $elemMatch: { $eq: userId } } }
     // );
-const exist= await Coupon.findOne({ couponCode: req.body.code, used:{$in:[user._id]}});
+    const exist = await Coupon.findOne(
+      { Coupencode: req.body.code, used: userId },
+      { used: { $elemMatch: { $eq: userId } } }
+    );
 
     if (exist) {
-      console.log("ubhayokichu");
+
       return res.json({ used: true });
     } else {
-      const couponData = await Coupon.findOne({ couponCode: req.body.code });
+      const couponData = await Coupon.findOne({ Coupencode:req.body.code });
       if (couponData) {
         if (couponData.expiryDate >= new Date()) {
           if (couponData.limit !== 0) {
-            if (couponData.minCartAmount <= cartTotal) {
+            if (couponData. minCartAmount <= cartTotal) {
               if (couponData.coupenAmountType === "flat") {
-                let discountValue = couponData.coupenAmount;
-                let value = Math.round(cartTotal - couponData.coupenAmount);
+                let discountValue = couponData.coupenAmountType;
+                let value = Math.round(cartTotal - couponData.coupenAmountType);
                 return res.json({
                   amountokey: true,
                   value,
@@ -138,8 +138,8 @@ const exist= await Coupon.findOne({ couponCode: req.body.code, used:{$in:[user._
                 });
               } else if (couponData.coupenAmountType === "percentage") {
                 const discountPercentage =
-                  (cartTotal * couponData.coupenAmount) / 100;
-                if (discountPercentage <= couponData.minRedeemAmount) {
+                  (cartTotal*couponData.coupenAmount) / 100; 
+                if (discountPercentage <= couponData.minRedeemAmount) {  
                   let discountValue = discountPercentage;
                   let value = Math.round(cartTotal - discountPercentage);
                   return res.json({

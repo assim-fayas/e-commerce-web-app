@@ -71,6 +71,7 @@ const viewProduct = async (req, res) => {
     }
 
     const searchData = new String(search).trim();
+    console.log(searchData);
 
     const query = {
       is_delete: false,
@@ -102,17 +103,7 @@ const viewProduct = async (req, res) => {
     const endIndex = startIndex + productsPerPage;
     const pageProducts = product.slice(startIndex, endIndex);
     const totalPages = Math.ceil(product.length / productsPerPage);
-    // console.log(
-    //   page +
-    //     " - " +
-    //     startIndex +
-    //     " - " +
-    //     endIndex +
-    //     " - " +
-    //     pageProducts +
-    //     " - " +
-    //     totalPages
-    // );
+    
     // -----------Category finding
     const categoryData = await Category.find({});
 
@@ -142,44 +133,6 @@ const viewProduct = async (req, res) => {
   }
 };
 
-// const search_product = async (req, res) => {
-//     try {
-//         var cataId = req.query.sort;
-//         console.log("cataid only");
-//         if (req.query.cataId) {
-//             const search = req.body.search
-//             const ss = new RegExp(search, 'i')
-//             const data = await Products.find({ productName: ss, subCategory: req.query.cataId })
-//             const cata = await Category.find()
-//             res.render('products', { data, cata, search: search, cataId: req.query.cataId })
-//         } else if (req.query.sort) {
-//             console.log("sort", req.query.sort);
-//             const search = req.body.search
-//             const ss = new RegExp(search, 'i')
-//             const data = await Products.find({ productName: ss }).sort({ price: req.query.sort })
-//             const cata = await Category.find()
-//             console.log(data);
-//             res.render('products', { data, cata, search: search, sort: req.query.sort })
-//         } else if (req.query.cataId && req.body.search) {
-//             console.log("cata search");
-//             const search = req.body.search
-//             const ss = new RegExp(search, 'i')
-//             const data = await Products.find({ productName: ss })
-//             const cata = await Category.find()
-//             res.render('products', { data, cata, search: search, cataId: req.query.cataId })
-//         }
-//         else {
-//             const search = req.body.search
-//             const ss = new RegExp(search, 'i')
-//             const cata = await Category.find()
-//             const data = await Products.find({ productName: ss })
-//             res.render('products', { data, cata, search:search})
-
-//         }
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// }
 const singleProduct = async (req, res) => {
   try {
     const productId = req.query.id;
