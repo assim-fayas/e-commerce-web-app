@@ -141,17 +141,17 @@
                                 </div>
                                 <!-- Header User End -->
                                 <!-- Header wishlist Start -->
-                                <a href="wishlist.html" class="ec-header-btn ec-header-wishlist">
+                                <a href="/wishlist" class="ec-header-btn ec-header-wishlist">
                                     <div class="header-icon"><img src="/images/icons/wishlist.svg"
                                             class="svg_img header_svg" alt="" /></div>
-                                    <span class="ec-header-count">4</span>
+                                    <!-- <span class="ec-header-count">4</span> -->
                                 </a>
                                 <!-- Header wishlist End -->
                                 <!-- Header Cart Start -->
-                                <a href="#ec-side-cart" class="ec-header-btn ec-side-toggle">
+                                <a href="/cart" class="ec-header-btn ec-side-toggle">
                                     <div class="header-icon"><img src="/images/icons/cart.svg"
                                             class="svg_img header_svg" alt="" /></div>
-                                    <span class="ec-header-count cart-count-lable">3</span>
+                                    <!-- <span class="ec-header-count cart-count-lable">3</span> -->
                                 </a>
                                 <!-- Header Cart End -->
                             </div>
@@ -196,19 +196,20 @@
                 <div class="row">
                     <div class="col-md-12 align-self-center">
                         <div class="ec-main-menu">
-                            <ul>
-                                
+                        
+
 
                                 <ul>
                                     <li><a href="/home">Home</a></li>
                                     <li class="dropdown"><span class="main-label-note-new" data-toggle="tooltip"
-                                        title="NEW"></span><a href="/products">Shop</a>
-                                    
-                                </li>
-    
-                                    <li class="dropdown"><a href="/profile">Profile</a>
-                                       
+                                            title="NEW"></span><a href="/products">Shop</a>
+
                                     </li>
+
+                                    <li class="dropdown"><a href="/profile">Profile</a>
+
+                                    </li>
+                                </ul>
                         </div>
                     </div>
                 </div>
@@ -589,12 +590,12 @@
                                                         <span class="ec-com-remove "><a
                                                                 onclick="deletewishlist('<%=value.product._id%>')">×</a></span>
 
-                                                                <div class="ec-pro-actions">
-                                                                    <button title="Add To Cart" class=" add-to-cart"
-                                                                        onClick="addtoCart('<%=value._id%>')"><img
-                                                                            src="/images/icons/cart.svg" class="svg_img pro_svg"
-                                                                            alt="" /> Add To Cart</button>
-                                                                          </div>
+                                                        <div class="ec-pro-actions">
+                                                            <button title="Add To Cart" class=" add-to-cart"
+                                                                onClick="addtoCart('<%=value._id%>')"><img
+                                                                    src="/images/icons/cart.svg" class="svg_img pro_svg"
+                                                                    alt="" /> Add To Cart</button>
+                                                        </div>
 
 
                                                     </div>
@@ -632,7 +633,7 @@
                         </div>
                         <!--compare content End -->
                     </div>
-                    
+
                     <!-- Compare Content end -->
             </div>
         </div>
@@ -1030,6 +1031,6 @@
     </div>
     <!-- Feature tools end -->
 
-   
+
 
     <%-include('../layouts/productsFooter.ejs') %>

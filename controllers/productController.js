@@ -103,7 +103,7 @@ const viewProduct = async (req, res) => {
     const endIndex = startIndex + productsPerPage;
     const pageProducts = product.slice(startIndex, endIndex);
     const totalPages = Math.ceil(product.length / productsPerPage);
-    
+
     // -----------Category finding
     const categoryData = await Category.find({});
 
@@ -137,8 +137,10 @@ const singleProduct = async (req, res) => {
   try {
     const productId = req.query.id;
     const productData = await Products.findById({ _id: productId });
-    // console.log(productData);
-    res.render("singleProduct", { productData });
+    const categoryData = await Products.find({ mainCategory: productData.mainCategory }).limit(4)
+    
+
+    res.render("singleProduct", { productData,categoryData });
   } catch (error) {
     console.log(error.message);
   }
@@ -616,8 +618,8 @@ const verifyPayment = async (req, res) => {
     let hmac = crypto.createHmac("sha256", process.env.KEY_SECRET);
     hmac.update(
       details.payment.razorpay_order_id +
-        "|" +
-        details.payment.razorpay_payment_id
+      "|" +
+      details.payment.razorpay_payment_id
     );
     hmac = hmac.digest("hex");
 

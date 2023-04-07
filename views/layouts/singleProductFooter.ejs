@@ -25,6 +25,77 @@
  <script src="/js/vendor/index.js"></script>
  <script src="/js/main.js"></script>
 
+
+
+ <script>
+    function addtowhishlist(prodId) {
+        console.log('hi');
+        $.ajax({
+            url: '/addtowhishlist',
+            data: {
+                productId: prodId
+            },
+            method: 'post',
+            success: (res) => {
+                if (res.status) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Your product added to wishlist',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Item already exist',
+
+
+                    })
+
+                }
+            }
+        })
+    }
+
+</script>
+
+
+<script>
+    function addtoCart(Id) {
+        console.log('hi');
+        $.ajax({
+            url: '/addtocart',
+            data: {
+                productId: Id
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Your product added to cart',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Item already exist in cart',
+
+
+                    })
+
+                }
+            }
+        })
+    }
+</script>
 </body>
 
 <!-- Mirrored from loopinfosol.in/themeforest/ekka-html-v33/ekka-html/product-full-width.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Jan 2023 23:50:40 GMT -->
