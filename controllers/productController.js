@@ -683,6 +683,95 @@ const OrderHistory = async (req, res) => {
   }
 };
 
+const shopCategory=async(req,res)=>{
+  try {
+    
+    const categery = req.query.categoryId;
+    const search = req.query.search || "";
+    const sort = req.query.sort || "";
+    console.log(categery + " - " + search + " - " + sort);
+    let isRender = false;
+
+    
+    if (req.query.isRender) {
+      isRender = true;
+    };
+    const searchData = new String(search).trim();
+    console.log(searchData);
+
+    const query = {
+      is_delete: false,
+    };
+    
+    let sortQuery = { price: 1 };
+    if (sort == "high-to-low") {
+      sortQuery = { price: -1 };
+    }
+
+    
+    if (search) {
+      query["$or"] = [
+        { productName: { $regex: ".*" + searchData + ".*", $options: "i" } },
+        { description: { $regex: searchData, $options: "i" } },
+      ];
+    }
+
+
+    
+    if (categery) {
+      query["$or"] = [{ mainCategory: category }];
+    }
+
+    const product = await Products.find(query).sort(sortQuery);
+
+    
+    const productsPerPage = 5;
+    const page = req.query.page || 1;
+    const startIndex = (page - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+    const pageProducts = product.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(product.length / productsPerPage);
+    const categooryData = await Category.find({});
+
+    Id=req.query.Id
+    const category= await Category.findById({_id:Id})
+    const categoryName=category.name
+    const categeryProduct=await Products.find({ mainCategory:categoryName})
+    const categeryProductdrop=await Products.find({ mainCategory:categoryName}).limit(1)
+
+    const categoryData=await Category.find({name:{$ne:categoryName}})
+    // res.render('shopCategory',{categeryProduct,categoryData})
+
+    if (isRender == true) {
+      res.json({
+        pageProducts,
+        totalPages,
+        currentPage: parseInt(page, 10),
+        product,
+        categeryProduct,
+        categoryData,
+        categeryProductdrop
+        // cartCount,
+        // wishListCount
+      });
+    } else {
+      res.render("shopCategory", {
+        pageProducts,
+        totalPages,
+        currentPage: parseInt(page, 10),
+        product,
+        categooryData,
+        categeryProduct,
+        categoryData,
+        categeryProductdrop
+      });
+    }
+
+
+  } catch (error) {
+    console.log(error.message); 
+  }
+}
 module.exports = {
   loadProduct,
   addProduct,
@@ -705,4 +794,5 @@ module.exports = {
   orderSuccess,
   verifyPayment,
   OrderHistory,
+  shopCategory
 };

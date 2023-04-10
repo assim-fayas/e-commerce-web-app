@@ -10,9 +10,10 @@ const loadbanner = async (req, res) => {
     try {
         const bannerData = await Banner.find({})
 
+
         if (bannerData)
 
-            res.render('banner', { bannerData })
+            res.render('banner', { bannerData})
 
     } catch (error) {
         console.log(error.message);

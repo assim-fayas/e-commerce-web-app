@@ -30,6 +30,7 @@ app.use('/admin', adminRoute)
 
 const { sessionSecret } = require('./config/config')
 
+
 app.listen(port = 3000, () => {
 
     console.log(`server is  running at port:${port}`);

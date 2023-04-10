@@ -66,7 +66,6 @@ user_route.get('/delete-address/:id/:adrsId', auth.isLogin, userController.Delet
 
 user_route.get('/products', auth.isLogin, productController.viewProduct)
 user_route.get('/singleProduct', auth.isLogin, productController.singleProduct)
-// user_route.post('/search-product', productController.search_product)
 
 
 
@@ -100,10 +99,19 @@ user_route.post('/place-order', productController.placeOrder)
 user_route.post('/verify-payment', auth.isLogin, productController.verifyPayment)
 user_route.get('/ordersuccess', auth.isLogin, productController.orderSuccess);
 user_route.get('/orders', auth.isLogin, productController.OrderHistory);
-user_route.get('/returnRequested',auth.isLogin, orderController.returnRequest)
-user_route.get('/cancelRequest',auth.isLogin, orderController.cancelRequest)
-user_route.get('/cancelreturnRequested',auth.isLogin, orderController.cancelreturnRequested)
+user_route.get('/returnRequested', auth.isLogin, orderController.returnRequest)
+user_route.get('/cancelRequest', auth.isLogin, orderController.cancelRequest)
+user_route.get('/cancelreturnRequested', auth.isLogin, orderController.cancelreturnRequested)
 
+// shop by category
+ 
+user_route.get('/shopcategory',auth.isLogin,productController.shopCategory)
+
+
+
+// user_route.use((req, res, next) => {
+//     res.render('404')
+// })
 
 
 module.exports = user_route;

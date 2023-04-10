@@ -241,12 +241,14 @@ const loadHome = async (req, res) => {
     try {
         const category=await Category.find({})
         const product=await Product.find({disable:false}).sort({_id:-1}).limit(4)
-        const banner = await Banner.find({ $and: [{ block: true }, { type: "category" }] })
+        const bannerCategery = await Banner.find({ $and: [{ block: true }, { type: "category" }] })
+        // const bannerCategery = await Banner.find({type:category})
+        const bannerSliding = await Banner.find({$and:[{type:"sliding"},{block:true}]})
     
 
         if(category){
-            console.log(banner,"banner");
-        res.render('home',{category,product,banner});
+            console.log(bannerCategery,"banner");
+        res.render('home',{category,product,bannerSliding,bannerCategery});
         }
     }
     catch (error) {
