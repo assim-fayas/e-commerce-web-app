@@ -119,9 +119,8 @@
                     },
                     method: 'post',
                     success: (response) => {
-                        console.log("success")
-
-                        $('#table').load('/whishlist #table')
+                        console.log("success")  
+                        $('#wishlist-container').load(window.location.href + ' #wishlist-container');
                         console.log(response);
                         Swal.fire({
                             title: 'deleted!',
