@@ -140,6 +140,43 @@
 
 </script>
 
+
+<script>
+        function addToCart(prodId) {
+            console.log("23");
+    
+            // let count = document.querySelector('.cart-count')
+            // let val = parseInt(count.textContent)
+            $.ajax({
+                url: '/wishlistToCart',
+                data: {
+                    productId: prodId
+                },
+                method: 'post',
+                success: (res) => {
+                    console.log("success")
+                    console.log(res,"r");
+                    if(res){
+                      $('#table').load('/wishlist #table')
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your product added to cart',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+    
+                    }
+    
+                        
+    
+                    
+                }
+            })
+        }
+    
+    </script>
+
 <script>
     function addtoCart(Id) {
         console.log('hi');
@@ -265,6 +302,10 @@
 
 
 </script>
+
+
+
+
 
 
 <!-- serach ,sort ,filter -->

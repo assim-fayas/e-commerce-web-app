@@ -642,9 +642,6 @@
 
             </div>
 
-
-
-
             <!-- End User profile section -->
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -656,59 +653,161 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="/add-address" method="post">
+                            <form action="/add-address" method="post" id="address-form">
                                 <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">Full name:</label>
-                                    <input type="text" class="form-control" id="recipient-name" name="fullname"
-                                        placeholder="Enter your name">
+                                  <label for="recipient-name" class="col-form-label">Full name:</label>
+                                  <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your name">
+                                  <div id="fullname-error" class="error"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">Mobile Number:</label>
-                                    <input type="text" class="form-control" id="recipient-name" name="number"
-                                        placeholder="Enter mobile number" value="+91" maxlength="13" minlength="13">
+                                  <label for="recipient-name" class="col-form-label">Mobile Number:</label>
+                                  <input type="text" class="form-control" id="number" name="number" placeholder="Enter mobile number" value="+91" maxlength="13" minlength="13">
+                                  <div id="number-error" class="error"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">Home Address:</label>
-                                    <input type="text" class="form-control" id="recipient-name" name="houseAddress"
-                                        placeholder="Address">
+                                  <label for="recipient-name" class="col-form-label">Home Address:</label>
+                                  <input type="text" class="form-control" id="houseAddress" name="houseAddress" placeholder="Address">
+                                  <div id="houseAddress-error" class="error"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">Street </label>
-                                    <input type="text" class="form-control" id="recipient-name" name="street"
-                                        placeholder="Enter street address">
+                                  <label for="recipient-name" class="col-form-label">Street </label>
+                                  <input type="text" class="form-control" id="street" name="street" placeholder="Enter street address">
+                                  <div id="street-error" class="error"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">State:</label>
-                                    <input type="text" class="form-control" id="recipient-name" name="state"
-                                        placeholder="State">
+                                  <label for="recipient-name" class="col-form-label">State:</label>
+                                  <input type="text" class="form-control" id="state" name="state" placeholder="State">
+                                  <div id="state-error" class="error"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">town/City:</label>
-                                    <input type="text" class="form-control" id="recipient-name" name="city"
-                                        placeholder="Town">
+                                  <label for="recipient-name" class="col-form-label">town/City:</label>
+                                  <input type="text" class="form-control" id="city" name="city" placeholder="Town">
+                                  <div id="city-error" class="error"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">LandMark:</label>
-                                    <input type="text" class="form-control" id="recipient-name" name="landmark"
-                                        placeholder="Landmark">
+                                  <label for="recipient-name" class="col-form-label">LandMark:</label>
+                                  <input type="text" class="form-control" id="landmark" name="landmark" placeholder="Landmark">
+                                  <div id="landmark-error" class="error"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">Passcode/zip:</label>
-                                    <input type="number" class="form-control" id="recipient-name" name="zip"
-                                        placeholder="Pincode">
+                                  <label for="recipient-name" class="col-form-label">Passcode/zip:</label>
+                                  <input type="number" class="form-control" id="zip" name="zip" placeholder="Pincode">
+                                  <div id="zip-error" class="error"></div>
                                 </div>
-                                <!-- <div class="mb-3">
-                          <label for="message-text" class="col-form-label">Message:</label>
-                          <textarea class="form-control" id="message-text"></textarea>
-                        </div> -->
-
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Add Address</button>
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Add Address</button>
                                 </div>
+                              </form>
+<style>
+ .error{
+    color:red;
+ }   
+</style>
+                              <script>
+                                // Get the form element
+                                const form = document.getElementById("address-form");
+                              
+                                // Add an event listener to the form when it is submitted
+                                form.addEventListener("submit", (event) => {
+                                  // Prevent the default behavior of the form
+                                  event.preventDefault();
+                              
+                                  // Get the form input values
+                                  const fullname = document.getElementById("fullname").value.trim();
+                                  const number = document.getElementById("number").value.trim();
+                                  const houseAddress = document.getElementById("houseAddress").value.trim();
+                                  const street = document.getElementById("street").value.trim();
+                                  const state = document.getElementById("state").value.trim();
+                                  const city = document.getElementById("city").value.trim();
+                                  const landmark = document.getElementById("landmark").value.trim();
+                                  const zip = document.getElementById("zip").value.trim();
+                              
+                                  // Validate the form input values
+                                  let isValid = true;
+                              
+                                  // Fullname validation
+                                  const fullnameError = document.getElementById("fullname-error");
+const fullnameRegex = /^[a-zA-Z]{4,}$/;
+if (fullname === "" || !fullnameRegex.test(fullname)) {
+  fullnameError.innerText = "Please enter a valid full name with at least 4 characters";
+  isValid = false;
+} else {
+  fullnameError.innerText = "";
+}
 
-                            </form>
+                              
+                                  // Mobile number validation
+                                const numberError = document.getElementById("number-error");
+const numberRegex = /^(\+91[\-\s]?)?[0]?(91)?\d{10}$/;
+if (number === "" || !numberRegex.test(number)) {
+  numberError.innerText = "Please enter a valid 10-digit mobile number starting with +91";
+  isValid = false;
+} else {
+  numberError.innerText = "";
+}
+                              
+                                  // House address validation
+                                  const houseAddressError = document.getElementById("houseAddress-error");
+                                  if (houseAddress === "") {
+                                    houseAddressError.innerText = "House address is required";
+                                    isValid = false;
+                                  } else {
+                                    houseAddressError.innerText = "";
+                                  }
+                              
+                                  // Street validation
+                                  const streetError = document.getElementById("street-error");
+                                  if (street === "") {
+                                    streetError.innerText = "Street is required";
+                                    isValid = false;
+                                  } else {
+                                    streetError.innerText = "";
+                                  }
+                              
+                                  // State validation
+                                  const stateError = document.getElementById("state-error");
+                                  if (state === "") {
+                                    stateError.innerText = "State is required";
+                                    isValid = false;
+                                  } else {
+                                    stateError.innerText = "";
+                                  }
+                              
+                                  // City validation
+                                  const cityError = document.getElementById("city-error");
+                                  if (city === "") {
+                                    cityError.innerText = "City is required";
+                                    isValid = false;
+                                  } else {
+                                    cityError.innerText = "";
+                                  }
+                              
+                                  // Landmark validation
+                                  const landmarkError = document.getElementById("landmark-error");
+                                  if (landmark === "") {
+                                    landmarkError.innerText = "Landmark is required";
+                                    isValid = false;
+                                  } else {
+                                    landmarkError.innerText = "";
+                                  }
+                              
+                                  // Passcode/zip validation
+                                  const zipError = document.getElementById("zip-error");
+                                  const zipRegex = /^\d{5}$/;
+                                  if (zip === "" || !zipRegex.test(zip)) {
+                                    zipError.innerText = "Please enter a valid pincode";
+                                    isValid = false;
+                                  } else {
+                                    zipError.innerText = "";
+                                  }
+                              
+                                  // If the form is valid, submit it
+                                  if (isValid) {
+                                    form.submit();
+                                  }
+                                });
+                              </script>
                         </div>
 
                     </div>
@@ -1195,4 +1294,4 @@
         <!-- Feature tools end -->
 
         <!-- Vendor JS -->
-        <%-include('../layouts/footer.ejs')%>
+        <%-include('../layouts/profileFooter.ejs')%>

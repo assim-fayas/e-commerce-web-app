@@ -73,8 +73,9 @@ user_route.get('/singleProduct', auth.isLogin, productController.singleProduct)
 // wishlist
 
 user_route.get('/wishlist', auth.isLogin, productController.loadWishlist)
-user_route.post('/addtowhishlist', auth.isLogin, productController.AddTowishlist)
-user_route.post('/deletewhishlist', auth.isLogin, productController.deletewhishlist)
+user_route.post('/addtowhishlist', auth.isLogin, productController.AddToWishlist)
+user_route.post('/deletewhishlist', auth.isLogin, productController.deleteWishlistProduct)
+user_route.post('/wishlistToCart',auth.isLogin,productController.wishlistToCart)
 
 
 // cart

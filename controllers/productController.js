@@ -138,9 +138,9 @@ const singleProduct = async (req, res) => {
     const productId = req.query.id;
     const productData = await Products.findById({ _id: productId });
     const categoryData = await Products.find({ mainCategory: productData.mainCategory }).limit(4)
-    
 
-    res.render("singleProduct", { productData,categoryData });
+
+    res.render("singleProduct", { productData, categoryData });
   } catch (error) {
     console.log(error.message);
   }
@@ -223,59 +223,82 @@ const loadWishlist = async (req, res) => {
   }
 };
 
-const AddTowishlist = async (req, res) => {
-  try {
-    const productId = req.body.productId;
-
-    let exist = await User.findOne({
-      id: req.session.user_id,
-      "whishlist.product": productId,
-    });
-
-    if (exist) {
-      console.log(exist, "wishlist existtttttttttt");
-      res.json({ status: false });
-    } else {
-      const product = await Products.findOne({ _id: req.body.productId });
-      const _id = req.session.user_id;
-      console.log("user");
-      const userData = await User.findOne({ _id });
-
-      const result = await User.updateOne(
-        { _id },
-        { $push: { whishlist: { product: product._id } } }
-      );
-      console.log(result);
-      if (result) {
-        res.json({ status: true });
-        console.log("its done");
-      } else {
-        console.log("not added to whishlist ");
+const AddToWishlist  =async(req,res) => { 
+  try{
+      const productId = req.body.productId
+      // console.log(req.session.user_id);
+      let exist =await User.findOne({id:req.session.user_id,'whishlist.product':productId})
+      // console.log(exist);
+      if(exist){
+          res.json({status:false})
+      }else{
+          const product =await Products.findOne({_id:req.body.productId})
+          const _id = req.session.user_id
+          const userData = await User.findOne({_id})
+          const result = await User.updateOne({_id},{$push:{whishlist:{product:product._id}}})
+          if(result){
+              res.json({status:true})
+          }else{
+              console.log('not addeed to wishlist');
+          }
       }
-    }
-  } catch (error) {
-    console.log(error.message);
 
-    console.log("error from addtowishlist");
+  }catch(error){
+      console.log(error.message);
   }
-};
+}
+const wishlistToCart = async(req,res)=>{
+  try{
+    console.log("inside wishlist to cart");
+      const productId = req.body.productId
+      console.log("produt Id",productId);
+      const _id = req.session.user_id
+      console.log("user  Id",_id);
+      const userId = mongoose.Types.ObjectId(_id)
+      console.log(userId);
+      let exist =await User.findOne({_id:req.session.user_id,'cart.productId':productId})
+      if(exist){
+          // const user = await User.findOne({_id:req.session.user_id})
+          // const index =await user.cart.findIndex(data=>data.productId._id == req.body.productId );
+          //     user.cart[index].qty +=1;
+          //     user.cart[index].productTotalPrice= user.cart[index].qty * user.cart[index].price
+          //     await user.save();
+          //     const remove = await User.updateOne({_id},{$pull:{whishlist:{product:productId}}})
+          console.log("exixst");
+            res.send(false)
+      }else{
+        console.log("ELSE");
+          const product =await Products.findOne({_id:req.body.productId})
+          console.log(product,"p");
+          const userData = await User.findOne({_id})
+          console.log(userData,"u");
+          const result = await User.findOneAndUpdate({_id:_id},{$push:{cart:{productId:product._id,qty:1,price:product.price,productTotalPrice:product.price}}})
+          console.log(result,"result");
+          if(result){
+              const remove = await User.findOneAndUpdate({_id:userId},{$pull:{whishlist:{product:productId}}})
+              console.log(remove,"r");
+              res.send(true)
+          }else{
+              console.log('not addeed to cart');
+          }
+      }
 
-const deletewhishlist = async (req, res) => {
-  try {
-    const id = req.session.user_id;
-    const deleteProId = req.body.productId;
-    const deleteWishlist = await User.findByIdAndUpdate(
-      { _id: id },
-      { $pull: { whishlist: { product: deleteProId } } }
-    );
-
-    if (deleteWishlist) {
-      res.json({ success: true });
-    }
-  } catch (error) {
-    console.log(error.message);
+  }catch(error){
+      console.log(error.message);
   }
-};
+}
+const deleteWishlistProduct = async(req,res) => { 
+  try{
+      const id = req.session.user_id
+      const deleteProId=req.body.productId
+      const deleteWishlist = await User.findByIdAndUpdate({_id:id},{$pull:{whishlist:{product:deleteProId}}})
+      if(deleteWishlist){
+          res.json({success:true})
+      }
+  }catch(error){
+      console.log(error.message);
+  }
+}
 
 //cart
 
@@ -323,7 +346,7 @@ const addtoCart = async (req, res) => {
     if (existed) {
       res.json({ status: false });
     } else {
-      const product = await Products.findOne({ _id: req.body.productId });
+      const product = await Products.findOne({ _id:proId });
       console.log(product, "pro");
       const userId = req.session.user_id;
       const user = await User.findOne({ _id: userId });
@@ -347,7 +370,7 @@ const addtoCart = async (req, res) => {
         res.json({ status: true });
         console.log("added success fully");
       } else {
-        console.log("not added to whishlist ");
+        console.log("not added to cart ");
       }
     }
   } catch (error) {
@@ -683,16 +706,16 @@ const OrderHistory = async (req, res) => {
   }
 };
 
-const shopCategory=async(req,res)=>{
+const shopCategory = async (req, res) => {
   try {
-    
+
     const categery = req.query.categoryId;
     const search = req.query.search || "";
     const sort = req.query.sort || "";
     console.log(categery + " - " + search + " - " + sort);
     let isRender = false;
 
-    
+
     if (req.query.isRender) {
       isRender = true;
     };
@@ -702,13 +725,13 @@ const shopCategory=async(req,res)=>{
     const query = {
       is_delete: false,
     };
-    
+
     let sortQuery = { price: 1 };
     if (sort == "high-to-low") {
       sortQuery = { price: -1 };
     }
 
-    
+
     if (search) {
       query["$or"] = [
         { productName: { $regex: ".*" + searchData + ".*", $options: "i" } },
@@ -717,14 +740,14 @@ const shopCategory=async(req,res)=>{
     }
 
 
-    
+
     if (categery) {
       query["$or"] = [{ mainCategory: category }];
     }
 
     const product = await Products.find(query).sort(sortQuery);
 
-    
+
     const productsPerPage = 5;
     const page = req.query.page || 1;
     const startIndex = (page - 1) * productsPerPage;
@@ -733,13 +756,13 @@ const shopCategory=async(req,res)=>{
     const totalPages = Math.ceil(product.length / productsPerPage);
     const categooryData = await Category.find({});
 
-    Id=req.query.Id
-    const category= await Category.findById({_id:Id})
-    const categoryName=category.name
-    const categeryProduct=await Products.find({ mainCategory:categoryName})
-    const categeryProductdrop=await Products.find({ mainCategory:categoryName}).limit(1)
+    Id = req.query.Id
+    const category = await Category.findById({ _id: Id })
+    const categoryName = category.name
+    const categeryProduct = await Products.find({ mainCategory: categoryName })
+    const categeryProductdrop = await Products.find({ mainCategory: categoryName }).limit(1)
 
-    const categoryData=await Category.find({name:{$ne:categoryName}})
+    const categoryData = await Category.find({ name: { $ne: categoryName } })
     // res.render('shopCategory',{categeryProduct,categoryData})
 
     if (isRender == true) {
@@ -769,7 +792,7 @@ const shopCategory=async(req,res)=>{
 
 
   } catch (error) {
-    console.log(error.message); 
+    console.log(error.message);
   }
 }
 module.exports = {
@@ -782,8 +805,9 @@ module.exports = {
   updateProduct,
   disable,
   loadWishlist,
-  AddTowishlist,
-  deletewhishlist,
+  AddToWishlist,
+  deleteWishlistProduct,
+  wishlistToCart,
   loadCart,
   addtoCart,
   deleteCart,
@@ -794,5 +818,6 @@ module.exports = {
   orderSuccess,
   verifyPayment,
   OrderHistory,
-  shopCategory
+  shopCategory,
+
 };

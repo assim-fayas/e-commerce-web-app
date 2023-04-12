@@ -575,11 +575,13 @@
                                 </div> -->
                                 <div class="ec-vendor-block-items">
                                     <ul>
-                                        <i class="fa-solid fa-wallet fa-xl" >
-                                            <b style="text-shadow: black;"><%=user.wallet%></b> <b  style="color: rgb(31, 166, 31);" > ₹ </b> 
-                                        </i> 
-                                     
-                                        
+                                        <i class="fa-solid fa-wallet fa-xl">
+                                            <b style="text-shadow: black;">
+                                                <%=user.wallet%>
+                                            </b> <b style="color: rgb(31, 166, 31);"> ₹ </b>
+                                        </i>
+
+
                                         <li><a href="/profile">User Profile</a></li>
                                         <li><a href="/address">Addresses</a></li>
                                         <li><a href="/wishlist">Wishlist</a></li>
@@ -940,56 +942,25 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
-                        <!-- <div class="ec-vendor-block-img space-bottom-30">
-                            <div class="ec-vendor-block-bg cover-upload">
-                                <div class="thumb-upload">
-                                    <div class="thumb-edit">
-                                        <input type='file' id="thumbUpload01" class="ec-image-upload"
-                                            accept=".png, .jpg, .jpeg" />
-                                        <label><img src="/images/icons/edit.svg" class="svg_img header_svg"
-                                                alt="edit" /></label>
-                                    </div>
-                                    <div class="thumb-preview ec-preview">
-                                        <div class="image-thumb-preview">
-                                            <img class="image-thumb-preview ec-image-preview v-img"
-                                                src="/images/banner/8.jpg" alt="edit" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                        <!-- <div class="ec-vendor-block-detail">
-                                <div class="thumb-upload">
-                                    <div class="thumb-edit">
-                                        <input type='file' id="thumbUpload02" class="ec-image-upload"
-                                            accept=".png, .jpg, .jpeg" />
-                                        <label><img src="/images/icons/edit.svg" class="svg_img header_svg"
-                                                alt="edit" /></label>
-                                    </div>
-                                    <div class="thumb-preview ec-preview">
-                                        <div class="image-thumb-preview">
-                                            <img class="image-thumb-preview ec-image-preview v-img"
-                                                src="/images/user/1.jpg" alt="edit" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
+
                         <div class="ec-vendor-upload-detail">
-                            <form action="/updateProfile" class="row g-3" method="post">
+                            <form id="form1" action="/updateProfile" class="row g-3" method="post">
                                 <div class="col-md-6 space-t-15">
-                                    <label class="form-label">user name</label>
+                                    <label class="form-label">User Name</label>
                                     <input type="text" class="form-control" name="name" value="<%=user.userName%>">
+                                    <div id="name-error" class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6 space-t-15">
                                     <label class="form-label">E-mail</label>
                                     <input type="email" class="form-control" name="email" value="<%=user.Email%>">
+                                    <div id="email-error" class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6 space-t-15">
                                     <label class="form-label">Mobile</label>
                                     <input type="text" class="form-control" name="mobile" minlength="13" maxlength="13"
                                         value="<%=user.Mobile%>">
+                                    <div id="mobile-error" class="invalid-feedback"></div>
                                 </div>
-
-
 
                                 <div class="col-md-12 space-t-15">
                                     <button type="submit" class="btn btn-primary">Update</button>
@@ -997,16 +968,59 @@
                                         aria-label="Close">Close</a>
                                 </div>
                             </form>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
+
+
+
     </div>
     <!-- Modal end -->
 
+    <script>
+        const form1 = document.getElementById("form1");
+        const nameInput = form1.elements["name"];
+        const emailInput = form1.elements["email"];
+        const mobileInput = form1.elements["mobile"];
+        const nameError = form1.querySelector("#name-error");
+        const emailError = form1.querySelector("#email-error");
+        const mobileError = form1.querySelector("#mobile-error");
 
+        form1.addEventListener('submit', function (event) {
+            let isValid = true;
+
+            if (nameInput.value === '' || !/^[a-zA-Z]{4,}$/.test(nameInput.value)) {
+                nameError.innerText = 'Please enter a valid name (minimum 4 characters, letters only)';
+                isValid = false;
+            } else {
+                nameError.innerText = '';
+            }
+
+            if (emailInput.value === '' || !/\S+@\S+\.\S+/.test(emailInput.value)) {
+                emailError.innerText = 'Please enter a valid email address';
+                isValid = false;
+            } else {
+                emailError.innerText = '';
+            }
+
+            if (mobileInput.value === '' || !/^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/.test(mobileInput.value)) {
+                mobileError.innerText = 'Please enter a valid mobile number';
+                isValid = false;
+            } else {
+                mobileError.innerText = '';
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
 
 
 
