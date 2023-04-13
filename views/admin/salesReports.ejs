@@ -199,26 +199,57 @@
             </form>
 
         </div>
+        <div style="text-align: center;margin-top: 60px;">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- Back to Top -->
+            <div class="container-fluid mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 mt-5">
+                        <div class="container">
+                            <table class="table table-dark table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Payment Method</th>
+                                        <th scope="col">Order Status</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% salesData.forEach((value,index)=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= value.date.toLocaleString({day:'2-digit',month:'2-digit',year:'2-digit'})
+                                                    %>
+                                            </td>
+                                            <td>
+                                                <%= value.address.fullName %> <br>
+                                                    <%= value.address.mobileNumber %><br>
+                                                        <%= value.address.pincode %><br>
+                                                            <%= value.address.houseAddress %>
+                                                                <%= value.address.streetAddress %><br>
+                                                                    <%= value.address.landMark %>
+                                                                        <%= value.address.cityName %>
+                                                                            <br>
+                                            </td>
+                                            <td>
+                                                <%= value.paymentMethod %>
+                                            </td>
+                                            <td>
+                                                <%= value.orderStatus %>
+                                            </td>
+                                            <td>
+                                                <%= value.totalAmount %>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 

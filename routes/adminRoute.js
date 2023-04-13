@@ -8,7 +8,7 @@ const nocache = require('nocache')
 admin_route.use(session({
     secret: config.sessionSecret,
     saveUninitialized: true,
-    cookie: { maxAge: 600000 },
+    cookie: { maxAge: 6000000 },
     resave: false
 }))
 admin_route.use(nocache())
