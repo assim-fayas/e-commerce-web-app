@@ -150,7 +150,7 @@
             <div class="col-md-10">
                 <form action="/admin/addProduct" method="post" enctype="multipart/form-data"
                     style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
-                    class="text-left  form-sm">
+                    class="text-left  form-sm" onsubmit="return validatForm()">
 
                     <div class="form-group mb-4">
                         <label for="thumbnail">Image</label>
@@ -161,127 +161,135 @@
                                 <label class="custom-file-label" for="thumbnail">choose files</label>
                             </div>
                         </div>
+                        <span id="imageError" class="text-danger"></span><br>
                     </div>
                     <div class="form-group mb-4">
                         <label for="name">Product Name</label>
                         <div class="input-group">
                             <input type="text" class="form-control bg-dark col-4" id="name" name="name"
                                 placeholder="Enter name">
-                        </div><br>
-
-                        <div class="form-group mb-4">
-                            <label for="Brand">Brand</label>
-                            <select class="form-control bg-dark col-4" id="Brand" name="Brand">
-                                <option value="">--Select Brand--</option>
-                                <% brand.forEach((brandName)=>{ %>
-
-
-                                    <option value=" <%= brandName.name %>">
-                                        <%= brandName.name %>
-                                    </option>
-                                    <% }); %>
-
-                            </select>
                         </div>
-                        <div class="form-group mb-4">
-                            <label for="category"> Sub Category</label>
-                            <select class="form-control bg-dark col-4" id="category" name="subCategory">
-                                <option value="">--Select Category--</option>
-                                <% category.forEach((Category)=>{%>
-                                    <optgroup label="<%=Category.name %>">
-                                        <% Category.subCategories.forEach((subCategory)=>{%>
-                                            <option value="<%= subCategory.name %>">
-                                                <%= subCategory.name %>
-                                            </option>
-                                            <% }); %>
-                                    </optgroup>
-                                    <% }); %>
-                            </select>
+                        <span id="nameError" class="text-danger"></span><br>
+                    </div><br>
+
+                    <div class="form-group mb-4">
+                        <label for="Brand">Brand</label>
+                        <select class="form-control bg-dark col-4" id="Brand" name="Brand">
+                            <option value="">--Select Brand--</option>
+                            <% brand.forEach((brandName)=>{ %>
+
+
+                                <option value=" <%= brandName.name %>">
+                                    <%= brandName.name %>
+                                </option>
+                                <% }); %>
+
+                        </select>
+                        <span id="brandError" class="text-danger"></span><br>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="category"> Sub Category</label>
+                        <select class="form-control bg-dark col-4" id="category" name="subCategory">
+                            <option value="">--Select Category--</option>
+                            <% category.forEach((Category)=>{%>
+                                <optgroup label="<%=Category.name %>">
+                                    <% Category.subCategories.forEach((subCategory)=>{%>
+                                        <option value="<%= subCategory.name %>">
+                                            <%= subCategory.name %>
+                                        </option>
+                                        <% }); %>
+                                </optgroup>
+                                <% }); %>
+                        </select>
+                        <span id="categoryError" class="text-danger"></span><br>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label for="optGroupLabel">Main Category</label>
+                        <input type="text" class="form-control bg-dark col-4" id="optGroupLabel" name="MainCategory">
+                        <span id="mainCategoryError" class="text-danger"></span><br>
+                    </div>
+
+                    <script>
+                        const categorySelect = document.getElementById('category');
+                        const optGroupLabelInput = document.getElementById('optGroupLabel');
+                        categorySelect.addEventListener('change', () => {
+                            const selectedOptGroup = categorySelect.selectedOptions[0].parentNode; // get the parent of the selected option
+                            const optGroupLabel = selectedOptGroup.label; // get the label of the optgroup
+                            optGroupLabelInput.value = optGroupLabel; // set the optGroupLabel as the value of the optGroupLabelInput
+                        });
+                    </script>
+
+                    <div class="form-group mb-4">
+                        <label for="size">Size</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="size[]" id="size-s" value="S">
+                            <label class="form-check-label" for="size-s">
+                                S
+                            </label>
                         </div>
-
-                        <div class="form-group mb-4">
-                            <label for="optGroupLabel">Main Category</label>
-                            <input type="text" class="form-control bg-dark col-4" id="optGroupLabel"
-                                name="MainCategory">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="size[]" id="size-m" value="M">
+                            <label class="form-check-label" for="size-m">
+                                M
+                            </label>
                         </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="size[]" id="size-l" value="L">
+                            <label class="form-check-label" for="size-l">
+                                L
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="size[]" id="size-xl" value="XL">
+                            <label class="form-check-label" for="size-xl">
+                                XL
+                            </label>
+                        </div>
+                        <span id="sizeError" class="text-danger"></span><br>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="price">Price</label>
+                        <input type="number" name="price" id="price" class="form-control" >
+                        <span id="priceError" class="text-danger"></span><br>
+                    </div>
 
-                        <script>
-                            const categorySelect = document.getElementById('category');
-                            const optGroupLabelInput = document.getElementById('optGroupLabel');
-                            categorySelect.addEventListener('change', () => {
-                                const selectedOptGroup = categorySelect.selectedOptions[0].parentNode; // get the parent of the selected option
-                                const optGroupLabel = selectedOptGroup.label; // get the label of the optgroup
-                                optGroupLabelInput.value = optGroupLabel; // set the optGroupLabel as the value of the optGroupLabelInput
-                            });
-                        </script>
-
-                        <div class="form-group mb-4">
-                            <label for="size">Size</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="size[]" id="size-s" value="S">
-                                <label class="form-check-label" for="size-s">
-                                    S
-                                </label>
+                    <div class="form-group mb-4">
+                        <label for="quantity">Quantity</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button type="button" class="btn btn-outline-secondary" onclick="decrement()">-</button>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="size[]" id="size-m" value="M">
-                                <label class="form-check-label" for="size-m">
-                                    M
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="size[]" id="size-l" value="L">
-                                <label class="form-check-label" for="size-l">
-                                    L
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="size[]" id="size-xl" value="XL">
-                                <label class="form-check-label" for="size-xl">
-                                    XL
-                                </label>
+                            <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1"
+                                required>
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" onclick="increment()">+</button>
                             </div>
                         </div>
-                        <div class="form-group mb-4">
-                            <label for="price">Price</label>
-                            <input type="number" name="price" id="price" class="form-control" required>
-                        </div>
+                        <span id="quantityError" class="text-danger"></span><br>
+                    </div>
 
-                        <div class="form-group mb-4">
-                            <label for="quantity">Quantity</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <button type="button" class="btn btn-outline-secondary"
-                                        onclick="decrement()">-</button>
-                                </div>
-                                <input type="number" name="quantity" id="quantity" class="form-control" value="1"
-                                    min="1" required>
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-outline-secondary"
-                                        onclick="increment()">+</button>
-                                </div>
-                            </div>
-                        </div>
+                    <script>
+                        function increment() {
+                            document.getElementById("quantity").stepUp();
+                        }
 
-                        <script>
-                            function increment() {
-                                document.getElementById("quantity").stepUp();
-                            }
+                        function decrement() {
+                            document.getElementById("quantity").stepDown();
+                        }
+                    </script>
 
-                            function decrement() {
-                                document.getElementById("quantity").stepDown();
-                            }
-                        </script>
+                    <div class="form-group mb-4">
+                        <label for="description"> Description</label>
+                        <textarea class="form-control bg-dark col-4" id="description" name="description" rows="3"
+                            placeholder="Enter description"></textarea>
+                            <span id="descriptionError" class="text-danger"></span><br>
+                    </div>
 
-                        <div class="form-group mb-4">
-                            <label for="description"> Description</label>
-                            <textarea class="form-control bg-dark col-4" id="description" name="description" rows="3"
-                                placeholder="Enter description"></textarea>
-                        </div>
-
-                        <br><br>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <br><br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+             
             </div>
         </div>
 

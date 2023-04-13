@@ -151,7 +151,7 @@
             <div class="col-md-10  ">
                 <form action="/admin/addSubCategory" method="post"
                 style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
-                class="text-left  form-sm" onsubmit="return validateForm()">
+                class="text-left  form-sm" onsubmit="return validateFormSub()">
                       
                 <div class="form-group mb-4">
                     <label for="name">Name</label>
@@ -180,7 +180,7 @@
             </form>
                       
             <script>
-                function validateForm() {
+                function validateFormSub() {
                     const nameInput = document.getElementById("name");
                     const categoryInput = document.getElementById("category");
                     const nameError = document.getElementById("nameError");

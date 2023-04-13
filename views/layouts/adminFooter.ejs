@@ -1,4 +1,5 @@
 <!-- JavaScript Libraries -->
+
 <script src="https://kit.fontawesome.com/482748fbdd.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -12,6 +13,163 @@
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+<script>
+    function validateForm() {
+      var coupenCode = document.getElementById("name").value;
+      var discType = document.getElementsByName("discType");
+      var discAmount = document.getElementById("discAmount").value;
+      var minAmount = document.getElementById("minAmount").value;
+      var minRedeemAmount = document.getElementById("minRedeemAmount").value;
+      var startdate = document.getElementById("startdate").value;
+      var expdate = document.getElementById("expdate").value;
+      var limit = document.getElementById("limit").value;
+    
+      var nameError = document.getElementById("name-error");
+      var discTypeError = document.getElementById("discType-error");
+      var discAmountError = document.getElementById("discAmount-error");
+      var minAmountError = document.getElementById("minAmount-error");
+      var minRedeemAmountError = document.getElementById("minRedeemAmount-error");
+      var startdateError = document.getElementById("startdate-error");
+      var expdateError = document.getElementById("expdate-error");
+      var limitError = document.getElementById("limit-error");
+    
+      var hasError = false;
+    
+      // Validate Coupon Code
+      if (coupenCode === "") {
+        nameError.innerText = "Please enter a coupon code.";
+        hasError = true;
+      } else {
+        nameError.innerText = "";
+      }
+    
+      // Validate Discount Type
+      var discTypeSelected = false;
+      for (var i = 0; i < discType.length; i++) {
+        if (discType[i].checked) {
+          discTypeSelected = true;
+          break;
+        }
+      }
+      if (!discTypeSelected) {
+        discTypeError.innerText = "Please select a discount type.";
+        hasError = true;
+      } else {
+        discTypeError.innerText = "";
+      }
+    
+      // Validate Discount Amount
+      if (discAmount === "") {
+        discAmountError.innerText = "Please enter a discount amount.";
+        hasError = true;
+      } else {
+        discAmountError.innerText = "";
+      }
+    
+      // Validate Min Cart Amount
+      if (minAmount === "") {
+        minAmountError.innerText = "Please enter a minimum cart amount.";
+        hasError = true;
+      } else {
+        minAmountError.innerText = "";
+      }
+    
+      // Validate Min Redeem Amount
+      if (minRedeemAmount === "") {
+        minRedeemAmountError.innerText = "Please enter a minimum redeem amount.";
+        hasError = true;
+      } else {
+        minRedeemAmountError.innerText = "";
+      }
+    
+      // Validate Start Date
+      if (startdate === "") {
+        startdateError.innerText = "Please enter a start date.";
+        hasError = true;
+      } else {
+        startdateError.innerText = "";
+      }
+    
+      // Validate Expiry Date
+      if (expdate === "") {
+        expdateError.innerText = "Please enter an expiry date.";
+        hasError = true;
+      } else {
+        expdateError.innerText = "";
+      }
+    
+      // Validate Usage Limit
+      if (limit === "") {
+        limitError.innerText = "Please enter a usage limit.";
+        hasError = true;
+      } else {
+        limitError.innerText = "";
+      }
+    
+      return !hasError;
+    }
+    </script>
+
+<script>
+    function validatForm() {
+        const image = document.getElementById("thumbnail").value.trim();
+        const name = document.getElementById("name").value.trim();
+        const brand = document.getElementById("Brand").value.trim();
+        const category = document.getElementById("category").value.trim();
+        const mainCategory = document.getElementById("optGroupLabel").value.trim();
+        const size = document.querySelectorAll('input[name="size[]"]:checked');
+        const price = document.getElementById("price").value.trim();
+        const quantity = document.getElementById("quantity").value.trim();
+
+        let errors = [];
+
+        if (!image) {
+            errors.push("Please upload an image");
+            document.getElementById("imageError").innerHTML = "Please upload an image";
+        }
+
+        if (!name) {
+            errors.push("Please enter a product name");
+            document.getElementById("nameError").innerHTML = "Please enter a product name";
+        }
+
+        if (!brand) {
+            errors.push("Please select a brand");
+            document.getElementById("brandError").innerHTML = "Please select a brand";
+        }
+
+        if (!category) {
+            errors.push("Please select a category");
+            document.getElementById("categoryError").innerHTML = "Please select a category";
+        }
+
+        if (!mainCategory) {
+            errors.push("Please enter a main category");
+            document.getElementById("mainCategoryError").innerHTML = "Please enter a main category";
+        }
+
+        if (size.length === 0) {
+            errors.push("Please select at least one size");
+            document.getElementById("sizeError").innerHTML = "Please select at least one size";
+        }
+
+        if (!price) {
+            errors.push("Please enter a price");
+            document.getElementById("priceError").innerHTML = "Please enter a price";
+        }
+
+        if (!quantity) {
+            errors.push("Please enter a quantity");
+            document.getElementById("quantityError").innerHTML = "Please enter a quantity";
+        }
+
+        if (errors.length > 0) {
+            return false;
+        }
+    }
+</script>
+
+    
 
 </body>
 

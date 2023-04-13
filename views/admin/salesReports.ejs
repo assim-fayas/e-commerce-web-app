@@ -164,14 +164,14 @@
                         style="margin: 10px; padding: 10px; border-radius: 5px; border: 1px solid gray; text-align: center;">
                 </div>
                 <div style="display: flex; justify-content: center; margin-top: 20px;">
-                    <button type="submit" onclick="return validateForm()"
+                    <button type="submit" onclick="return validateFormReport()"
                         style="margin-top: 10px; padding: 10px; border-radius: 5px; background-color: blue; color: white; border: none; cursor: pointer;">Generate
                         Report</button>
                 </div>
                 <br>
                 <div id="error-message" class="error" style="color: red;"></div>
                 <script>
-                    function validateForm() {
+                    function validateFormReport() {
                         var startDate = document.getElementById("start-date").value;
                         var endDate = document.getElementById("end-date").value;
                         var errorMessage = "";

@@ -151,7 +151,7 @@
             <div class="col-md-10  ">
                 <form action="/admin/addBrand" method="post" enctype="multipart/form-data"
                     style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
-                    class="text-left  form-sm" onsubmit="return validateForm()">
+                    class="text-left  form-sm" onsubmit="return validateFormBrand()">
                     <div class="form-group mb-4">
                         <label for="thumbnail">Image</label>
                         <div class="input-group">
@@ -176,7 +176,7 @@
                 </form>
 
               <script>
-                function validateForm() {
+                function validateFormBrand() {
                     var image = document.getElementById("thumbnail");
                     var name = document.getElementById("name");
                   

@@ -151,7 +151,7 @@
             <div class="col-md-10  ">
                 <form action="/admin/addbannerCaro" method="post" enctype="multipart/form-data"
                     style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
-                    class="text-left  form-sm" id="bannerForm" onsubmit="return validateForm()">
+                    class="text-left  form-sm" id="bannerForm" onsubmit="return validateFormBanner()">
                     <div class="form-group mb-4">
                         <label for="thumbnail">Image</label>
                         <div class="input-group">
@@ -194,7 +194,7 @@
         </form>
 
         <script>
-            function validateForm() {
+            function validateFormBanner() {
                 // Get form inputs
                 const thumbnail = document.getElementById('thumbnail');
                 const bannerType = document.getElementById('bannertype');

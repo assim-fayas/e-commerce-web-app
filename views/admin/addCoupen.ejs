@@ -150,15 +150,16 @@
             <div class="col-md-10  ">
                 <form action="/admin/addCoupen" method="post"
                     style="background-color: #585856; color: #ffffde; border: 1px solid rgb(1, 1, 1); padding: 20px;"
-                    class="text-left form-sm" id="couponForm">
-                    <div class="form-group mb-4" onsubmit="return validateForm()">
+                    class="text-left form-sm" id="couponForm" onsubmit="return validateForm()">
+                    <div class="form-group mb-4">
 
                         <label for="name">Coupon Code</label>
                         <div class="input-group">
                             <input type="text" class="form-control bg-dark col-4" id="name" name="coupenCode"
                                 placeholder="Coupon Code">
-                            <small class="error-message" id="name-error"></small>
+
                         </div>
+                        <small class="error-message" id="name-error"></small>
 
                     </div>
 
@@ -172,16 +173,17 @@
                             <input type="radio" id="percentage" name="discType" value="percentage">
                             <label for="percentage">Percentage Discount</label>
                         </div>
-                        <small class="error-message" id="discType-error"></small>
-                    </div>
 
+                    </div>
+                    <small class="error-message" id="discType-error"></small>
                     <div class="form-group mb-4">
                         <label for="discAmount">Amount</label>
                         <div class="input-group">
                             <input type="text" name="discAmount" id="discAmount" class="form-control"
                                 placeholder="Discount Amount">
-                            <small class="error-message" id="discAmount-error"></small>
+
                         </div>
+                        <small class="error-message" id="discAmount-error"></small>
                     </div>
 
                     <div class="form-group mb-4">
@@ -189,8 +191,9 @@
                         <div class="input-group">
                             <input type="text" name="minAmount" id="minAmount" class="form-control"
                                 placeholder="Max Discount">
-                            <small class="error-message" id="minAmount-error"></small>
+
                         </div>
+                        <small class="error-message" id="minAmount-error"></small>
                     </div>
 
                     <div class="form-group mb-4">
@@ -198,8 +201,9 @@
                         <div class="input-group">
                             <input type="text" name="minRedeemAmount" id="minRedeemAmount" class="form-control"
                                 placeholder="Min Purchase">
-                            <small class="error-message" id="minRedeemAmount-error"></small>
+
                         </div>
+                        <small class="error-message" id="minRedeemAmount-error"></small>
                     </div>
 
                     <div class="form-group mb-4">
@@ -207,120 +211,39 @@
                         <div class="input-group">
                             <input type="date" name="startdate" id="startdate" class="form-control"
                                 style="background-color: #f2f2f2; color: #000;">
-                            <small class="error-message" id="startdate-error"></small>
+
                         </div>
+                        <small class="error-message" id="startdate-error"></small>
                     </div>
                     <div class="form-group mb-4">
                         <label for="expdate" style="display: block;">Expiry Date</label>
                         <div class="input-group">
                             <input type="date" name="expdate" id="expdate" class="form-control"
                                 style="background-color: #f2f2f2; color: #000;">
-                            <small class="error-message" id="expdate-error"></small>
+
                         </div>
+                        <small class="error-message" id="expdate-error"></small>
                     </div>
                     <div class="form-group mb-4">
                         <label for="limit">Usage Limit</label>
                         <div class="input-group">
                             <input type="text" name="limit" id="limit" class="form-control" placeholder="limit">
-                            <small class="error-message" id="expdate-error"></small>
+
                         </div>
+                        <small class="error-message" id="expdate-error"></small>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
 
-<script>
-                function validateForm() {
-                    // Get form elements
-                    const form = document.getElementById("couponForm");
-                    const name = document.getElementById("name");
-                    const discType = document.getElementsByName("discType");
-                    const discAmount = document.getElementById("discAmount");
-                    const minAmount = document.getElementById("minAmount");
-                    const minRedeemAmount = document.getElementById("minRedeemAmount");
-                    const startdate = document.getElementById("startdate");
-                    const expdate = document.getElementById("expdate");
-                    const limit = document.getElementById("limit");
-                  
-                    // Set flag for validation status
-                    let isValid = true;
-                  
-                    // Check if name is empty
-                    if (name.value.trim() === "") {
-                      document.getElementById("name-error").textContent = "Coupon code is required";
-                      isValid = false;
-                    } else {
-                      document.getElementById("name-error").textContent = "";
-                    }
-                  
-                    // Check if discount type is selected
-                    let discTypeChecked = false;
-                    for (let i = 0; i < discType.length; i++) {
-                      if (discType[i].checked) {
-                        discTypeChecked = true;
-                        break;
-                      }
-                    }
-                    if (!discTypeChecked) {
-                      document.getElementById("discType-error").textContent = "Please select a discount type";
-                      isValid = false;
-                    } else {
-                      document.getElementById("discType-error").textContent = "";
-                    }
-                  
-                    // Check if discount amount is valid
-                    if (isNaN(discAmount.value) || discAmount.value <= 0) {
-                      document.getElementById("discAmount-error").textContent = "Discount amount must be a positive number";
-                      isValid = false;
-                    } else {
-                      document.getElementById("discAmount-error").textContent = "";
-                    }
-                  
-                    // Check if minimum cart amount is valid
-                    if (isNaN(minAmount.value) || minAmount.value < 0) {
-                      document.getElementById("minAmount-error").textContent = "Minimum cart amount must be a non-negative number";
-                      isValid = false;
-                    } else {
-                      document.getElementById("minAmount-error").textContent = "";
-                    }
-                  
-                    // Check if minimum redeem amount is valid
-                    if (isNaN(minRedeemAmount.value) || minRedeemAmount.value < 0) {
-                      document.getElementById("minRedeemAmount-error").textContent = "Minimum redeem amount must be a non-negative number";
-                      isValid = false;
-                    } else {
-                      document.getElementById("minRedeemAmount-error").textContent = "";
-                    }
-                  
-                    // Check if start date is selected
-                    if (startdate.value.trim() === "") {
-                      document.getElementById("startdate-error").textContent = "Start date is required";
-                      isValid = false;
-                    } else {
-                      document.getElementById("startdate-error").textContent = "";
-                    }
-                  
-                    // Check if expiry date is selected
-                    if (expdate.value.trim() === "") {
-                      document.getElementById("expdate-error").textContent = "Expiry date is required";
-                      isValid = false;
-                    } else {
-                      document.getElementById("expdate-error").textContent = "";
-                    }
-                  
-                    // Check if usage limit is valid
-                    if (isNaN(limit.value) || limit.value < 0) {
-                      document.getElementById("limit-error").textContent = "Usage limit must be a non-negative number";
-                      isValid = false;
-                    } else {
-                      document.getElementById("limit-error").textContent = "";
-                    }
-                  
-                    // Return validation status
-                    return isValid;
-                  }
-                  
-</script>
+
+
+                    <style>
+                        .error-message {
+                            color: red;
+                        }
+                    </style>
+
+                </form>
 
 
             </div>
