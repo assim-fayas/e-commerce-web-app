@@ -324,6 +324,7 @@ const loadCart = async (req, res) => {
       res.render("cart", { userData });
       // console.log("product dattaaaaaaaaa");
     } else {
+     
       const userData = await User.findOne({ Id });
       res.render("cart", { userData });
     }

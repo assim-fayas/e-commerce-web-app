@@ -12,11 +12,6 @@ const app = express();
 const { dirname } = require('path')
 
 
-
-
-
-
-
 //for user routes
 app.use(express.static(path.join(__dirname, "assets")));
 const userRoute = require("./routes/userRoute");
@@ -29,6 +24,11 @@ const bodyParser = require("body-parser");
 app.use('/admin', adminRoute)
 
 const { sessionSecret } = require('./config/config')
+
+
+app.use((req,res)=>{
+    res.status(404).render("404")
+})
 
 
 app.listen(port = 3000, () => {

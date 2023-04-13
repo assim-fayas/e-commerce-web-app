@@ -110,9 +110,9 @@ user_route.get('/shopcategory',auth.isLogin,productController.shopCategory)
 
 
 
-// user_route.use((req, res, next) => {
-//     res.render('404')
-// })
+user_route.use((req,res)=>{
+    res.status(404).render("404")
+})
 
 
 module.exports = user_route;
