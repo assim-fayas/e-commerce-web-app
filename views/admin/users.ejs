@@ -218,7 +218,7 @@
                                 <%}%>
                             </td>
                             <td>
-                                <a href="/admin/user-block?id=<%=users[i]._id %>">
+                                <a onclick=" blockUser('<%=users[i]._id %>')">
                                     <button>
                                         <%if(users[i].block==true ){%>
                                             Block

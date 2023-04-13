@@ -90,15 +90,17 @@ const updateCategory = async (req, res) => {
 const deleteCategory = async (req, res) => {
 
     try {
-        const id = req.query.id
+        const id = req.body. catId
         console.log(id);
         const deleteData = await Category.findByIdAndDelete({ _id: id })
         console.log(deleteData);
         if (deleteData) {
             res.redirect('/admin/category')
+            res.json({success:true})
         }
         else {
             console.log("error in delete catagory");
+            res.json({success:true})
         }
     } catch (error) {
         console.log(error.message);

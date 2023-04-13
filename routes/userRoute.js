@@ -40,17 +40,12 @@ user_route.post('/forgot', userController.forgetVerify);
 user_route.get('/forget-password', auth.isLogout, userController.forgetpasswordload);
 user_route.post('/forget-password', auth.isLogout, userController.resetPassword);
 
-
-
 // login OTP
 user_route.get('/loginOtp', userController.loginOtp)
 user_route.post('/loginOtp', userController.verifyNum)
 user_route.post('/loginOtpveryfy', userController.verifyNumOtp)
 
-
-
 //profile
-
 user_route.get('/profile', auth.isLogin, userController.userprofile)
 user_route.post('/updateProfile', auth.isLogin, userController.updateProfile)
 
@@ -61,22 +56,15 @@ user_route.get('/edit-address/:id/:adrsId', auth.isLogin, userController.editadd
 user_route.post('/edit-update-address/:addressIndex', auth.isLogin, userController.updateAddress)
 user_route.get('/delete-address/:id/:adrsId', auth.isLogin, userController.DeleteAddress)
 
-
 //products
-
 user_route.get('/products', auth.isLogin, productController.viewProduct)
 user_route.get('/singleProduct', auth.isLogin, productController.singleProduct)
 
-
-
-
 // wishlist
-
 user_route.get('/wishlist', auth.isLogin, productController.loadWishlist)
 user_route.post('/addtowhishlist', auth.isLogin, productController.AddToWishlist)
 user_route.post('/deletewhishlist', auth.isLogin, productController.deleteWishlistProduct)
 user_route.post('/wishlistToCart',auth.isLogin,productController.wishlistToCart)
-
 
 // cart
 user_route.get('/cart', auth.isLogin, productController.loadCart)
@@ -84,18 +72,14 @@ user_route.post('/addtocart', auth.isLogin, productController.addtoCart)
 user_route.post('/deleteCart', auth.isLogin, productController.deleteCart)
 user_route.post('/change-quantity', auth.isLogin, productController.change_Quantities)
 
-
 //checkout
 user_route.get('/checkout', auth.isLogin, productController.loadCheckout)
 user_route.post('/addCheckoutaddress', productController.checkoutaddAddress)
 
-
 //apply coupen
 user_route.post('/coupon-apply', couponController.couponApply)
 
-
 //order
-
 user_route.post('/place-order', productController.placeOrder)
 user_route.post('/verify-payment', auth.isLogin, productController.verifyPayment)
 user_route.get('/ordersuccess', auth.isLogin, productController.orderSuccess);
@@ -105,14 +89,16 @@ user_route.get('/cancelRequest', auth.isLogin, orderController.cancelRequest)
 user_route.get('/cancelreturnRequested', auth.isLogin, orderController.cancelreturnRequested)
 
 // shop by category
- 
 user_route.get('/shopcategory',auth.isLogin,productController.shopCategory)
 
 
 
-user_route.use((req,res)=>{
-    res.status(404).render("404")
-})
 
+
+
+
+// user_route.use((req,res)=>{
+//     res.status(404).render("404")
+// })
 
 module.exports = user_route;

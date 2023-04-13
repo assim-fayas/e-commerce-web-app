@@ -75,19 +75,21 @@ const editBanner = async (req, res) => {
 }
 const blockbanner = async (req, res) => {
     try {
-      const Id= req.query.id
+      const Id= req.body. bannerId
+      console.log(Id,"banner id");
       console.log(Id,"id vanuuu");
          Disable = await Banner.findOne({ _id: Id }, { block: 1, _id: Id })
             console.log("banner block");
             if (Disable.block === true) {
                 console.log("inside disable true");
                 const disable = await Banner.findByIdAndUpdate({ _id: Id }, { $set: { block: false } })
-                res.redirect('/admin/banner')
+          
+                res.json({success:true})
             }
             else {
                 const enable = await Banner.findByIdAndUpdate({ _id: Id }, { $set:{ block: true } })
     
-                res.redirect('/admin/banner')
+                res.json({success:true})
             }
             
             

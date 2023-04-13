@@ -17,7 +17,9 @@ const loadadminLogin = async (req, res) => {
     }
 
     catch (error) {
+        console.log(  res.render('admin/500'))
         console.log(error.message);
+       
     }
 }
 
@@ -53,6 +55,7 @@ const verifyLogin = async (req, res) => {
         }
 
     } catch (error) {
+        console.log(  res.render('admin/500'))
         console.log(error.message);
     }
 
@@ -129,6 +132,7 @@ const loadDashboard = async (req, res) => {
 
         res.render('home', { todayDate, totalOrders, totalDelivery, totalProduct, totalCategory, totalBrand, totalUsers, totalCoupon, totalbanner,weeklyRevenue,online,cod, wallet,weeklySales,date,Sales  })
     } catch (error) {
+        console.log(  res.render('admin/500'))
         console.log(error.message);
 
     }
@@ -141,6 +145,7 @@ const logout = async (req, res) => {
         req.session.admin_id = false;
         res.redirect('/admin')
     } catch (error) {
+        console.log(  res.render('admin/500'))
         console.log(error.messag);
     }
 }
@@ -158,6 +163,7 @@ const loadusers = async (req, res) => {
 
 
     } catch (error) {
+        console.log(  res.render('admin/500'))
         console.log(error.message);
     }
 }
@@ -165,21 +171,25 @@ const loadusers = async (req, res) => {
 const blockUser = async (req, res) => {
     try {
         // console.log(req.query.id)
-        const id = req.query.id
+        const id = req.body.userId
+        console.log("block id",id);
         const users = await User.findOne({ _id: id }, { block: 1, _id: id })
 
         if (users.block === false) {
             const blockuser = await User.updateOne({ _id: id }, { $set: { block: true } })
             req.session.user_id = true
             res.redirect('/admin/users')
+            res.json({result:true})
         }
         else {
             const blockuser = await User.updateOne({ _id: id }, { $set: { block: false } })
             req.session.user_id = false
             res.redirect('/admin/users')
+            res.json({result:true})
         }
 
     } catch (error) {
+        console.log(  res.render('admin/500'))
         console.log(error.message);
     }
 }

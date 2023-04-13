@@ -48,7 +48,7 @@ const insertBrand = async (req, res) => {
 }
 const disableBrand = async (req, res) => {
     try {
-        const Id = req.query.id
+        const Id = req.body.brandId
         // console.log(Id, "this is i ");
         console.log(Id, 'iAM herer');
         const Disable = await Brand.findOne({ _id: Id }, { disable: 1, _id: Id })
@@ -56,11 +56,13 @@ const disableBrand = async (req, res) => {
         if (Disable.disable === true) {
             const disable = await Brand.findByIdAndUpdate({ _id: Id }, { $set: { disable: false } })
             res.redirect('/admin/brand')
+            res.json({success:true})
         }
         else {
             const enable = await Brand.findByIdAndUpdate({ _id: Id }, { $set: { disable: true } })
 
             res.redirect('/admin/brand')
+            res.json({success:true})
         }
     } catch (error) {
         console.log(error.message);

@@ -183,7 +183,7 @@ const updateProduct = async (req, res) => {
 //disable and enabling product
 const disable = async (req, res) => {
   try {
-    const Id = req.query.id;
+    const Id = req.body.prId;
     const Disable = await Products.findOne(
       { _id: Id },
       { disable: 1, _id: Id }
@@ -195,6 +195,7 @@ const disable = async (req, res) => {
         { $set: { disable: false } }
       );
       res.redirect("/admin/products");
+      res.json({success:true})
     } else {
       const enable = await Products.findByIdAndUpdate(
         { _id: Id },
@@ -202,6 +203,7 @@ const disable = async (req, res) => {
       );
 
       res.redirect("/admin/products");
+      res.json({success:true})
     }
   } catch (error) {
     console.log(error.message);

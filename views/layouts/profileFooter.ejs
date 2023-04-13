@@ -28,7 +28,66 @@
 
 
 <script src="https://kit.fontawesome.com/482748fbdd.js" crossorigin="anonymous"></script>
+
+
+<script>
+    const form = document.getElementById('form1');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault(); // Prevent form submission
+
+  const nameInput = form.elements['name'];
+  const emailInput = form.elements['email'];
+  const mobileInput = form.elements['mobile'];
+
+  let isValid = true;
+
+  // Validate name
+  if (nameInput.value.trim() === '') {
+    isValid = false;
+    nameInput.classList.add('is-invalid');
+    document.getElementById('name-error').textContent = 'Name is required';
+  } else {
+    nameInput.classList.remove('is-invalid');
+    document.getElementById('name-error').textContent = '';
+  }
+
+  // Validate email
+  if (emailInput.value.trim() === '') {
+    isValid = false;
+    emailInput.classList.add('is-invalid');
+    document.getElementById('email-error').textContent = 'Email is required';
+  } else if (!/\S+@\S+\.\S+/.test(emailInput.value)) {
+    isValid = false;
+    emailInput.classList.add('is-invalid');
+    document.getElementById('email-error').textContent = 'Invalid email format';
+  } else {
+    emailInput.classList.remove('is-invalid');
+    document.getElementById('email-error').textContent = '';
+  }
+
+  // Validate mobile
+  if (mobileInput.value.trim() === '') {
+    isValid = false;
+    mobileInput.classList.add('is-invalid');
+    document.getElementById('mobile-error').textContent = 'Mobile number is required';
+  } 
+   else {
+    mobileInput.classList.remove('is-invalid');
+    document.getElementById('mobile-error').textContent = '';
+  }
+
+  if (isValid) {
+    form.submit(); // Submit the form if all fields are valid
+  }
+});
+
+</script>
+
+
+
 </body>
 
 <!-- Mirrored from loopinfosol.in/themeforest/ekka-html-v33/ekka-html/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Jan 2023 23:51:07 GMT -->
+
 </html>

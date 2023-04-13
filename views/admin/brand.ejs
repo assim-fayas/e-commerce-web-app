@@ -222,7 +222,7 @@
                                                         Edit</a>
 
                                                     <a class="dropdown-item"
-                                                        href="/admin/disable-brand?id=<%= brand[i]._id %>"><i
+                                                        onclick="disableBrand('<%= brand[i]._id %>')"><i
                                                             class="bx bx-trash me-1"></i>
                                                         <%if(brand[i].disable==true ){%>
                                                             Enable

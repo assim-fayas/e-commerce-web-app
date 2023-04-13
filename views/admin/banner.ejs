@@ -157,13 +157,13 @@
 
                 </div>
             </div>
-            <div class="container-fluid mt-3">
+            <div class="container-fluid mt-3" ">
                 <div class="row  justify-content-center">
 
                     <div class="col-md-8 mt-0">
 
 
-                        <div class="container ">
+                        <div class="container " id="banner">
                             <div style="text-align:center;">
                                 <h4><b>sliding banner</b></h4>
                             </div><br>
@@ -217,11 +217,10 @@
                                                         <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"
                                                                 style="color:black;"></i>
                                                             Edit</a>
-
                                                         <a class="dropdown-item"
-                                                            href="/admin/blockBanner?id=<%=value._id%>"><i
+                                                                onclick="blockBanner('<%=value._id%>')"><i
                                                                 class="bx bx-trash me-1"></i>
-                                                            <%if(value.disable==true ){%>
+                                                            <%if(value.block===false ){%>
                                                                 Enable
 
                                                                 <% } else{ %>
@@ -247,7 +246,7 @@
                             <div style="text-align:center;">
                                 <h4><b>category banner</b></h4>
                             </div><br>
-                            <table class="table table-dark table-hover">
+                            <table class="table table-dark table-hover" >
                                 <thead>
                                     <tr>
 
@@ -297,9 +296,9 @@
                                                             Edit</a>
 
                                                         <a class="dropdown-item"
-                                                            href="/admin/blockBanner?id=<%=value._id%>"><i
+                                                        onclick="blockBanner('<%=value._id%>')"><i
                                                                 class="bx bx-trash me-1"></i>
-                                                            <%if(value.disable==true ){%>
+                                                            <%if(value.block===false ){%>
                                                                 Enable
 
                                                                 <% } else{ %>

@@ -26,6 +26,9 @@ app.use('/admin', adminRoute)
 const { sessionSecret } = require('./config/config')
 
 
+
+
+
 app.use((req,res)=>{
     res.status(404).render("404")
 })
