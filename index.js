@@ -3,7 +3,7 @@ const path = require('path')
 const env = require('dotenv').config();
 const multer = require('multer')
 
-mongoose.connect("mongodb://127.0.0.1:27017/Ecommerce");
+mongoose.connect("mongodb+srv://contactasim000:a1s2i1m2@cluster0.vdvoplq.mongodb.net/Ecommerce");
 
 const express = require("express");
 
