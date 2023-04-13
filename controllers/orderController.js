@@ -168,7 +168,7 @@ const cancelreturnRequested = async (req, res) => {
 
 const salesReport = async (req, res) => {
     try {
-        const salesData= await Order.find({})
+        const salesData= await Order.find({ orderStatus: 'Delivered'})
         res.render("salesReports",{salesData})
     } catch (error) {
         console.log(error.message);
