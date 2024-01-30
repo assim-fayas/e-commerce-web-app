@@ -1,4 +1,4 @@
-const { string } = require("joi");
+
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -72,8 +72,8 @@ const userSchema = new mongoose.Schema({
         type: Number,
         // default:0
     },
-    wallet:{
-        type:Number,
+    wallet: {
+        type: Number,
     }
 
 }, { timestamps: true });
