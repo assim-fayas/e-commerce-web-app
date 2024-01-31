@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Joi = require("joi")
 
 const Banner = require('../model/bannerModel')
 
@@ -13,7 +12,7 @@ const loadbanner = async (req, res) => {
 
         if (bannerData)
 
-            res.render('banner', { bannerData})
+            res.render('banner', { bannerData })
 
     } catch (error) {
         console.log(error.message);
@@ -75,35 +74,35 @@ const editBanner = async (req, res) => {
 }
 const blockbanner = async (req, res) => {
     try {
-      const Id= req.body. bannerId
-      console.log(Id,"banner id");
-      console.log(Id,"id vanuuu");
-         Disable = await Banner.findOne({ _id: Id }, { block: 1, _id: Id })
-            console.log("banner block");
-            if (Disable.block === true) {
-                console.log("inside disable true");
-                const disable = await Banner.findByIdAndUpdate({ _id: Id }, { $set: { block: false } })
-          
-                res.json({success:true})
-            }
-            else {
-                const enable = await Banner.findByIdAndUpdate({ _id: Id }, { $set:{ block: true } })
-    
-                res.json({success:true})
-            }
-            
-            
-        } catch (error) {
-            console.log(error.message);
+        const Id = req.body.bannerId
+        console.log(Id, "banner id");
+        console.log(Id, "id vanuuu");
+        Disable = await Banner.findOne({ _id: Id }, { block: 1, _id: Id })
+        console.log("banner block");
+        if (Disable.block === true) {
+            console.log("inside disable true");
+            const disable = await Banner.findByIdAndUpdate({ _id: Id }, { $set: { block: false } })
+
+            res.json({ success: true })
         }
+        else {
+            const enable = await Banner.findByIdAndUpdate({ _id: Id }, { $set: { block: true } })
+
+            res.json({ success: true })
+        }
+
+
+    } catch (error) {
+        console.log(error.message);
     }
+}
 
 
 module.exports = {
-        loadbanner,
-        loadBannerCaro,
-        insertBannerCaro,
-        editBanner,
-        blockbanner,
-    
-    }
+    loadbanner,
+    loadBannerCaro,
+    insertBannerCaro,
+    editBanner,
+    blockbanner,
+
+}
